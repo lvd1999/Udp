@@ -7,7 +7,7 @@ include_once 'assets/conn/dbconnect.php';
 <!-- login -->
 <!-- check session -->
 <?php
-session_start();
+session_start();    
 // session_destroy();
 if (isset($_SESSION['patientSession']) != "") {
 header("Location: patient/patientpagewithbootstrap.php");
@@ -543,18 +543,7 @@ alert('User already registered. Please try again');
     <div class="footer-line">
       <div class="container">
         <div class="row">
-          <div class="col-md-12 text-center">
-            © Copyright Medilab Theme. All Rights Reserved
-            <div class="credits">
-              <!--
-                All the links in the footer should remain intact.
-                You can delete the links only if you purchased the pro version.
-                Licensing information: https://bootstrapmade.com/license/
-                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Medilab
-              -->
-              Designed by <a href="https://bootstrapmade.com/">BootstrapMade.com</a>
-            </div>
-          </div>
+          
         </div>
       </div>
     </div>

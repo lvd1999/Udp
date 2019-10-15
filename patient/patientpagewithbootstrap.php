@@ -58,7 +58,7 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.html">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Dashboard</span></a>
@@ -151,7 +151,7 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
                 </div>
 
                 <!-- Book appointment-->
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="patientpagewithbootstrap.php">
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Book</span></a>
@@ -331,7 +331,7 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php echo $userRow['patientFirstName']; ?> <?php echo $userRow['patientLastName']; ?></span>
                                     <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
                                 </a>
                                 <!-- Dropdown - User Information -->

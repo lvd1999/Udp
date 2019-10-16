@@ -10,7 +10,7 @@ include_once 'assets/conn/dbconnect.php';
 session_start();    
 // session_destroy();
 if (isset($_SESSION['patientSession']) != "") {
-header("Location: patient/patientpagewithbootstrap.php");
+header("Location: patient/patient.php");
 }
 if (isset($_POST['login']))
 {
@@ -28,7 +28,7 @@ $_SESSION['patientSession'] = $row['icPatient'];
 alert('Login Success');
 </script>
 <?php
-header("Location: patient/patientpagewithbootstrap.php");
+header("Location: patient/patient_home.php");
 } else {
 ?>
 <script>

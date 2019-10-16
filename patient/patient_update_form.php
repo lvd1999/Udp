@@ -1,20 +1,56 @@
 <?php
 session_start();
+// include_once '../connection/server.php';
 include_once '../assets/conn/dbconnect.php';
 if (!isset($_SESSION['patientSession'])) {
     header("Location: ../index.php");
 }
-
-$usersession = $_SESSION['patientSession'];
-
-
-$res = mysqli_query($con, "SELECT * FROM patient WHERE icPatient=" . $usersession);
-
-if ($res === false) {
-    echo mysql_error();
-}
-
+$res = mysqli_query($con, "SELECT * FROM patient WHERE icPatient=" . $_SESSION['patientSession']);
 $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
+?>
+<!-- update -->
+<?php
+if (isset($_POST['submit'])) {
+//variables
+    $patientFirstName = $_POST['patientFirstName'];
+    $patientLastName = $_POST['patientLastName'];
+    $patientMaritialStatus = $_POST['patientMaritialStatus'];
+    $patientDOB = $_POST['patientDOB'];
+    $patientGender = $_POST['patientGender'];
+    $patientAddress = $_POST['patientAddress'];
+    $patientPhone = $_POST['patientPhone'];
+    $patientEmail = $_POST['patientEmail'];
+    $patientId = $_POST['patientId'];
+// mysqli_query("UPDATE blogEntry SET content = $udcontent, title = $udtitle WHERE id = $id");
+    $res = mysqli_query($con, "UPDATE patient SET patientFirstName='$patientFirstName', patientLastName='$patientLastName', patientMaritialStatus='$patientMaritialStatus', patientDOB='$patientDOB', patientGender='$patientGender', patientAddress='$patientAddress', patientPhone=$patientPhone, patientEmail='$patientEmail' WHERE icPatient=" . $_SESSION['patientSession']);
+// $userRow=mysqli_fetch_array($res);
+    header('Location: patient_profile.php');
+}
+?>
+<?php
+$male = "";
+$female = "";
+if ($userRow['patientGender'] == 'male') {
+    $male = "checked";
+} elseif ($userRow['patientGender'] == 'female') {
+    $female = "checked";
+}
+$single = "";
+$married = "";
+$separated = "";
+$divorced = "";
+$widowed = "";
+if ($userRow['patientMaritialStatus'] == 'single') {
+    $single = "checked";
+} elseif ($userRow['patientMaritialStatus'] == 'married') {
+    $married = "checked";
+} elseif ($userRow['patientMaritialStatus'] == 'separated') {
+    $separated = "checked";
+} elseif ($userRow['patientMaritialStatus'] == 'divorced') {
+    $divorced = "checked";
+} elseif ($userRow['patientMaritialStatus'] == 'widowed') {
+    $widowed = "checked";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +63,7 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>SB Admin 2 - Blank</title>
+        <title>Patient - Update profile</title>
 
         <!-- Custom fonts for this template-->
         <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -362,53 +398,122 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <div class="container-fluid">
-
-                        <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800">Appointment List</h1>
-
-                        <!--START OF BUG-->
-                        <div class="bootstrap-iso">
-                            <div id="txtHint" ></div>
-
-                            <div class="input-group" style="margin-bottom:10px;">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar">
-                                    </i>
-                                </div>
-                                <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
+                    <!--user profile pic-->
+                    <?php
+                    if (is_null($userRow['profile_image'])) {
+                        echo "<img src='../img/avatar.jpg' onClick='triggerClick()' id='profileDisplay'>";
+                    } else {
+                        echo "<img src='" . "../img/" . $userRow['profile_image'] . "' onClick='triggerClick()' id='profileDisplay'>";
+                    }
+                    ?>
+                    <form action="processForm.php" method="post" enctype="multipart/form-data">
+                    <?php if (!empty($msg)): ?>
+                            <div class="alert <?php echo $msg_class ?>" role="alert">
+                            <?php echo $msg; ?>
                             </div>
-                        </div>
-                        <!--END OF BUG-->
+                            <?php endif; ?>
+                        <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
+                        <button type="submit" name="save_profile" class="btn btn-primary btn-block">Save Image</button>
+                    </form>
+                    
+                    
+                    <!--update profile form-->
+                    <!-- form start -->
+                                        <form action="<?php $_PHP_SELF ?>" method="post" >
+                                            <table class="table table-user-information">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>IC Number:</td>
+                                                        <td><?php echo $userRow['icPatient']; ?></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>First Name:</td>
+                                                        <td><input type="text" class="form-control" name="patientFirstName" value="<?php echo $userRow['patientFirstName']; ?>"  /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Last Name</td>
+                                                        <td><input type="text" class="form-control" name="patientLastName" value="<?php echo $userRow['patientLastName']; ?>"  /></td>
+                                                    </tr>
 
-                        <script>
-                            function showUser(str) {
+                                                    <!-- radio button -->
+                                                    <tr>
+                                                        <td>Maritial Status:</td>
+                                                        <td>
+                                                            <div class="radio">
+                                                                <label><input type="radio" name="patientMaritialStatus" value="single" <?php echo $single; ?>>Single</label>
+                                                            </div>
+                                                            <div class="radio">
+                                                                <label><input type="radio" name="patientMaritialStatus" value="married" <?php echo $married; ?>>Married</label>
+                                                            </div>
+                                                            <div class="radio">
+                                                                <label><input type="radio" name="patientMaritialStatus" value="separated" <?php echo $separated; ?>>Separated</label>
+                                                            </div>
+                                                            <div class="radio">
+                                                                <label><input type="radio" name="patientMaritialStatus" value="divorced" <?php echo $divorced; ?>>Divorced</label>
+                                                            </div>
+                                                            <div class="radio">
+                                                                <label><input type="radio" name="patientMaritialStatus" value="widowed" <?php echo $widowed; ?>>Widowed</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- radio button end -->
+                                                    <tr>
+                                                        <td>DOB</td>
+                                                        <!-- <td><input type="text" class="form-control" name="patientDOB" value="<?php echo $userRow['patientDOB']; ?>"  /></td> -->
+                                                        <td>
+                                                            <div class="form-group ">
 
-                                if (str == "") {
-                                    document.getElementById("txtHint").innerHTML = "No data to be shown";
-                                    return;
-                                } else {
-                                    if (window.XMLHttpRequest) {
-                                        // code for IE7+, Firefox, Chrome, Opera, Safari
-                                        xmlhttp = new XMLHttpRequest();
-                                    } else {
-                                        // code for IE6, IE5
-                                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                                    }
-                                    xmlhttp.onreadystatechange = function () {
-                                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                            document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-                                        }
-                                    };
-                                    xmlhttp.open("GET", "getschedule.php?q=" + str, true);
-                                    console.log(str);
-                                    xmlhttp.send();
-                                }
-                            }
-                        </script>
-                    </div>
-                    <!-- /.container-fluid -->
+                                                                <div class="input-group">
+                                                                    <div class="input-group-addon">
+                                                                        <i class="fa fa-calendar">
+                                                                        </i>
+                                                                    </div>
+                                                                    <input class="form-control" id="patientDOB" name="patientDOB" placeholder="MM/DD/YYYY" type="text" value="<?php echo $userRow['patientDOB']; ?>"/>
+                                                                </div>
+                                                            </div>
+                                                        </td>
 
+                                                    </tr>
+                                                    <!-- radio button -->
+                                                    <tr>
+                                                        <td>Gender</td>
+                                                        <td>
+                                                            <div class="radio">
+                                                                <label><input type="radio" name="patientGender" value="male" <?php echo $male; ?>>Male</label>
+                                                            </div>
+                                                            <div class="radio">
+                                                                <label><input type="radio" name="patientGender" value="female" <?php echo $female; ?>>Female</label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- radio button end -->
+
+                                                    <tr>
+                                                        <td>Phone number</td>
+                                                        <td><input type="text" class="form-control" name="patientPhone" value="<?php echo $userRow['patientPhone']; ?>"  /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Email</td>
+                                                        <td><input type="text" class="form-control" name="patientEmail" value="<?php echo $userRow['patientEmail']; ?>"  /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Address</td>
+                                                        <td><textarea class="form-control" name="patientAddress"  ><?php echo $userRow['patientAddress']; ?></textarea></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="submit" name="submit" class="btn btn-info" value="Update Info"></td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+
+
+
+                                        </form>
+                                        <!-- form end -->
+                    
+                    <!--End of page content-->
                 </div>
                 <!-- End of Main Content -->
 
@@ -462,7 +567,7 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
         <!-- Custom scripts for all pages-->
         <script src="../js/sb-admin-2.min.js"></script>
 
-        <!--START OF BUG-->
+        
         <!--  jQuery -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -486,7 +591,8 @@ $userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
                                 });
                             });
         </script>
-        <!--END OF BUG-->
+        
     </body>
 
 </html>
+<script src="assets/js/scripts.js"></script>

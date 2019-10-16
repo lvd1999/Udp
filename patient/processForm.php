@@ -44,7 +44,7 @@ if (isset($_POST['save_profile'])) {
             $error = "There was an error uploading the file";
             $msg = "alert-danger";
         }
-    header('Location: profile.php');
+    header('Location: patient_profile.php');
     }
 }
 ?>

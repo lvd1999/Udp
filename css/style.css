@@ -87,7 +87,8 @@ banner
 }
 
 .navbar-brand img {
-    padding-top: 2px;
+    padding-top: 6px;
+    height: 70px;
     width: 120px !important;
 }
 

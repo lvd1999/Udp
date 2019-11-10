@@ -15,7 +15,7 @@
     <hr class="sidebar-divider d-none d-md-block">
 
     <li class="nav-item active">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="patient_home.php">
             <i class="fas fa-home"></i>
             <span>Home</span></a>
     </li>
@@ -46,9 +46,9 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="#">Book</a>
-                <a class="collapse-item" href="#">Upcoming</a>
-                <a class="collapse-item" href="patientapplist.php">Past</a>
+                <a class="collapse-item" href="book.php">Book</a>
+                <a class="collapse-item" href="upcoming_appointments.php">Upcoming</a>
+                <a class="collapse-item" href="past_appointments.php">Past</a>
             </div>
         </div>
     </li>

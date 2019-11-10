@@ -41,8 +41,8 @@ header("Location: doctor/doctordashboard.php");
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Clinic Appointment Application</title>
         <!-- Bootstrap -->
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
+        <link href="Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="Content/css/style.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <div class="container">
@@ -61,7 +61,7 @@ header("Location: doctor/doctordashboard.php");
             <!-- end -->
         </div>
 
-        <script src="assets/js/jquery.js"></script>
+        <script src="Content/js/jquery.js" type="text/javascript"></script>
 
         <!-- js start -->
         

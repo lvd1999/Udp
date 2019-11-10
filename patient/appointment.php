@@ -68,9 +68,9 @@ header("Location: patient/patient.php");
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		
 		<title>Make Appoinment</title>
-		<link href="assets/css/bootstrap.min.css" rel="stylesheet">
-		<link href="assets/css/default/style.css" rel="stylesheet">
-		<link href="assets/css/default/blocks.css" rcel="stylesheet">
+                <link href="../Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+                <link href="../Content/css/style.css" rel="stylesheet" type="text/css"/>
+                <link href="../Content/css/default/blocks.css" rel="stylesheet" type="text/css"/>
 
 
 		<link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
@@ -192,7 +192,7 @@ header("Location: patient/patient.php");
 					</div>
 					<!-- USER PROFILE ROW END-->
 					<!-- end -->
-					<script src="assets/js/jquery.js"></script>
-			<script src="assets/js/bootstrap.min.js"></script>
+					<script src="../Content/js/jquery.js" type="text/javascript"></script>
+			<script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
 				</body>
 			</html>

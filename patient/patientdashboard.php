@@ -24,13 +24,13 @@ echo mysql_error();
         <title>Patient Dashboard</title>
         <!-- Bootstrap Core CSS -->
         <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
-        <link href="assets/css/material.css" rel="stylesheet">
+        <link href="../Content/css/material.css" rel="stylesheet" type="text/css"/>
         <!-- Custom CSS -->
-        <link href="assets/css/sb-admin.css" rel="stylesheet">
+        <link href="../Content/css/sb-admin.css" rel="stylesheet" type="text/css"/>
         <!-- Datepicker -->
-        <link href="assets/css/date/bootstrap-datepicker3.css" rel="stylesheet">
+        <link href="../Content/css/date/bootstrap-datepicker3.css" rel="stylesheet" type="text/css"/>
         <!-- Custom Fonts -->
-        <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="../Content/vendor/fontawesome-free/css/fontawesome.min.css" rel="stylesheet" type="text/css"/>
         
     </head>
     <body>
@@ -501,14 +501,14 @@ echo mysql_error();
         <!-- /#wrapper end -->
 
         <!-- jQuery -->
-        <script src="assets/js/jquery.js"></script>
+        <script src="../Content/js/jquery.js" type="text/javascript"></script>
         <!-- Bootstrap Core JavaScript -->
-        <script src="assets/js/bootstrap.min.js"></script>
+        <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
         <!-- datepicker script -->
-        <script src="assets/js/date/bootstrap-datepicker.js"></script>
-        <script src="assets/js/date/moment.js"></script>
-        <script src="assets/js/date/transition.js"></script>
-        <script src="assets/js/date/collapse.js"></script>
+        <script src="../Content/js/date/bootstrap-datepicker.js" type="text/javascript"></script>
+        <script src="../Content/js/date/moment.js" type="text/javascript"></script>
+        <script src="../Content/js/date/transition.js" type="text/javascript"></script>
+        <script src="../Content/js/date/collapse.js" type="text/javascript"></script>
 
         <!-- script for datepicker start -->
         <script>

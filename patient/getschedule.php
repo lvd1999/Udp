@@ -10,7 +10,7 @@ die("Error running $sql: " . mysqli_error());
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
         <?php

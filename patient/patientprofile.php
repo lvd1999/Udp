@@ -22,12 +22,12 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
         <title>Patient Dashboard</title>
         <!-- Bootstrap Core CSS -->
         <!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/css/material.css" rel="stylesheet">
+        <link href="../Content/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="../Content/css/material.css" rel="stylesheet" type="text/css"/>
         <!-- Custom CSS -->
-        <link href="assets/css/sb-admin.css" rel="stylesheet">
+        <link href="../Content/css/sb-admin.css" rel="stylesheet" type="text/css"/>
         <!-- Custom Fonts -->
-        <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="../Content/vendor/fontawesome-free/css/fontawesome.min.css" rel="stylesheet" type="text/css"/>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -301,9 +301,9 @@ $userRow=mysqli_fetch_array($res,MYSQLI_ASSOC);
             </div>
             <!-- /#wrapper -->
             <!-- jQuery -->
-            <script src="assets/js/jquery.js"></script>
+            <script src="../Content/js/jquery.js" type="text/javascript"></script>
             <!-- Bootstrap Core JavaScript -->
-            <script src="assets/js/bootstrap.min.js"></script>
+            <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
           
         </body>
     </html>

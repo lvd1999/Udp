@@ -22,11 +22,11 @@ $res=mysqli_query($con, "SELECT a.*, b.*,c.* FROM patient a
 		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 		<title>Make Appoinment</title>
 		<!-- <link href="assets/css/bootstrap.min.css" rel="stylesheet"> -->
-		<link href="assets/css/material.css" rel="stylesheet">
-		
-		<link href="assets/css/default/style.css" rel="stylesheet">
-		<link href="assets/css/default/blocks.css" rcel="stylesheet">
-		<link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css" />
+		<link href="../Content/css/material.css" rel="stylesheet" type="text/css"/>
+                
+                <link href="../Content/css/style.css" rel="stylesheet" type="text/css"/>
+                <link href="../Content/css/default/blocks.css" rel="stylesheet" type="text/css"/>
+                <link href="../Content/vendor/fontawesome-free/css/fontawesome.min.css" rel="stylesheet" type="text/css"/>
 
 	</head>
 	<body>
@@ -135,7 +135,7 @@ echo "</table>";
 </div>
 </div>
 <!-- display appoinment end -->
-<script src="assets/js/jquery.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+<script src="../Content/js/jquery.js" type="text/javascript"></script>
+<script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 </html>

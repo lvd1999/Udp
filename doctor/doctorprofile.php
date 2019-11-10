@@ -42,12 +42,12 @@ header( 'Location: doctorprofile.php' ) ;
         <title>Welcome Dr <?php echo $userRow['doctorFirstName'];?> <?php echo $userRow['doctorLastName'];?></title>
         <!-- Bootstrap Core CSS -->
         <!-- <link href="assets/css/bootstrap.css" rel="stylesheet"> -->
-        <link href="assets/css/material.css" rel="stylesheet">
+        <link href="../Content/css/material.css" rel="stylesheet" type="text/css"/>
         <!-- Custom CSS -->
-        <link href="assets/css/sb-admin.css" rel="stylesheet">
-        <link href="assets/css/time/bootstrap-clockpicker.css" rel="stylesheet">
-        <link href="assets/css/style.css" rel="stylesheet">
-        <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="../Content/css/sb-admin.css" rel="stylesheet" type="text/css"/>
+        <link href="../Content/css/time/bootstrap-clockpicker.css" rel="stylesheet" type="text/css"/>
+        <link href="../Content/css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="../Content/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
         <!-- Special version of Bootstrap that only affects content wrapped in .bootstrap-iso -->
         <!-- Custom Fonts -->
     </head>
@@ -281,11 +281,11 @@ header( 'Location: doctorprofile.php' ) ;
 
        
         <!-- jQuery -->
-        <script src="../patient/assets/js/jquery.js"></script>
+        <script src="../Content/js/jquery.js" type="text/javascript"></script>
         
         <!-- Bootstrap Core JavaScript -->
-        <script src="../patient/assets/js/bootstrap.min.js"></script>
-        <script src="assets/js/bootstrap-clockpicker.js"></script>
+        <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="../Content/js/bootstrap-clockpicker.js" type="text/javascript"></script>
         <!-- Latest compiled and minified JavaScript -->
          <!-- script for jquery datatable start-->
         <!-- Include Date Range Picker -->

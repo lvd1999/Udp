@@ -1,79 +1,18 @@
 <?php
-include_once 'assets/conn/dbconnect.php';
+include_once 'model/database.php';
 // include_once 'assets/conn/server.php';
+if (!isset($login_password)) {
+    $login_password = '';
+}
+if (!isset($login_pps)) {
+    $login_pps = '';
+}
 ?>
 
 
 <!-- login -->
 <!-- check session -->
 <?php
-session_start();    
-// session_destroy();
-if (isset($_SESSION['patientSession']) != "") {
-header("Location: patient/patient.php");
-}
-if (isset($_POST['login']))
-{
-$icPatient = mysqli_real_escape_string($con,$_POST['icPatient']);
-$password  = mysqli_real_escape_string($con,$_POST['password']);
-
-$res = mysqli_query($con,"SELECT * FROM patient WHERE icPatient = '$icPatient'");
-$row=mysqli_fetch_array($res,MYSQLI_ASSOC);
-if ($row['password'] == $password)
-{
-$_SESSION['patientSession'] = $row['icPatient'];
-?>
-
-<script type="text/javascript">
-alert('Login Success');
-</script>
-<?php
-header("Location: patient/patient_home.php");
-} else {
-?>
-<script>
-alert('wrong input ');
-</script>
-<?php
-}
-}
-?>
-<!-- register -->
-<?php
-if (isset($_POST['signup'])) {
-$patientFirstName = mysqli_real_escape_string($con,$_POST['patientFirstName']);
-$patientLastName  = mysqli_real_escape_string($con,$_POST['patientLastName']);
-$patientEmail     = mysqli_real_escape_string($con,$_POST['patientEmail']);
-$icPatient     = mysqli_real_escape_string($con,$_POST['icPatient']);
-$password         = mysqli_real_escape_string($con,$_POST['password']);
-$month            = mysqli_real_escape_string($con,$_POST['month']);
-$day              = mysqli_real_escape_string($con,$_POST['day']);
-$year             = mysqli_real_escape_string($con,$_POST['year']);
-$patientDOB       = $year . "-" . $month . "-" . $day;
-$patientGender = mysqli_real_escape_string($con,$_POST['patientGender']);
-//INSERT
-$query = " INSERT INTO patient (  icPatient, password, patientFirstName, patientLastName,  patientDOB, patientGender,   patientEmail )
-VALUES ( '$icPatient', '$password', '$patientFirstName', '$patientLastName', '$patientDOB', '$patientGender', '$patientEmail' ) ";
-$result = mysqli_query($con, $query);
-// echo $result;
-if( $result )
-{
-?>
-<script type="text/javascript">
-alert('Register success. Please Login to make an appointment.');
-</script>
-<?php
-}
-else
-{
-?>
-<script type="text/javascript">
-alert('User already registered. Please try again');
-</script>
-<?php
-}
-
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,14 +20,15 @@ alert('User already registered. Please try again');
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Medilab Free Bootstrap HTML5 Template</title>
+  <title>Dr.Book</title>
   <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
   <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
 
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
-  <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css">
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link href="Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+  <link href="Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+  <link href="Content/css/style.css" rel="stylesheet" type="text/css"/>
+  <link href="Content/css/style.css" rel="stylesheet" type="text/css"/>
   <!-- =======================================================
     Theme Name: Medilab
     Theme URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
@@ -110,15 +50,15 @@ alert('User already registered. Please try again');
 				        <span class="icon-bar"></span>
 				        <span class="icon-bar"></span>
 				      </button>
-              <a class="navbar-brand" href="#"><img src="img/logo.png" class="img-responsive" style="width: 140px; margin-top: -16px;"></a>
+              <a class="navbar-brand" href="#"><img src="img/logo.png" class="img-responsive" style="width: 40px; margin-top: -12px;"></a>
+              <a id="navlogoname" class="navbar-brand" href="#">Dr.Book</a>
             </div>
             <div class="collapse navbar-collapse navbar-right" id="myNavbar">
               <ul class="nav navbar-nav">
                 <li class="active"><a href="#banner">Home</a></li>
                 <li class=""><a href="#service">Services</a></li>
                 <li class=""><a href="#about">About</a></li>
-                <li class=""><a href="#testimonial">Testimonial</a></li>
-                <li class=""><a href="adminlogin.php">Admin</a></li>
+                <li class=""><a href="#testimonial">Sign Up</a></li>
               </ul>
             </div>
           </div>
@@ -127,35 +67,32 @@ alert('User already registered. Please try again');
       <div class="container">
         <div class="row">
           <div class="banner-info">
-            <div class="banner-logo text-center">
-              <img src="img/logo.png" class="img-responsive">
-            </div>
             <div class="banner-text text-center">
               <h1 class="white">Healthcare at your desk!!</h1>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod <br>tempor incididunt ut labore et dolore magna aliqua.</p>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-                            <ul id="login-dp" class="dropdown-menu">
-                                <li>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            
-                                            <form class="form" role="form" method="POST" accept-charset="UTF-8" >
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="icPatient">Email</label>
-                                                    <input type="text" class="form-control" name="icPatient" placeholder="IC Number" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="sr-only" for="password">Password</label>
-                                                    <input type="password" class="form-control" name="password" placeholder="Password" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button type="submit" name="login" id="login" class="btn btn-primary btn-block">Sign in</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+              <p>We aim to be the leading healthcare provider in Europe that integrates technology in <br>healthcare, improving health services accessibility.</p>
+              
+                <div id="loginarea" class="row">
+                    <h3 id="loginheader">Login into Dr.Book</h3>
+                    <div id="logininner" class="col-md-12">
+                        
+                        <form action="controller/loginout/signIn.php" id="loginform" class="form" method="POST" accept-charset="UTF-8" >
+                            
+                            <div class="form-group">
+                                <label class="sr-only" for="login_pps">PPS Number</label>
+                                <input type="text" class="form-control" name="login_pps" placeholder="PPS Number" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="password">Password</label>
+                                <input type="password" class="form-control" name="login_password" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" name="login" id="login" class="btn btn-primary btn-block">
+                                    Sign In
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                         
             </div>
             <div class="overlay-detail text-center">
@@ -168,74 +105,10 @@ alert('User already registered. Please try again');
   </section>
   <!--/ banner-->
   <!--service-->
-  <section id="promo-1" class="content-block promo-1 min-height-600px bg-offwhite">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-5">
-                        <h2>Make appointment today!</h2>
-                        <p>This is Doctor's Schedule. Please <span class="label label-danger">login</span> to make an appointment. </p>
-                            
-                        <!-- date textbox -->
-                       
-                        <div class="input-group" style="margin-bottom:10px;">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar">
-                                </i>
-                            </div>
-                            <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d")?>" onchange="showUser(this.value)"/>
-                        </div>
-                       
-                        <!-- date textbox end -->
 
-                        <!-- script start -->
-                        <script>
-
-                            function showUser(str) {
-                                
-                                if (str == "") {
-                                    document.getElementById("txtHint").innerHTML = "";
-                                    return;
-                                } else { 
-                                    if (window.XMLHttpRequest) {
-                                        // code for IE7+, Firefox, Chrome, Opera, Safari
-                                        xmlhttp = new XMLHttpRequest();
-                                    } else {
-                                        // code for IE6, IE5
-                                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                                    }
-                                    xmlhttp.onreadystatechange = function() {
-                                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                            document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-                                        }
-                                    };
-                                    xmlhttp.open("GET","getuser.php?q="+str,true);
-                                    console.log(str);
-                                    xmlhttp.send();
-                                }
-                            }
-                        </script>
-                        
-                        <!-- script start end -->
-                     
-                        <!-- table appointment start -->
-                        <div id="txtHint"><b> </b></div>
-                        
-                        <!-- table appointment end -->
-                    </div>
-                    <!-- /.col -->
-                   <!--  <div class="col-md-6 col-md-offset-1">
-                        <div class="video-wrapper">
-                            <iframe width="560" height="315" src="http://www.youtube.com/embed/FEoQFbzLYhc?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
-                        </div>
-                    </div> -->
-                    <!-- /.col -->
-                </div>
-                <!-- /.row -->
-            </div>
-        </section>
   <!--/ service-->
   <!--cta-->
-  <section id="cta-1" class="section-padding">
+  <section id="service" class="section-padding">
     <div class="container">
       <div class="row">
         <div class="schedule-tab">
@@ -383,54 +256,6 @@ alert('User already registered. Please try again');
     </div>
   </section>
   <!--/ doctor team-->
-  <!--testimonial-->
-  <section id="testimonial" class="section-padding">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
-          <h2 class="ser-title">see what patients are saying?</h2>
-          <hr class="botm-line">
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <div class="testi-details">
-            <!-- Paragraph -->
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-          <div class="testi-info">
-            <!-- User Image -->
-            <a href="#"><img src="img/thumb.png" alt="" class="img-responsive"></a>
-            <!-- User Name -->
-            <h3>Alex<span>Texas</span></h3>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <div class="testi-details">
-            <!-- Paragraph -->
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-          <div class="testi-info">
-            <!-- User Image -->
-            <a href="#"><img src="img/thumb.png" alt="" class="img-responsive"></a>
-            <!-- User Name -->
-            <h3>Alex<span>Texas</span></h3>
-          </div>
-        </div>
-        <div class="col-md-4 col-sm-4">
-          <div class="testi-details">
-            <!-- Paragraph -->
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-          <div class="testi-info">
-            <!-- User Image -->
-            <a href="#"><img src="img/thumb.png" alt="" class="img-responsive"></a>
-            <!-- User Name -->
-            <h3>Alex<span>Texas</span></h3>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!--/ testimonial-->
   <!--cta 2-->
   <section id="cta-2" class="section-padding">
     <div class="container">
@@ -499,62 +324,13 @@ alert('User already registered. Please try again');
     </div>
   </section>
   <!--/ contact-->
-  <!--footer-->
-  <footer id="footer">
-    <div class="top-footer">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-4 col-sm-4 marb20">
-            <div class="ftr-tle">
-              <h4 class="white no-padding">About Us</h4>
-            </div>
-            <div class="info-sec">
-              <p>Praesent convallis tortor et enim laoreet, vel consectetur purus latoque penatibus et dis parturient.</p>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4 marb20">
-            <div class="ftr-tle">
-              <h4 class="white no-padding">Quick Links</h4>
-            </div>
-            <div class="info-sec">
-              <ul class="quick-info">
-                <li><a href="index.html"><i class="fa fa-circle"></i>Home</a></li>
-                <li><a href="#service"><i class="fa fa-circle"></i>Service</a></li>
-                <li><a href="#contact"><i class="fa fa-circle"></i>Appointment</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-4 col-sm-4 marb20">
-            <div class="ftr-tle">
-              <h4 class="white no-padding">Follow us</h4>
-            </div>
-            <div class="info-sec">
-              <ul class="social-icon">
-                <li class="bglight-blue"><i class="fa fa-facebook"></i></li>
-                <li class="bgred"><i class="fa fa-google-plus"></i></li>
-                <li class="bgdark-blue"><i class="fa fa-linkedin"></i></li>
-                <li class="bglight-blue"><i class="fa fa-twitter"></i></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="footer-line">
-      <div class="container">
-        <div class="row">
-          
-        </div>
-      </div>
-    </div>
-  </footer>
-  <!--/ footer-->
+  <?php include 'view/footer.php'; ?>
 
-  <script src="js/jquery.min.js"></script>
-  <script src="js/jquery.easing.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/custom.js"></script>
-  <script src="contactform/contactform.js"></script>
+  <script src="Content/js/jquery.min.js" type="text/javascript"></script>
+  <script src="Content/js/jquery.easing.min.js" type="text/javascript"></script>
+  <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
+  <script src="Content/js/custom.js" type="text/javascript"></script>
+  <script src="Content/js/contactform.js" type="text/javascript"></script>
 
 </body>
 

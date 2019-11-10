@@ -41,10 +41,6 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-        <!-- Datatable -->
-
-
-
     </head>
 
     <body id="page-top">
@@ -76,7 +72,29 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
 
                     </div>
-                    
+                    <!-- Begin Page Content -->
+
+                    <!--Date table input-->
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-4 text-gray-800">Appointment List</h1>
+
+                        <!--Date table input-->
+                        <div class="bootstrap-iso">
+                            <div id="txtHint" ></div>
+
+                            <div class="input-group" style="margin-bottom:10px;">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar">
+                                    </i>
+                                </div>
+                                <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
+                            </div>
+                        </div>
+
+                    </div>
+
                     <!-- End of Main Content -->
 
                     <!-- Footer -->
@@ -123,38 +141,62 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
             <!-- Custom scripts for all pages-->
             <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
+            <!--START OF BUG-->
+            <!--  jQuery -->
+            <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-            <!--        START OF BUG
-                      jQuery 
-                    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-            
-                     Isolated Version of Bootstrap, not needed if your site already uses Bootstrap 
-                    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-            
-                     Bootstrap Date-Picker Plugin 
-                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-                     Include all compiled plugins (below), or include individual files as needed 
-                    <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
-                    <script>
-                        $(document).ready(function () {
-                            var date_input = $('input[name="date"]'); //our date input has the name "date"
-                            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                            date_input.datepicker({
-                                format: 'yyyy-mm-dd',
-                                container: container,
-                                todayHighlight: true,
-                                autoclose: true,
-                            });
-                        });
-                    </script>
-                    END OF BUG-->
+            <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+            <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+            <!-- Bootstrap Date-Picker Plugin -->
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
+            <script>
+                                    $(document).ready(function () {
+                                        var date_input = $('input[name="date"]'); //our date input has the name "date"
+                                        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                                        date_input.datepicker({
+                                            format: 'yyyy-mm-dd',
+                                            container: container,
+                                            todayHighlight: true,
+                                            autoclose: true,
+                                        });
+                                    });
+
+                                    function showUser(str) {
+
+                                        if (str == "") {
+                                            document.getElementById("txtHint").innerHTML = "No data to be shown";
+                                            return;
+                                        } else {
+                                            if (window.XMLHttpRequest) {
+                                                // code for IE7+, Firefox, Chrome, Opera, Safari
+                                                xmlhttp = new XMLHttpRequest();
+                                            } else {
+                                                // code for IE6, IE5
+                                                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                            }
+                                            xmlhttp.onreadystatechange = function () {
+                                                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                                    document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                                                }
+                                            };
+                                            xmlhttp.open("GET", "getschedule.php?q=" + str, true);
+                                            console.log(str);
+                                            xmlhttp.send();
+                                        }
+                                    }
+            </script>
+
             <!-- Page level plugins -->
             <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
 
             <!-- Page level custom scripts -->
             <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
+
     </body>
 
 </html>

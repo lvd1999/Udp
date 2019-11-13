@@ -15,7 +15,9 @@
                 <li class="active"><a href="#banner">Home</a></li>
                 <li class=""><a href="#service">Services</a></li>
                 <li class=""><a href="#about">About</a></li>
+
                 <li class=""><a href="signUp.php">Sign Up</a></li>
+
               </ul>
             </div>
           </div>

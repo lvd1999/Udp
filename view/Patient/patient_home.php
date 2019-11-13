@@ -124,17 +124,17 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
             <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
 
-            <!--        START OF BUG
-                      jQuery 
+          
+                      <!--jQuery--> 
                     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
             
-                     Isolated Version of Bootstrap, not needed if your site already uses Bootstrap 
+                     <!--Isolated Version of Bootstrap, not needed if your site already uses Bootstrap--> 
                     <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
             
-                     Bootstrap Date-Picker Plugin 
+                     <!--Bootstrap Date-Picker Plugin--> 
                     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-                     Include all compiled plugins (below), or include individual files as needed 
+                     <!--Include all compiled plugins (below), or include individual files as needed--> 
                     <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
                     <script>
                         $(document).ready(function () {
@@ -148,7 +148,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                             });
                         });
                     </script>
-                    END OF BUG-->
+                
             <!-- Page level plugins -->
             <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>

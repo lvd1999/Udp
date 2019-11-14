@@ -13,7 +13,7 @@ if (isset($_POST["county_id"])) {
                         FROM ((hospitals as h
                             INNER JOIN addresses as a ON h.address_id = a.id)
                             INNER JOIN counties as c ON a.county_id = c.id)
-                                WHERE c.id = 32";
+                                WHERE c.id = '". $_POST["county_id"] ."'";
             $result = mysqli_query($connect, $sql);
             $assocArray["data"] = $result;
 

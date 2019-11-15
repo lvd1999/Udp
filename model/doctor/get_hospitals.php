@@ -18,7 +18,7 @@ if (isset($_POST["county_id"])) {
             $assocArray["data"] = $result;
 
             $assocArray['success'] = true;
-            $assocArray["output"] = '<select name="hospital" id="hospital">';
+            $assocArray["output"] = '<label>Hospital</label><select name="hospital" id="hospital">';
             while ($r = mysqli_fetch_array($result)) {
 //        
 //                $array[] = $r;
@@ -26,7 +26,7 @@ if (isset($_POST["county_id"])) {
                 $assocArray["output"] = $assocArray["output"] . '<option value="' . $r['id'] . '">'. $r['name'] .'</option>';
             }
 
-//            $assocArray["output"] += '</select>';
+            $assocArray["output"] = $assocArray["output"] .'</select>';
 //            $assocArray["data"] = $array;
         } catch (Exception $e) {
             $error_message .= $e->getMessage();

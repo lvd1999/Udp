@@ -7,7 +7,7 @@ $counties = get_counties();
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Patient - Sign Up</title>
+        <title>Doctor - Sign Up</title>
         <!--        <link rel="stylesheet" type="text/css" href="style.css">-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -15,7 +15,7 @@ $counties = get_counties();
 
     <body>
         <div class="header">
-            <h2>Register</h2>
+            <h2>Register as Doctor</h2>
         </div>
         <form method="post" action="doctor_signUp.php" autocomplete="off">
             <?php include('../../controller/signUp/error.php'); ?>
@@ -56,7 +56,7 @@ $counties = get_counties();
             </div>
             <div class="input-group" id="show_hospitals">
                 <label>Hospital</label>
-                    <select name="county" id="county">                      
+                    <select name="hospital" id="hospital">                      
                             <option value="0">Any</option>
                     </select>
             </div>

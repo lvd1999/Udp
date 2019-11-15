@@ -50,7 +50,7 @@ if (!isset($login_pps)) {
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="#"><img src="img/logo.png" class="img-responsive" style="width: 40px; margin-top: -12px;"></a>
+                                <a class="navbar-brand" href="#"><img src="content/img/logo.png" class="img-responsive" style="width: 40px; margin-top: -12px;"></a>
                                 <a id="navlogoname" class="navbar-brand" href="#">Dr.Book</a>
                             </div>
                             <div class="collapse navbar-collapse navbar-right" id="myNavbar">

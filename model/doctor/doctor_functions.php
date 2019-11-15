@@ -10,19 +10,36 @@ function get_counties() {
     return $counties;
 }
 
-function get_hospital_by_countyId($county_id) {
+function get_upcomingrecords_by_pps($doctor_pps) {
     global $db;
-    $query = 'SELECT h.name
-                FROM ((hospitals as h
-                    INNER JOIN addresses as a ON h.address_id = a.id)
-                    INNER JOIN counties as c ON a.county_id = c.id)
-                        WHERE c.id = :county_id;';
+    $query = 'SELECT r.id, p.pps_num, p.p_first_name, p.p_last_name, r.time, r.status
+                FROM (((upcoming_appointments as r
+                    INNER JOIN patients as p ON r.patient_id = p.id)
+                    INNER JOIN doctors as d ON r.doctor_id = d.id)
+                    INNER JOIN hospitals as h ON d.hospital_id = h.id)
+                        WHERE d.pps_num = :doctor_pps;';
     $statement = $db->prepare($query);
-    $statement->bindValue(":county_id", $county_id);
+    $statement->bindValue(":doctor_pps", $doctor_pps);
     $statement->execute();
-    $hospitals = $statement->fetchAll();
+    $record_list = $statement->fetchAll();
     $statement->closeCursor();
-    return $hospitals;
+    return $record_list;
+}
+
+function get_pastrecords_by_pps($doctor_pps) {
+    global $db;
+    $query = 'SELECT r.id, p.pps_num, p.p_first_name, p.p_last_name, r.time, r.status
+                FROM (((past_records as r
+                    INNER JOIN patients as p ON r.patient_id = p.id)
+                    INNER JOIN doctors as d ON r.doctor_id = d.id)
+                    INNER JOIN hospitals as h ON d.hospital_id = h.id)
+                        WHERE d.pps_num = :doctor_pps;';
+    $statement = $db->prepare($query);
+    $statement->bindValue(":doctor_pps", $doctor_pps);
+    $statement->execute();
+    $record_list = $statement->fetchAll();
+    $statement->closeCursor();
+    return $record_list;
 }
 
 ?>

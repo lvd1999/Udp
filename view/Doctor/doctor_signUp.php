@@ -17,8 +17,6 @@ $counties = get_counties();
         <div class="header">
             <h2>Register</h2>
         </div>
-        <button id="btn_add" name="btn_update" class="btn btn-default">Add</button>
-
         <form method="post" action="doctor_signUp.php" autocomplete="off">
             <?php include('../../controller/signUp/error.php'); ?>
             <div class="input-group">
@@ -56,12 +54,11 @@ $counties = get_counties();
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="input-group">
+            <div class="input-group" id="show_hospitals">
                 <label>Hospital</label>
-                <div id="show_hospitals">
-
-
-                </div>
+                    <select name="county" id="county">                      
+                            <option value="0">Any</option>
+                    </select>
             </div>
             <div class="input-group">
                 <label>Password</label>

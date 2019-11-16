@@ -8,6 +8,8 @@ $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $userDetail = get_patient($patient_pps);
 $profile_pic = $_SESSION['profile_pic'];
+$userDetail2 = get_address($patient_pps);
+//$county = get_county($patient_pps);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,6 +57,7 @@ $profile_pic = $_SESSION['profile_pic'];
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
+                    <h3><?php echo "$firstname $lastname's profile";?></h3>
                     <!--user profile pic-->
                     <?php
                     if (is_null($userDetail['profile_pic'])) {                  //fix this
@@ -80,18 +83,76 @@ $profile_pic = $_SESSION['profile_pic'];
                                 <td><?php echo $userDetail['gender']; ?></td>
                             </tr>
                             <tr>
-                                <td>Address</td>
-                                <td><?php echo $userDetail['address_id']; ?>
+                                <td>Contact</td>
+                                <td><?php echo $userDetail['contact_mobile']; ?>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Contact</td>
-                                <td><?php echo $userDetail['contact_mobile']; ?>
+                                <td>Address</td>
+                                <td><?php echo $userDetail2['street_address']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Town</td>
+                                <td><?php echo $userDetail2['town_city']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Postcode</td>
+                                <td><?php echo $userDetail2['postcode']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>County</td>
+                                <td><?php echo $userDetail2['county_name']; ?>
                                 </td>
                             </tr>
                             
                         </tbody>
                     </table>
+                    
+                    <table>
+                        <tbody>
+                    <!--additional information-->
+                        <h3>Additional information</h3>
+                        <tr>
+                            <td>Smoker</td>
+                            <td><?php echo $userDetail['smoker']; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                                <td>Doner</td>
+                                <td><?php echo $userDetail['doner']; ?>
+                                </td>
+                            </tr>
+                        <tr>
+                                <td>Blood Type</td>
+                                <td><?php echo $userDetail['blood_type']; ?>
+                                </td>
+                            </tr>
+                        <tr>
+                                <td>Allergies</td>
+                                <td><?php echo $userDetail['allergies_id']; ?>
+                                </td>
+                            </tr>
+                        <tr>
+                                <td>Diseases</td>
+                                <td><?php echo $userDetail['diseases_id']; ?>
+                                </td>
+                            </tr>
+                        <tr>
+                                <td>Immunisations</td>
+                                <td><?php echo $userDetail['immunisations_id']; ?>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>                   
+                    
+                    
+                    
+                    
+                    
+                    
                     <button onclick="location.href='patient_update_form.php';">Update Profile</button>
                     <!-- End of page content -->
 

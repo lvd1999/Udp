@@ -2,6 +2,7 @@
 session_start();
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
+$counties = get_counties();
 
 $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
@@ -23,10 +24,12 @@ if (isset($_POST['submit'])) {
     $address = $_POST['patientAddress'];
     $town = $_POST['patientTown'];
     $postcode = $_POST['patientPostcode'];
+    $county = $_POST['county'];
     
 $con = mysqli_connect("localhost","root","","drbook");
 $query2 = "UPDATE patients SET p_first_name='$firstname', p_last_name='$lastname',  birthdate='$birthdate', gender='$gender', contact_mobile='$contact', email='$email' WHERE pps_num='" . $patient_pps . "'";
-$query3 = "UPDATE addresses SET street_address='$address', town_city='$town', postcode='$postcode' WHERE id='" . $userDetail2['id'] . "'";
+$query3 = "UPDATE addresses SET street_address='$address', town_city='$town', postcode='$postcode',county_id='$county' WHERE id='" . $userDetail2['id'] . "'";
+
     $res = mysqli_query($con, $query2);
     $res2 = mysqli_query($con, $query3);
     $_SESSION['first_name1'] = $firstname;
@@ -185,10 +188,15 @@ if ($userDetail['gender'] == 'male') {
                                                         <td>Postcode</td>
                                                         <td><textarea class="form-control" name="patientPostcode"  ><?php echo $userDetail2['postcode']; ?></textarea></td>
                                                     </tr>
-<!--                                                    <tr>
+                                 <tr>
                                                         <td>County</td>
-                                                        <td><textarea class="form-control" name="patientCounty"  ><?php echo $userDetail2['county_name']; ?></textarea></td>
-                                                    </tr>-->
+                                                        <td><select name="county" id="county">
+                    <?php foreach ($counties as $county) : ?>
+                                                                    <option value="<?php echo $county['id']; ?>"><?php echo $county['name']; ?></option>
+                                                                <?php endforeach; ?>
+                                                                <option value="<?php echo $userDetail2['county_name']; ?>" selected disabled hidden> <?php echo $userDetail2['county_name']; ?></option>
+                                                            </select></td>
+                                                    </tr>
                                                     <tr>
                                                         <td>
                                                             <input type="submit" name="submit" class="btn btn-info" value="Update Info"></td>

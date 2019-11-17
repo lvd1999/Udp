@@ -74,83 +74,29 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                         <div id="settingsMenu">
                             <div id="settingsMenu1">
                                 <ul>
-                                    <li><a href="#" style="background: #8facff;color: black; font-weight: bold">Your Medical </br>Information</a></li>
-                                    <li><a href="patient_securityAndLogin.php" >Security and Login</a></li>
+                                    <li><a href="patient_settings.php">Your Medical </br>Information</a></li>
+                                    <li><a href="#" style="background: #8facff;color: black; font-weight: bold">Security and Login</a></li>
                                 </ul>
                             </div>
                         </div>
 
                         <div id="settings1Content">
                             <form action="settings.php" method="POST">
-                                <div>
-                                    <label style="margin-right: 40px;">Smoker</label>
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option1" autocomplete="off" checked> Yes
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> No
-                                        </label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label style="margin-right: 50px;">Doner</label>
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label class="btn btn-secondary active">
-                                            <input type="radio" name="options" id="option1" autocomplete="off" checked> Yes
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> No
-                                        </label>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label style="margin-right: 13px;">Blood Type</label>
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label class="btn btn-secondary active">
-                                            <input type="radio" name="options" id="option1" autocomplete="off" checked> A+
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> A-
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option1" autocomplete="off"> B+
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> B-
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option1" autocomplete="off"> AB+
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> AB-
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option1" autocomplete="off"> O+
-                                        </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> O-
-                                        </label>
-                                    </div>
-                                </div>
                                 <div class="input-group">
-                                    <label>Allergies</label>
+                                    <label>Old Password</label>
                                     <input type="text" name="lastname" value="">                            
                                 </div>
-                                <label>Cereals containing gluten, Eggs, Milk</label>
                                 <div class="input-group">
-                                    <label>Diseases</label>
+                                    <label>New Password</label>
                                     <input type="text" name="lastname" value="">                            
                                 </div>
-                                <label>G6PD, Asthma, Diabetes, Hypertension, Hypercholesterolemia</label>
                                 <div class="input-group">
-                                    <label>Immunisation</label>
-                                    <input type="text" name="lastname" value="">                            
+                                    <label>Confirm New Password</label>
+                                    <input type="text" name="lastname" value="">                                      
                                 </div>
-                                <label>Hepatitis B, Polio, MMR, HPV</label>
-
+                                <br>
                                 <div class="form-action">
-                                    <button type="submit" class="btn btn-primary btn-block" name="patient_settings">Update</button>
+                                    <button type="submit" class="btn btn-primary btn-block" name="patient_settings_password">Update</button>
                                 </div>
                             </form>
                         </div>

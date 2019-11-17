@@ -651,7 +651,7 @@ table thead{
 #settings1{
     position: relative;
     width: 96%;
-    height: 550px;
+    height: 570px;
     margin-bottom: 100px;
     background: white;
     border-radius: 5px;
@@ -662,7 +662,7 @@ table thead{
 }
 
 #settingsMenu{
-    height: 470px;
+    height: 520px;
     width: 210px;
     padding-top: 10px;
     border-right: 1px solid grey;
@@ -697,4 +697,20 @@ table thead{
 #settingsMenu li a:hover{
     background: #cfdbff;
     color: black;
+}
+
+#settings1Content{
+    position: relative;
+    bottom: 490px;
+    left: 220px;
+    height: 480px;
+    width: 990px;
+}
+#settings1Content div{
+    margin-bottom: 2px;
+}
+
+#settings1Content input{
+    width: 100%;
+    clear: both;
 }

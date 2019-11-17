@@ -30,7 +30,7 @@ $patient_medical_info = get_medical_info_by_pps($patient_pps);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Patient - Home</title>
+        <title>Patient - Settings</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>

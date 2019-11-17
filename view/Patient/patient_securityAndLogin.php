@@ -81,18 +81,18 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                         </div>
 
                         <div id="settings1Content">
-                            <form action="settings.php" method="POST">
+                            <form action="../../controller/patient/changePassword.php" method="POST">
                                 <div class="input-group">
                                     <label>Old Password</label>
-                                    <input type="text" name="lastname" value="">                            
+                                    <input type="password" name="old_password" value="">                            
                                 </div>
                                 <div class="input-group">
                                     <label>New Password</label>
-                                    <input type="text" name="lastname" value="">                            
+                                    <input type="password" name="new_password" value="">                            
                                 </div>
                                 <div class="input-group">
                                     <label>Confirm New Password</label>
-                                    <input type="text" name="lastname" value="">                                      
+                                    <input type="password" name="confirm_new_password" value="">                                      
                                 </div>
                                 <br>
                                 <div class="form-action">

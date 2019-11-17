@@ -10,6 +10,7 @@ $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
+$patient_medical_info = get_medical_info_by_pps($patient_pps);
 
 
 //$res = mysqli_query($con, "SELECT * FROM patient WHERE icPatient=" . $usersession);
@@ -81,71 +82,176 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                         </div>
 
                         <div id="settings1Content">
-                            <form action="settings.php" method="POST">
+                            <form action="../../controller/patient/settings.php" method="POST">
                                 <div>
                                     <label style="margin-right: 40px;">Smoker</label>
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option1" autocomplete="off" checked> Yes
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['smoker'] == 1) {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="1" type="radio" name="smoker" id="option1" autocomplete="off" 
+                                            <?php
+                                            if ($patient_medical_info['smoker'] == 1) {
+                                                echo 'checked ';
+                                            }
+                                            ?>>
+                                            Yes
                                         </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> No
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['smoker'] == 0) {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="0" type="radio" name="smoker" id="option2" autocomplete="off"
+                                            <?php
+                                            if ($patient_medical_info['smoker'] == 0) {
+                                                echo 'checked';
+                                            }
+                                            ?>>
+                                            No
                                         </label>
                                     </div>
                                 </div>
                                 <div>
                                     <label style="margin-right: 50px;">Doner</label>
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label class="btn btn-secondary active">
-                                            <input type="radio" name="options" id="option1" autocomplete="off" checked> Yes
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['doner'] == 1) {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="1" type="radio" name="doner" id="option1" autocomplete="off"
+
+                                                   <?php
+                                                   if ($patient_medical_info['doner'] == 1) {
+                                                       echo 'checked';
+                                                   }
+                                                   ?>> 
+                                            Yes
                                         </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> No
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['doner'] == 0) {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="0" type="radio" name="doner" id="option2" autocomplete="off"
+                                            <?php
+                                            if ($patient_medical_info['doner'] == 0) {
+                                                echo 'checked';
+                                            }
+                                            ?>> 
+                                            No
                                         </label>
                                     </div>
                                 </div>
                                 <div>
                                     <label style="margin-right: 13px;">Blood Type</label>
                                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <label class="btn btn-secondary active">
-                                            <input type="radio" name="options" id="option1" autocomplete="off" checked> A+
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['blood_type'] == 'A+') {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="A+" type="radio" name="bloodtype" id="option1" autocomplete="off" <?php
+                                            if ($patient_medical_info['blood_type'] == 'A+') {
+                                                echo 'checked ';
+                                            }
+                                            ?>> A+
                                         </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> A-
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['blood_type'] == 'A-') {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="A-" type="radio" name="bloodtype" id="option2" autocomplete="off" <?php
+                                            if ($patient_medical_info['blood_type'] == 'A-') {
+                                                echo 'checked ';
+                                            }
+                                            ?>> A-
                                         </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option1" autocomplete="off"> B+
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['blood_type'] == 'B+') {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="B+" type="radio" name="bloodtype" id="option1" autocomplete="off" <?php
+                                            if ($patient_medical_info['blood_type'] == 'B+') {
+                                                echo 'checked ';
+                                            }
+                                            ?>> B+
                                         </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> B-
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['blood_type'] == 'B-') {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="B-" type="radio" name="bloodtype" id="option2" autocomplete="off" <?php
+                                            if ($patient_medical_info['blood_type'] == 'B-') {
+                                                echo 'checked ';
+                                            }
+                                            ?>> B-
                                         </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option1" autocomplete="off"> AB+
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['blood_type'] == 'AB+') {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="AB+" type="radio" name="bloodtype" id="option1" autocomplete="off" <?php
+                                            if ($patient_medical_info['blood_type'] == 'AB+') {
+                                                echo 'checked ';
+                                            }
+                                            ?>> AB+
                                         </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> AB-
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['blood_type'] == 'AB-') {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="AB-" type="radio" name="bloodtype" id="option2" autocomplete="off" <?php
+                                            if ($patient_medical_info['blood_type'] == 'AB-') {
+                                                echo 'checked ';
+                                            }
+                                            ?>> AB-
                                         </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option1" autocomplete="off"> O+
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['blood_type'] == 'O+') {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="O+" type="radio" name="bloodtype" id="option1" autocomplete="off" <?php
+                                            if ($patient_medical_info['blood_type'] == 'O+') {
+                                                echo 'checked ';
+                                            }
+                                            ?>> O+
                                         </label>
-                                        <label class="btn btn-secondary">
-                                            <input type="radio" name="options" id="option2" autocomplete="off"> O-
+                                        <label class="btn btn-secondary <?php
+                                            if ($patient_medical_info['blood_type'] == 'O-') {
+                                                echo 'active ';
+                                            }
+                                            ?>">
+                                            <input value="O-" type="radio" name="bloodtype" id="option2" autocomplete="off" <?php
+                                            if ($patient_medical_info['blood_type'] == 'O-') {
+                                                echo 'checked ';
+                                            }
+                                            ?>> O-
                                         </label>
                                     </div>
                                 </div>
                                 <div class="input-group">
                                     <label>Allergies</label>
-                                    <input type="text" name="lastname" value="">                            
+                                    <input type="text" name="allergies" value="<?php echo $patient_medical_info['allergies']?>">                            
                                 </div>
                                 <label>Cereals containing gluten, Eggs, Milk</label>
                                 <div class="input-group">
                                     <label>Diseases</label>
-                                    <input type="text" name="lastname" value="">                            
+                                    <input type="text" name="diseases" value="<?php echo $patient_medical_info['diseases']?>">                            
                                 </div>
                                 <label>G6PD, Asthma, Diabetes, Hypertension, Hypercholesterolemia</label>
                                 <div class="input-group">
-                                    <label>Immunisation</label>
-                                    <input type="text" name="lastname" value="">                            
+                                    <label>Immunisations</label>
+                                    <input type="text" name="immunisations" value="<?php echo $patient_medical_info['immunisations']?>">                            
                                 </div>
                                 <label>Hepatitis B, Polio, MMR, HPV</label>
 

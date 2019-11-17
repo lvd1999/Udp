@@ -32,4 +32,17 @@ function get_upcomingrecords_by_pps($patient_pps) {
     return $record_list;
 }
 
+function get_medical_info_by_pps($patient_pps) {
+    global $db;
+    $query = 'SELECT smoker, doner, blood_type, allergies, diseases, immunisations
+                FROM patients
+                    WHERE pps_num = :patient_pps';
+    $statement = $db->prepare($query);
+    $statement->bindValue(":patient_pps", $patient_pps);
+    $statement->execute();
+    $record_list = $statement->fetch();
+    $statement->closeCursor();
+    return $record_list;
+}
+
 ?>

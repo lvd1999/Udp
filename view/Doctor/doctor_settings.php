@@ -6,6 +6,7 @@ include_once '../../model/database.php';
 $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
+$doctor_additional_info = get_additional_info_by_pps($doctor_pps);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,35 +75,35 @@ $doctor_pps = $_SESSION['pps2'];
                                 <div id="doctorSettingsS1">
                                     <div class="input-group">
                                         <label>University</label>
-                                        <input type="text" name="university" value="">
+                                        <input type="text" name="university" value="<?php echo $doctor_additional_info['university']?>">
                                     </div>
                                     <div class="input-group">
                                         <label>Course Full Name</label>
-                                        <input type="text" name="course" value="">
+                                        <input type="text" name="course" value="<?php echo $doctor_additional_info['course']?>">
                                     </div>
                                     <div id="conferalDate">
                                         <label>Conferal Date</label>
-                                        <input type="date" name="conferal_date" value="">
+                                        <input type="date" name="conferal_date" value="<?php echo $doctor_additional_info['conferal_date']?>">
                                     </div>
                                 </div>
                                 <div id="doctorSettingsS2">
                                     <div class="input-group">
                                         <label>Registration Number</label>
-                                        <input type="text" name="registration_num" value="">
+                                        <input type="text" name="registration_num" value="<?php echo $doctor_additional_info['registration_num']?>">
                                     </div>
                                     <div id="registrationDate">
                                         <label>Registration Date</label>
-                                        <input type="date" name="registration_date" value="">
+                                        <input type="date" name="registration_date" value="<?php echo $doctor_additional_info['registration_date']?>">
                                     </div>
                                 </div>
                                 <div id="doctorSettingsS3">
                                     <div class="input-group">
                                         <label>Speciality</label>
-                                        <input type="text" name="speciality" value="">
+                                        <input type="text" name="speciality_name" value="<?php echo $doctor_additional_info['speciality_name']?>">
                                     </div>
                                     <div id="specialityDate">
                                         <label>Approval Date</label>
-                                        <input type="date" name="speciality_date" value="">
+                                        <input type="date" name="speciality_date" value="<?php echo $doctor_additional_info['speciality_date']?>">
                                     </div>
                                 </div>
                                 <div id="doctorSettingsSubmit1"class="form-action">

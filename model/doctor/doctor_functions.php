@@ -44,7 +44,7 @@ function get_pastrecords_by_pps($doctor_pps) {
 
 function get_additional_info_by_pps($doctor_pps) {
     global $db;
-    $query = 'SELECT d.university, d.course, d.conferal_date, d.registration_num, d.registration_date, s.speciality_name
+    $query = 'SELECT d.university, d.course, d.conferal_date, d.registration_num, d.registration_date, s.speciality_name, d.speciality_date
                 FROM (doctors as d
                     INNER JOIN speciality as s ON d.speciality_id = s.id)
                     WHERE d.pps_num = :doctor_pps';

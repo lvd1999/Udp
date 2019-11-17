@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 require('../../model/doctor/doctor_functions.php');
 include_once '../../model/database.php';

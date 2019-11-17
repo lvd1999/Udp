@@ -714,3 +714,28 @@ table thead{
     width: 100%;
     clear: both;
 }
+
+#conferalDate input,#registrationDate input{
+    margin-bottom: 15px;
+}
+
+#doctorSettingsS1,#doctorSettingsS2{
+    border-bottom: 3px dotted #446AD8;
+}
+
+#doctorSettingsSubmit1{
+    margin-top: 30px;
+}
+
+#settings2{
+    position: relative;
+    width: 96%;
+    height: 770px;
+    margin-bottom: 100px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: 1px 1px 10px grey;
+    margin-left: 30px;
+    padding-top: 43px;
+    z-index: 1;
+}

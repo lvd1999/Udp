@@ -42,4 +42,18 @@ function get_pastrecords_by_pps($doctor_pps) {
     return $record_list;
 }
 
+function get_additional_info_by_pps($doctor_pps) {
+    global $db;
+    $query = 'SELECT d.university, d.course, d.conferal_date, d.registration_num, d.registration_date, s.speciality_name
+                FROM (doctors as d
+                    INNER JOIN speciality as s ON d.speciality_id = s.id)
+                    WHERE d.pps_num = :doctor_pps';
+    $statement = $db->prepare($query);
+    $statement->bindValue(":doctor_pps", $doctor_pps);
+    $statement->execute();
+    $record_list = $statement->fetch();
+    $statement->closeCursor();
+    return $record_list;
+}
+
 ?>

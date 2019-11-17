@@ -1,19 +1,11 @@
 <?php
 session_start();
 include_once '../../model/database.php';
-//if (!isset($_SESSION['patientSession'])) {
-//    header("Location: ../index.php");
-//}
-//$usersession = $_SESSION['patientSession'];
+require('../../model/doctor/doctor_functions.php');
 $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
 
-//$res = mysqli_query($con, "SELECT * FROM patient WHERE icPatient=" . $usersession);
-//if ($res === false) {
-//    echo mysql_error();
-//}
-//$userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +18,7 @@ $doctor_pps = $_SESSION['pps2'];
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Doctor - Home</title>
+        <title>Doctor - Profile</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>

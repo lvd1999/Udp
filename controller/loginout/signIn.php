@@ -22,11 +22,12 @@ $statement1->closeCursor();
 $_SESSION['first_name1'] = $list1['p_first_name'];
 $_SESSION['last_name1'] = $list1['p_last_name'];
 $_SESSION['pps1'] = $list1['pps_num'];
+$_SESSION['profile_pic'] = $list1['profile_pic'];
 
 $_SESSION['first_name2'] = $list2['d_first_name'];
 $_SESSION['last_name2'] = $list2['d_last_name'];
 $_SESSION['pps2'] = $list2['pps_num'];
-
+$_SESSION['profile_pic2'] = $list2['profile_pic'];
 if (empty($list1) && empty($list2)) {
     echo '<script>
     setTimeout(function () { 

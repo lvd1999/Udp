@@ -2,21 +2,12 @@
 session_start();
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
-//if (!isset($_SESSION['patientSession'])) {
-//    header("Location: ../index.php");
-//}
-//$usersession = $_SESSION['patientSession'];
+
 $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
-
-//$res = mysqli_query($con, "SELECT * FROM patient WHERE icPatient=" . $usersession);
-//if ($res === false) {
-//    echo mysql_error();
-//}
-//$userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">

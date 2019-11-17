@@ -42,6 +42,27 @@ function get_pastrecords_by_pps($doctor_pps) {
     return $record_list;
 }
 
+function get_doctor($doctor_pps) {
+    global $db;
+    $query = 'SELECT * FROM doctors WHERE pps_num = :doctor_pps';
+    $statement = $db->prepare($query);
+    $statement->bindValue(":doctor_pps", $doctor_pps);
+    $statement->execute();
+    $record_list = $statement->fetch();
+    $statement->closeCursor();
+    return $record_list;
+}
+
+function get_hospital($doctor_pps) {
+    global $db;
+    $query = 'SELECT h.name AS hospital_name,h.id AS hospital_id, a.town_city, c.name as county_name, a.county_id FROM (((hospitals as h INNER JOIN doctors as d ON d.hospital_id = h.id)INNER JOIN addresses as a ON h.address_id = a.id)INNER JOIN counties as c ON a.county_id = c.id) WHERE pps_num = :doctor_pps';
+    $statement = $db->prepare($query);
+    $statement->bindValue(":doctor_pps", $doctor_pps);
+    $statement->execute();
+    $record_list = $statement->fetch();
+    $statement->closeCursor();
+    return $record_list;
+}
 function get_additional_info_by_pps($doctor_pps) {
     global $db;
     $query = 'SELECT d.university, d.course, d.conferal_date, d.registration_num, d.registration_date, s.speciality_name, d.speciality_date

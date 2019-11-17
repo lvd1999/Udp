@@ -1,4 +1,6 @@
 <?php
+
+
 session_start();
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';

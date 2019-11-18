@@ -12,12 +12,6 @@ $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
 $patient_medical_info = get_medical_info_by_pps($patient_pps);
 
-
-//$res = mysqli_query($con, "SELECT * FROM patient WHERE icPatient=" . $usersession);
-//if ($res === false) {
-//    echo mysql_error();
-//}
-//$userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">

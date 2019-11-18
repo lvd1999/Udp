@@ -5,6 +5,7 @@ include_once '../../model/database.php';
 
 $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];
+$profile_pic = $_SESSION['profile_pic2'];
 $doctor_pps = $_SESSION['pps2'];
 $doctor_additional_info = get_additional_info_by_pps($doctor_pps);
 ?>

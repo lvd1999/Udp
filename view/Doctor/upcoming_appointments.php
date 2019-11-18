@@ -9,6 +9,7 @@ include_once '../../model/database.php';
 $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
+$profile_pic = $_SESSION['profile_pic2'];
 
 $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps)
 
@@ -110,8 +111,8 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps)
                                         <tbody>
                                             <?php foreach ($doctor_records_list as $record_list) : ?>
                                                 <tr>
-                                                    <td><?php echo $record_list['id']; ?></td>
-                                                    <td><?php echo $record_list['pps_num']; ?></td>
+                                                    <td><?php echo $record_list['id']; $pps = $record_list['pps_num'];?></td>
+                                                    <td><a href="view_patient.php?pps=<?php echo $pps;?>"><?php echo $record_list['pps_num']; ?></a></td>
                                                     <td><?php echo $record_list['p_first_name']; ?> <?php echo $record_list['p_last_name']; ?></td>
                                                     <td><?php
                                                         $timestamp = strtotime($record_list['time']);

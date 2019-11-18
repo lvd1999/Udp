@@ -1,15 +1,20 @@
 <?php
 session_start();
+
 require('../../model/doctor/doctor_functions.php');
 include_once '../../model/database.php';
+$patient_pps = $_GET['pps'];
 
 $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];
-$doctor_pps = $_SESSION['pps2'];
-$userDetail = get_doctor($doctor_pps);
 $profile_pic = $_SESSION['profile_pic2'];
-$userDetail2 = get_hospital($doctor_pps);
+$doctor_pps = $_SESSION['pps2'];
 
+$userDetail = get_patient($patient_pps);
+$userDetail2 = get_address($patient_pps);
+
+$doctor_additional_info = get_additional_info_by_pps($doctor_pps);
+$patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +27,7 @@ $userDetail2 = get_hospital($doctor_pps);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Doctor - Profile</title>
+        <title>Doctor - Settings</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -58,7 +63,7 @@ $userDetail2 = get_hospital($doctor_pps);
                     <?php include 'doctorTopBar.php'; ?>
                     <!-- End of Topbar -->
                     <!-- Begin Page Content -->
-                    <h3><?php echo "$firstname $lastname's profile"; ?></h3>
+                    <h3><?php echo $userDetail['p_first_name']; ?> <?php echo $userDetail['p_last_name']; ?>'s profile</h3>
                     <!--user profile pic-->
                     <?php
                     if (is_null($userDetail['profile_pic'])) {                  //fix this
@@ -66,40 +71,40 @@ $userDetail2 = get_hospital($doctor_pps);
                     } else {
                         echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "'  id='profileDisplay'>";
                     }
-                    ?>
+                    ?>                    
 
-                    <!--User details-->
                     <table>
                         <tbody>
-                            <tr>
-                                <td>PPS Number</td>
-                                <td><?php echo $userDetail['pps_num']; ?></td>
-                            </tr>
                             <tr>
                                 <td>Email</td>
                                 <td><?php echo $userDetail['email']; ?></td>
                             </tr>
                             <tr>
-                                <td>First Name</td>
-                                <td><?php echo $userDetail['d_first_name']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Last Name</td>
-                                <td><?php echo $userDetail['d_last_name']; ?></td>
+                                <td>Date of Birth</td>
+                                <td><?php echo $userDetail['birthdate']; ?></td>
                             </tr>
                             <tr>
                                 <td>Gender</td>
-                                <td><?php echo $userDetail['gender']; ?>
+                                <td><?php echo $userDetail['gender']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Contact</td>
+                                <td><?php echo $userDetail['contact_mobile']; ?>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Hospital</td>
-                                <td><?php echo $userDetail2['hospital_name']; ?>
+                                <td>Address</td>
+                                <td><?php echo $userDetail2['street_address']; ?>
                                 </td>
                             </tr>
                             <tr>
                                 <td>Town</td>
                                 <td><?php echo $userDetail2['town_city']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Postcode</td>
+                                <td><?php echo $userDetail2['postcode']; ?>
                                 </td>
                             </tr>
                             <tr>
@@ -116,31 +121,86 @@ $userDetail2 = get_hospital($doctor_pps);
                             <!--additional information-->
                         <h3>Additional information</h3>
                         <tr>
-                            <td>University</td>
-                            <td><?php echo $userDetail['university']; ?>
+                            <td>Smoker</td>
+                            <td><?php echo $userDetail['smoker']; ?>
                             </td>
                         </tr>
                         <tr>
-                            <td>Course</td>
-                            <td><?php echo $userDetail['course']; ?>
+                            <td>Doner</td>
+                            <td><?php echo $userDetail['doner']; ?>
                             </td>
                         </tr>
                         <tr>
-                            <td>Conferal Date</td>
-                            <td><?php echo $userDetail['conferal_date']; ?>
+                            <td>Blood Type</td>
+                            <td><?php echo $userDetail['blood_type']; ?>
                             </td>
                         </tr>
                         <tr>
-                            <td>Registration Number</td>
-                            <td><?php echo $userDetail['registration_num']; ?>
+                            <td>Allergies</td>
+                            <td><?php echo $userDetail['allergies']; ?>
                             </td>
                         </tr>
-
+                        <tr>
+                            <td>Diseases</td>
+                            <td><?php echo $userDetail['diseases']; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Immunisations</td>
+                            <td><?php echo $userDetail['immunisations']; ?>
+                            </td>
+                        </tr>
                         </tbody>
-                    </table>                   
+                    </table>                
 
-
-
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Past Appointments</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Appointment ID<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Doctor<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Hospital<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Date<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Time<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Status<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Appointment ID</th>
+                                            <th>Doctor</th>
+                                            <th>Hospital</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php foreach ($patient_records_list as $record_list) : ?>
+                                            <tr>
+                                                <td><?php echo $record_list['id']; ?></td>
+                                                <td><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
+                                                <td><?php echo $record_list['name']; ?></td>
+                                                <td><?php
+                                                    $timestamp = strtotime($record_list['time']);
+                                                    echo date('d-m-Y', $timestamp);
+                                                    ?></td>
+                                                <td><?php
+                                                    echo date('h.ia', $timestamp);
+                                                    ?></td>
+                                                <td><?php echo $record_list['status']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <!-- End Page Content -->
                     <!-- End of Main Content -->
 

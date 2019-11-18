@@ -1,6 +1,4 @@
 <?php
-
-
 session_start();
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
@@ -24,7 +22,7 @@ $userDetail2 = get_address($patient_pps);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Patient - Home</title>
+        <title>Patient - Settings</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -35,7 +33,10 @@ $userDetail2 = get_address($patient_pps);
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-        
+
+        <!-- Datatable -->
+
+
 
     </head>
 
@@ -47,7 +48,6 @@ $userDetail2 = get_address($patient_pps);
             <!-- Sidebar -->
             <?php include 'patientSideBar.php'; ?>
             <!-- End Sidebar -->
-
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
 
@@ -57,186 +57,165 @@ $userDetail2 = get_address($patient_pps);
                     <!-- Topbar -->
                     <?php include 'patientTopBar.php'; ?>
                     <!-- End of Topbar -->
-
                     <!-- Begin Page Content -->
-                    <h3><?php echo "$firstname $lastname's profile";?></h3>
-                    <!--user profile pic-->
-                    <?php
-                    if (is_null($userDetail['profile_pic'])) {                  //fix this
-                        echo "<img src='../../Content/img/avatar.jpg'  id='profileDisplay'>";
-                    } else {
-                        echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "'  id='profileDisplay'>";
-                    }
-                    ?>
-                    
-                    <!--User details-->
-                    <table>
-                        <tbody>
+
+                    <div id="content">
+
+                        <!-- Begin Page Content -->
+                        <h3><?php echo "$firstname $lastname's profile"; ?></h3>
+                        <!--user profile pic-->
+                        <?php
+                        if (is_null($userDetail['profile_pic'])) {                  //fix this
+                            echo "<img src='../../Content/img/avatar.jpg'  id='profileDisplay'>";
+                        } else {
+                            echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "'  id='profileDisplay'>";
+                        }
+                        ?>
+
+                        <!--User details-->
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Email</td>
+                                    <td><?php echo $userDetail['email']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Date of Birth</td>
+                                    <td><?php echo $userDetail['birthdate']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td><?php echo $userDetail['gender']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Contact</td>
+                                    <td><?php echo $userDetail['contact_mobile']; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td><?php echo $userDetail2['street_address']; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Town</td>
+                                    <td><?php echo $userDetail2['town_city']; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Postcode</td>
+                                    <td><?php echo $userDetail2['postcode']; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>County</td>
+                                    <td><?php echo $userDetail2['county_name']; ?>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                        <table>
+                            <tbody>
+                                <!--additional information-->
+                            <h3>Additional information</h3>
                             <tr>
-                                <td>Email</td>
-                                <td><?php echo $userDetail['email']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Date of Birth</td>
-                                <td><?php echo $userDetail['birthdate']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Gender</td>
-                                <td><?php echo $userDetail['gender']; ?></td>
-                            </tr>
-                            <tr>
-                                <td>Contact</td>
-                                <td><?php echo $userDetail['contact_mobile']; ?>
+                                <td>Smoker</td>
+                                <td><?php echo $userDetail['smoker']; ?>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Address</td>
-                                <td><?php echo $userDetail2['street_address']; ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Town</td>
-                                <td><?php echo $userDetail2['town_city']; ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Postcode</td>
-                                <td><?php echo $userDetail2['postcode']; ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>County</td>
-                                <td><?php echo $userDetail2['county_name']; ?>
-                                </td>
-                            </tr>
-                            
-                        </tbody>
-                    </table>
-                    
-                    <table>
-                        <tbody>
-                    <!--additional information-->
-                        <h3>Additional information</h3>
-                        <tr>
-                            <td>Smoker</td>
-                            <td><?php echo $userDetail['smoker']; ?>
-                            </td>
-                        </tr>
-                        <tr>
                                 <td>Doner</td>
                                 <td><?php echo $userDetail['doner']; ?>
                                 </td>
                             </tr>
-                        <tr>
+                            <tr>
                                 <td>Blood Type</td>
                                 <td><?php echo $userDetail['blood_type']; ?>
                                 </td>
                             </tr>
-                        <tr>
+                            <tr>
                                 <td>Allergies</td>
                                 <td><?php echo $userDetail['allergies']; ?>
                                 </td>
                             </tr>
-                        <tr>
+                            <tr>
                                 <td>Diseases</td>
                                 <td><?php echo $userDetail['diseases']; ?>
                                 </td>
                             </tr>
-                        <tr>
+                            <tr>
                                 <td>Immunisations</td>
                                 <td><?php echo $userDetail['immunisations']; ?>
                                 </td>
                             </tr>
-                        </tbody>
-                    </table>                   
-                    
-                    
-                    
-                    
-                    
-                    
-                    <button onclick="location.href='patient_update_form.php';">Update Profile</button>
-                    <!-- End of page content -->
+                            </tbody>
+                        </table>                   
+
+
+
+
+
+
+                        <button onclick="location.href = 'patient_update_form.php';">Update Profile</button>
+                        <!-- End of page content -->
+
+                    </div>
+                    <!-- End Page Content -->
+                    <!-- End of Main Content -->
+
+                    <!-- Footer -->
+                    <?php include 'patientFooter.php'; ?>
+                    <!-- End of Footer -->
 
                 </div>
-                <!-- End of Main Content -->
+                <!-- End of Content Wrapper -->
 
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2019</span>
+            </div>
+            <!-- End of Page Wrapper -->
+
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="patientlogout.php?logout">Logout</a>
                         </div>
                     </div>
-                </footer>
-                <!-- End of Footer -->
-
-            </div>
-            <!-- End of Content Wrapper -->
-
-        </div>
-        <!-- End of Page Wrapper -->
-
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="patientlogout.php?logout">Logout</a>
-                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="../vendor/jquery/jquery.min.js"></script>
-        <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <!-- Bootstrap core JavaScript-->
+            <script src="../../Content/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+            <script src="../../Content/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+            <!-- Core plugin JavaScript-->
+            <script src="../../Content/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="../js/sb-admin-2.min.js"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
-        <!--START OF BUG-->
-        <!--  jQuery -->
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+            <!-- Page level plugins -->
+            <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+            <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
 
-        <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-        <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-
-        <!-- Bootstrap Date-Picker Plugin -->
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="assets/js/bootstrap.min.js"></script>
-        <script>
-                            $(document).ready(function () {
-                                var date_input = $('input[name="date"]'); //our date input has the name "date"
-                                var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                                date_input.datepicker({
-                                    format: 'yyyy-mm-dd',
-                                    container: container,
-                                    todayHighlight: true,
-                                    autoclose: true,
-                                });
-                            });
-        </script>
-        <!--END OF BUG-->
+            <!-- Page level custom scripts -->
+            <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
     </body>
 
 </html>
-<script src="assets/js/scripts.js"></script>
+

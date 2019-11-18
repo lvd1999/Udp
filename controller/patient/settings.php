@@ -25,6 +25,7 @@ $statement1->bindValue(':immunisations', $immunisations);
 $statement1->bindValue(':patient_pps', $patient_pps);
 $statement1->execute();
 $statement1->closeCursor();
+header('Location: ../../view/Patient/patient_profile.php');
 ?>
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>

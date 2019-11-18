@@ -14,6 +14,7 @@ $userDetail = get_patient($patient_pps);
 $userDetail2 = get_address($patient_pps);
 
 $doctor_additional_info = get_additional_info_by_pps($doctor_pps);
+$patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -150,7 +151,56 @@ $doctor_additional_info = get_additional_info_by_pps($doctor_pps);
                             </td>
                         </tr>
                         </tbody>
-                    </table>                   
+                    </table>                
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Past Appointments</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Appointment ID<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Doctor<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Hospital<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Date<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Time<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Status<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Appointment ID</th>
+                                            <th>Doctor</th>
+                                            <th>Hospital</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php foreach ($patient_records_list as $record_list) : ?>
+                                            <tr>
+                                                <td><?php echo $record_list['id']; ?></td>
+                                                <td><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
+                                                <td><?php echo $record_list['name']; ?></td>
+                                                <td><?php
+                                                    $timestamp = strtotime($record_list['time']);
+                                                    echo date('d-m-Y', $timestamp);
+                                                    ?></td>
+                                                <td><?php
+                                                    echo date('h.ia', $timestamp);
+                                                    ?></td>
+                                                <td><?php echo $record_list['status']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                     <!-- End Page Content -->
                     <!-- End of Main Content -->
 

@@ -43,7 +43,7 @@ if (empty($list1)) {
     $statement3->bindValue(':doctor_pps', $doctor_pps);
     $statement3->execute();
     $statement3->closeCursor();
-
+header('Location: ../../view/Doctor/doctor_profile.php');
 ?>
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>

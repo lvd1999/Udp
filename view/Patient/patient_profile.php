@@ -134,17 +134,17 @@ $userDetail2 = get_address($patient_pps);
                             </tr>
                         <tr>
                                 <td>Allergies</td>
-                                <td><?php echo $userDetail['allergies_id']; ?>
+                                <td><?php echo $userDetail['allergies']; ?>
                                 </td>
                             </tr>
                         <tr>
                                 <td>Diseases</td>
-                                <td><?php echo $userDetail['diseases_id']; ?>
+                                <td><?php echo $userDetail['diseases']; ?>
                                 </td>
                             </tr>
                         <tr>
                                 <td>Immunisations</td>
-                                <td><?php echo $userDetail['immunisations_id']; ?>
+                                <td><?php echo $userDetail['immunisations']; ?>
                                 </td>
                             </tr>
                         </tbody>

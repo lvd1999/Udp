@@ -2,7 +2,7 @@
 
 function get_pastrecords_by_pps($patient_pps) {
     global $db;
-    $query = 'SELECT r.id, p.p_first_name, p.p_last_name, d.d_first_name, d.d_last_name, h.name, r.time, r.status
+    $query = 'SELECT r.id, p.p_first_name, p.p_last_name, d.pps_num, d.d_first_name, d.d_last_name, h.name, r.time, r.status
                 FROM (((past_records as r
                     INNER JOIN patients as p ON r.patient_id = p.id)
                     INNER JOIN doctors as d ON r.doctor_id = d.id)
@@ -78,6 +78,28 @@ function get_counties() {
     $counties = $statement->fetchAll();
     $statement->closeCursor();
     return $counties;
+}
+
+function get_doctor($doctor_pps) {
+    global $db;
+    $query = 'SELECT * FROM doctors WHERE pps_num = :doctor_pps';
+    $statement = $db->prepare($query);
+    $statement->bindValue(":doctor_pps", $doctor_pps);
+    $statement->execute();
+    $record_list = $statement->fetch();
+    $statement->closeCursor();
+    return $record_list;
+}
+
+function get_hospital($doctor_pps) {
+    global $db;
+    $query = 'SELECT h.name AS hospital_name,h.id AS hospital_id, a.town_city, c.name as county_name, a.county_id FROM (((hospitals as h INNER JOIN doctors as d ON d.hospital_id = h.id)INNER JOIN addresses as a ON h.address_id = a.id)INNER JOIN counties as c ON a.county_id = c.id) WHERE pps_num = :doctor_pps';
+    $statement = $db->prepare($query);
+    $statement->bindValue(":doctor_pps", $doctor_pps);
+    $statement->execute();
+    $record_list = $statement->fetch();
+    $statement->closeCursor();
+    return $record_list;
 }
 
 ?>

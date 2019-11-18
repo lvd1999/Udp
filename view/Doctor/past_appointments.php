@@ -9,6 +9,7 @@ include_once '../../model/database.php';
 $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
+$profile_pic = $_SESSION['profile_pic2'];
 
 $doctor_records_list = get_pastrecords_by_pps($doctor_pps)
 

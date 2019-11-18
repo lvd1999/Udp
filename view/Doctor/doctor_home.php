@@ -5,6 +5,7 @@ require('../../model/doctor/doctor_functions.php');
 $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
+$profile_pic = $_SESSION['profile_pic2'];
 
 ?>
 <!DOCTYPE html>

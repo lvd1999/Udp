@@ -1,9 +1,9 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="patient_home.php">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="doctor_home.php">
         <div class="sidebar-brand-icon">
-            <img src="../../content/img/logo.png" alt="logo" style="width: 40px;"/>
+            <img src="../../Content/img/logo.png" alt="logo" style="width: 40px;"/>
         </div>
         <div class="sidebar-brand-text mx-3">Dr.Book</div>
     </a>
@@ -15,28 +15,10 @@
     <hr class="sidebar-divider d-none d-md-block">
 
     <li class="nav-item active">
-        <a class="nav-link" href="patient_home.php">
+        <a class="nav-link" href="doctor_home.php">
             <i class="fas fa-home"></i>
             <span>Home</span></a>
     </li>
-    <!-- Heading -->
-    <!--                <div class="sidebar-heading">
-                        Original
-                    </div>-->
-    <!--
-                     Book appointment
-                    <li class="nav-item active">
-                        <a class="nav-link" href="patientpagewithbootstrap.php">
-                            <i class="fas fa-fw fa-chart-area"></i>
-                            <span>Book</span></a>
-                    </li>
-    
-                     Past appointment
-                    <li class="nav-item">
-                        <a class="nav-link" href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>">
-                            <i class="fas fa-fw fa-chart-area"></i>
-                            <span>Past appointments</span></a>
-                    </li>-->
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -46,11 +28,17 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="book.php">Book</a>
                 <a class="collapse-item" href="upcoming_appointments.php">Upcoming</a>
                 <a class="collapse-item" href="past_appointments.php">Past</a>
             </div>
         </div>
+        
+    </li>
+    
+    <li class="nav-item active">
+        <a class="nav-link" href="schedule.php">
+            <i class="fas fa-home"></i>
+            <span>Schedule</span></a>
     </li>
 
     <!-- Sidebar Toggler (Sidebar) -->

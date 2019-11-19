@@ -19,14 +19,15 @@ $statement1->execute();
 $list2 = $statement1->fetch();
 $statement1->closeCursor();
 
-$_SESSION['first_name1'] = $list1['first_name'];
-$_SESSION['last_name1'] = $list1['last_name'];
+$_SESSION['first_name1'] = $list1['p_first_name'];
+$_SESSION['last_name1'] = $list1['p_last_name'];
 $_SESSION['pps1'] = $list1['pps_num'];
+$_SESSION['profile_pic'] = $list1['profile_pic'];
 
-$_SESSION['first_name2'] = $list2['first_name'];
-$_SESSION['last_name2'] = $list2['last_name'];
+$_SESSION['first_name2'] = $list2['d_first_name'];
+$_SESSION['last_name2'] = $list2['d_last_name'];
 $_SESSION['pps2'] = $list2['pps_num'];
-
+$_SESSION['profile_pic2'] = $list2['profile_pic'];
 if (empty($list1) && empty($list2)) {
     echo '<script>
     setTimeout(function () { 
@@ -72,7 +73,7 @@ function(isConfirm){
     $password2 = $list2['password'];
 
     if ($login_password == $password2) {
-        echo 'yes2';
+        header('Location: ../../view/Doctor/doctor_home.php');
     } elseif ($login_password != $password2) {
         echo 'no2';
     }

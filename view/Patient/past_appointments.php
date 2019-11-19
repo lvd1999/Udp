@@ -110,8 +110,8 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                                         <tbody>
                                             <?php foreach ($patient_records_list as $record_list) : ?>
                                                 <tr>
-                                                    <td><?php echo $record_list['id']; ?></td>
-                                                    <td><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
+                                                    <td><?php echo $record_list['id']; $pps = $record_list['pps_num'];?></td>
+                                                    <td><a href="view_doctor.php?pps=<?php echo $pps;?>"><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
                                                     <td><?php echo $record_list['name']; ?></td>
                                                     <td><?php
                                                         $timestamp = strtotime($record_list['time']);

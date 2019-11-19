@@ -1,13 +1,23 @@
 <?php
 session_start();
-require('../../model/patient/patient_functions.php');
+require('../../model/doctor/doctor_functions.php');
 include_once '../../model/database.php';
+//if (!isset($_SESSION['patientSession'])) {
+//    header("Location: ../index.php");
+//}
+//$usersession = $_SESSION['patientSession'];
+$firstname = $_SESSION['first_name2'];
+$lastname = $_SESSION['last_name2'];
+$doctor_pps = $_SESSION['pps2'];
+$profile_pic = $_SESSION['profile_pic2'];
 
-$firstname = $_SESSION['first_name1'];
-$lastname = $_SESSION['last_name1'];
-$patient_pps = $_SESSION['pps1'];
-$patient_records_list = get_pastrecords_by_pps($patient_pps);
+$doctor_records_list = get_upcomingrecords_by_pps($doctor_pps)
 
+//$res = mysqli_query($con, "SELECT * FROM patient WHERE icPatient=" . $usersession);
+//if ($res === false) {
+//    echo mysql_error();
+//}
+//$userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +30,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Patient - Home</title>
+        <title>Doctor - Upcoming Appointments</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -44,7 +54,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <?php include 'patientSideBar.php'; ?>
+            <?php include 'doctorSideBar.php'; ?>
             <!-- End Sidebar -->
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
@@ -53,7 +63,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                 <div id="content">
 
                     <!-- Topbar -->
-                    <?php include 'patientTopBar.php'; ?>
+                    <?php include 'doctorTopBar.php'; ?>
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
@@ -67,11 +77,67 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
 
                     </div>
-                    
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Upcoming Appointments</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Appointment ID<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>PPS no.<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>Patient<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>Date<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>Time<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>Status<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Appointment ID</th>
+                                                <th>PPS no.</th>
+                                                <th>Patient</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <?php foreach ($doctor_records_list as $record_list) : ?>
+                                                <tr>
+                                                    <td><?php echo $record_list['id']; $pps = $record_list['pps_num'];?></td>
+                                                    <td><a href="view_patient.php?pps=<?php echo $pps;?>"><?php echo $record_list['pps_num']; ?></a></td>
+                                                    <td><?php echo $record_list['p_first_name']; ?> <?php echo $record_list['p_last_name']; ?></td>
+                                                    <td><?php
+                                                        $timestamp = strtotime($record_list['time']);
+                                                        echo date('d-m-Y', $timestamp);
+                                                        ?></td>
+                                                    <td><?php
+                                                        echo date('h.ia', $timestamp);
+                                                        ?></td>
+                                                    <td><?php echo $record_list['status']; ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- /.container-fluid -->
+
+                    </div>
                     <!-- End of Main Content -->
 
                     <!-- Footer -->
-                    <?php include 'patientFooter.php'; ?>
+                    <?php include 'doctorFooter.php'; ?>
                     <!-- End of Footer -->
 
                 </div>
@@ -115,17 +181,17 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
             <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
 
-          
-                      <!--jQuery--> 
+            <!--        START OF BUG
+                      jQuery 
                     <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
             
-                     <!--Isolated Version of Bootstrap, not needed if your site already uses Bootstrap--> 
+                     Isolated Version of Bootstrap, not needed if your site already uses Bootstrap 
                     <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
             
-                     <!--Bootstrap Date-Picker Plugin--> 
+                     Bootstrap Date-Picker Plugin 
                     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-                     <!--Include all compiled plugins (below), or include individual files as needed--> 
+                     Include all compiled plugins (below), or include individual files as needed 
                     <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
                     <script>
                         $(document).ready(function () {
@@ -139,7 +205,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                             });
                         });
                     </script>
-                
+                    END OF BUG-->
             <!-- Page level plugins -->
             <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>

@@ -1,22 +1,20 @@
 <?php
 session_start();
 
-include_once '../assets/conn/dbconnect.php';
-if (!isset($_SESSION['patientSession'])) {
-    header("Location: patientdashboard.php");
-}
+include_once '../../model/database.php';
+
 ?>
 
 <?php
 
 $msg = "";
 $msg_class = "";
-$conn = mysqli_connect("localhost", "root", "", "db_healthcare");
+$conn = mysqli_connect("localhost", "root", "", "drbook");
 if (isset($_POST['save_profile'])) {
     // for the database
     $profileImageName = time() . '-' . $_FILES["profileImage"]["name"];
     // For image upload
-    $target_dir = "../img/";
+    $target_dir = "../../Content/img/";
     $target_file = $target_dir . basename($profileImageName);
     // VALIDATION
     // validate image size. Size is calculated in Bytes
@@ -32,7 +30,8 @@ if (isset($_POST['save_profile'])) {
     // Upload image only if no errors
     if (empty($error)) {
         if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file)) {
-            $sql = "UPDATE patient SET profile_image='$profileImageName' WHERE icPatient=" . $_SESSION['patientSession'];
+            $sql = "UPDATE patients SET profile_pic='$profileImageName' WHERE pps_num='" . $_SESSION['pps1'] . "'";
+            $_SESSION['profile_pic'] = $profileImageName;
             if (mysqli_query($conn, $sql)) {
                 $msg = "Image uploaded and saved in the Database";
                 $msg_class = "alert-success";
@@ -44,7 +43,11 @@ if (isset($_POST['save_profile'])) {
             $error = "There was an error uploading the file";
             $msg = "alert-danger";
         }
+        
     header('Location: patient_profile.php');
     }
 }
-?>
+    ?> 
+<script type="text/javascript">
+    document.getElementById("upload_image").submit();
+</script>

@@ -1,12 +1,11 @@
 <?php
 session_start();
-require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
-
-$firstname = $_SESSION['first_name1'];
-$lastname = $_SESSION['last_name1'];
-$patient_pps = $_SESSION['pps1'];
-$patient_records_list = get_pastrecords_by_pps($patient_pps);
+require('../../model/doctor/doctor_functions.php');
+$firstname = $_SESSION['first_name2'];
+$lastname = $_SESSION['last_name2'];
+$doctor_pps = $_SESSION['pps2'];
+$profile_pic = $_SESSION['profile_pic2'];
 
 ?>
 <!DOCTYPE html>
@@ -20,7 +19,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Patient - Home</title>
+        <title>Doctor - Profile</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -44,7 +43,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <?php include 'patientSideBar.php'; ?>
+            <?php include 'doctorSideBar.php'; ?>
             <!-- End Sidebar -->
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
@@ -53,7 +52,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                 <div id="content">
 
                     <!-- Topbar -->
-                    <?php include 'patientTopBar.php'; ?>
+                    <?php include 'doctorTopBar.php'; ?>
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
@@ -71,7 +70,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     <!-- End of Main Content -->
 
                     <!-- Footer -->
-                    <?php include 'patientFooter.php'; ?>
+                    <?php include 'doctorFooter.php'; ?>
                     <!-- End of Footer -->
 
                 </div>

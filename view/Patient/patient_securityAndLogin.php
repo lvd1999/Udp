@@ -2,12 +2,21 @@
 session_start();
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
-
+//if (!isset($_SESSION['patientSession'])) {
+//    header("Location: ../index.php");
+//}
+//$usersession = $_SESSION['patientSession'];
 $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
+
+//$res = mysqli_query($con, "SELECT * FROM patient WHERE icPatient=" . $usersession);
+//if ($res === false) {
+//    echo mysql_error();
+//}
+//$userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +29,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Patient - Home</title>
+        <title>Patient - Settings</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -55,19 +64,44 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     <!-- Topbar -->
                     <?php include 'patientTopBar.php'; ?>
                     <!-- End of Topbar -->
-
                     <!-- Begin Page Content -->
-                    <div id="home_1" class="container-fluid">
+                    <div id="settingTitle">
+                        <h1>Settings</h1>
+                    </div>
+                    <div id="settings1" class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800"></h1>
+                        <div id="settingsMenu">
+                            <div id="settingsMenu1">
+                                <ul>
+                                    <li><a href="patient_settings.php">Your Medical </br>Information</a></li>
+                                    <li><a href="#" style="background: #8facff;color: black; font-weight: bold">Security and Login</a></li>
+                                </ul>
+                            </div>
+                        </div>
 
-
-
-
-
+                        <div id="settings1Content">
+                            <form action="../../controller/patient/changePassword.php" method="POST">
+                                <div class="input-group">
+                                    <label>Old Password</label>
+                                    <input type="password" name="old_password" value="">                            
+                                </div>
+                                <div class="input-group">
+                                    <label>New Password</label>
+                                    <input type="password" name="new_password" value="">                            
+                                </div>
+                                <div class="input-group">
+                                    <label>Confirm New Password</label>
+                                    <input type="password" name="confirm_new_password" value="">                                      
+                                </div>
+                                <br>
+                                <div class="form-action">
+                                    <button type="submit" class="btn btn-primary btn-block" name="patient_settings_password">Update</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    
+
                     <!-- End of Main Content -->
 
                     <!-- Footer -->
@@ -114,32 +148,6 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
             <!-- Custom scripts for all pages-->
             <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
-
-          
-                      <!--jQuery--> 
-                    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-            
-                     <!--Isolated Version of Bootstrap, not needed if your site already uses Bootstrap--> 
-                    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-            
-                     <!--Bootstrap Date-Picker Plugin--> 
-                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-                     <!--Include all compiled plugins (below), or include individual files as needed--> 
-                    <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
-                    <script>
-                        $(document).ready(function () {
-                            var date_input = $('input[name="date"]'); //our date input has the name "date"
-                            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                            date_input.datepicker({
-                                format: 'yyyy-mm-dd',
-                                container: container,
-                                todayHighlight: true,
-                                autoclose: true,
-                            });
-                        });
-                    </script>
-                
             <!-- Page level plugins -->
             <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>

@@ -1,42 +1,25 @@
-<?php
-
-$name = $_SESSION['name'];
-
-?>
-<header>
-    <div id="sticker" class="header-area">
+<nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12">
-
-                    <nav class="navbar navbar-default">
-                        <div class="navbar-header">
-                            <a class="navbar-brand page-scroll sticky-logo" href="index.php">
-                                <h1>ammu-nation<span>.com</span></h1>
-                            </a>
-                        </div>
-                        <div class="collapse navbar-collapse main-menu bs-example-navbar-collapse-1" id="navbar-example">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                    <a class="page-scroll" href="#home">Home</a>
-                                </li>                         
-                                <li>
-                                    <a class="page-scroll" href="#contact">Contact</a>
-                                </li class="active">
-                                <li>
-                                    <a class="page-scroll" href="gunManager/index.php">Manager</a>
-                                </li>
-                                <li>
-                                    <?php
-                                        echo"Hi, ";
-                                        echo $name;
-                                    ?>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
+          <div class="col-md-12">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				        <span class="icon-bar"></span>
+				      </button>
+              <a class="navbar-brand" href="#"><img src="img/logo.png" class="img-responsive" style="width: 40px; margin-top: -12px;"></a>
+              <a id="navlogoname" class="navbar-brand" href="#">Dr.Book</a>
             </div>
+            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="#banner">Home</a></li>
+                <li class=""><a href="#service">Services</a></li>
+                <li class=""><a href="#about">About</a></li>
+
+                <li class=""><a href="signUp.php">Sign Up</a></li>
+
+              </ul>
+            </div>
+          </div>
         </div>
-    </div>
-</header>
+      </nav>

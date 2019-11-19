@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-if(!isset($_SESSION['patientSession']))
-{
- header("Location: patient_home.php");
-}
-else if(isset($_SESSION['patientSession'])!="")
-{
- header("Location: ../index.php");
-}
+//if(!isset($_SESSION['patientSession']))
+//{
+// header("Location: patient_home.php");
+//}
+//else if(isset($_SESSION['patientSession'])!="")
+//{
+// header("Location: ../index.php");
+//}
 
 if(isset($_GET['logout']))
 {

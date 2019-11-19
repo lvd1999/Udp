@@ -1,12 +1,14 @@
 <?php
 session_start();
-require('../../model/patient/patient_functions.php');
+require('../../model/doctor/doctor_functions.php');
 include_once '../../model/database.php';
 
-$firstname = $_SESSION['first_name1'];
-$lastname = $_SESSION['last_name1'];
-$patient_pps = $_SESSION['pps1'];
-$patient_records_list = get_pastrecords_by_pps($patient_pps);
+$firstname = $_SESSION['first_name2'];
+$lastname = $_SESSION['last_name2'];
+$doctor_pps = $_SESSION['pps2'];
+$userDetail = get_doctor($doctor_pps);
+$profile_pic = $_SESSION['profile_pic2'];
+$userDetail2 = get_hospital($doctor_pps);
 
 ?>
 <!DOCTYPE html>
@@ -20,7 +22,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Patient - Home</title>
+        <title>Doctor - Profile</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -44,7 +46,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <div id="wrapper">
 
             <!-- Sidebar -->
-            <?php include 'patientSideBar.php'; ?>
+            <?php include 'doctorSideBar.php'; ?>
             <!-- End Sidebar -->
             <!-- Content Wrapper -->
             <div id="content-wrapper" class="d-flex flex-column">
@@ -53,25 +55,97 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                 <div id="content">
 
                     <!-- Topbar -->
-                    <?php include 'patientTopBar.php'; ?>
+                    <?php include 'doctorTopBar.php'; ?>
                     <!-- End of Topbar -->
-
                     <!-- Begin Page Content -->
-                    <div id="home_1" class="container-fluid">
+                    <h3><?php echo "$firstname $lastname's profile"; ?></h3>
+                    <!--user profile pic-->
+                    <?php
+                    if (is_null($userDetail['profile_pic'])) {                  //fix this
+                        echo "<img src='../../Content/img/avatar.jpg'  id='profileDisplay'>";
+                    } else {
+                        echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "'  id='profileDisplay'>";
+                    }
+                    ?>
 
-                        <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800"></h1>
+                    <!--User details-->
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>PPS Number</td>
+                                <td><?php echo $userDetail['pps_num']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><?php echo $userDetail['email']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>First Name</td>
+                                <td><?php echo $userDetail['d_first_name']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td><?php echo $userDetail['d_last_name']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td>
+                                <td><?php echo $userDetail['gender']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hospital</td>
+                                <td><?php echo $userDetail2['hospital_name']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Town</td>
+                                <td><?php echo $userDetail2['town_city']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>County</td>
+                                <td><?php echo $userDetail2['county_name']; ?>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <table>
+                        <tbody>
+                            <!--additional information-->
+                        <h3>Additional information</h3>
+                        <tr>
+                            <td>University</td>
+                            <td><?php echo $userDetail['university']; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Course</td>
+                            <td><?php echo $userDetail['course']; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Conferal Date</td>
+                            <td><?php echo $userDetail['conferal_date']; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Registration Number</td>
+                            <td><?php echo $userDetail['registration_num']; ?>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>                   
 
 
 
-
-
-                    </div>
-                    
+                    <!-- End Page Content -->
                     <!-- End of Main Content -->
 
                     <!-- Footer -->
-                    <?php include 'patientFooter.php'; ?>
+                    <?php include 'doctorFooter.php'; ?>
                     <!-- End of Footer -->
 
                 </div>
@@ -114,32 +188,6 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
             <!-- Custom scripts for all pages-->
             <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
-
-          
-                      <!--jQuery--> 
-                    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-            
-                     <!--Isolated Version of Bootstrap, not needed if your site already uses Bootstrap--> 
-                    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-            
-                     <!--Bootstrap Date-Picker Plugin--> 
-                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-                     <!--Include all compiled plugins (below), or include individual files as needed--> 
-                    <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
-                    <script>
-                        $(document).ready(function () {
-                            var date_input = $('input[name="date"]'); //our date input has the name "date"
-                            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                            date_input.datepicker({
-                                format: 'yyyy-mm-dd',
-                                container: container,
-                                todayHighlight: true,
-                                autoclose: true,
-                            });
-                        });
-                    </script>
-                
             <!-- Page level plugins -->
             <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>

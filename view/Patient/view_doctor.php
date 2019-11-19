@@ -2,11 +2,15 @@
 session_start();
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
+$doctor_pps = $_GET['pps'];
 
 $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
+$userDetail = get_doctor($doctor_pps);
+$profile_pic = $_SESSION['profile_pic2'];
+$userDetail2 = get_hospital($doctor_pps);
 
 ?>
 <!DOCTYPE html>
@@ -57,17 +61,88 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <div id="home_1" class="container-fluid">
+                        <h3><?php echo $userDetail['d_first_name']; ?> <?php echo $userDetail['d_last_name']; ?>'s profile</h3>
+                    <!--user profile pic-->
+                    <?php
+                    if (is_null($userDetail['profile_pic'])) {                  //fix this
+                        echo "<img src='../../Content/img/avatar.jpg'  id='profileDisplay'>";
+                    } else {
+                        echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "'  id='profileDisplay'>";
+                    }
+                    ?>
 
-                        <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800"></h1>
+                    <!--User details-->
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>PPS Number</td>
+                                <td><?php echo $userDetail['pps_num']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Email</td>
+                                <td><?php echo $userDetail['email']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>First Name</td>
+                                <td><?php echo $userDetail['d_first_name']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Last Name</td>
+                                <td><?php echo $userDetail['d_last_name']; ?></td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td>
+                                <td><?php echo $userDetail['gender']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Hospital</td>
+                                <td><?php echo $userDetail2['hospital_name']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Town</td>
+                                <td><?php echo $userDetail2['town_city']; ?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>County</td>
+                                <td><?php echo $userDetail2['county_name']; ?>
+                                </td>
+                            </tr>
 
+                        </tbody>
+                    </table>
 
+                    <table>
+                        <tbody>
+                            <!--additional information-->
+                        <h3>Additional information</h3>
+                        <tr>
+                            <td>University</td>
+                            <td><?php echo $userDetail['university']; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Course</td>
+                            <td><?php echo $userDetail['course']; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Conferal Date</td>
+                            <td><?php echo $userDetail['conferal_date']; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Registration Number</td>
+                            <td><?php echo $userDetail['registration_num']; ?>
+                            </td>
+                        </tr>
 
-
-
-                    </div>
+                        </tbody>
+                    </table>   
                     
+                    <!-- End Page Content -->
                     <!-- End of Main Content -->
 
                     <!-- Footer -->

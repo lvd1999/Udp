@@ -139,8 +139,10 @@ $userDetail2 = get_hospital($doctor_pps);
                         </tbody>
                     </table>                   
 
-
-
+                    <form action="doctor_update_form.php">
+                        <input type="submit" value="Update Profile" />
+                    </form>
+                    
                     <!-- End Page Content -->
                     <!-- End of Main Content -->
 

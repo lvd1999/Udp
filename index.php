@@ -8,8 +8,7 @@ if (!isset($login_pps)) {
     $login_pps = '';
 }
 ?>
-
-
+<h1>123</h1>
 <!-- login -->
 <!-- check session -->
 <?php

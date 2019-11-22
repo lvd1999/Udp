@@ -11,13 +11,6 @@
         <link href="../../Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="../../Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="../../Content/css/style.css" rel="stylesheet" type="text/css"/>
-        <!-- =======================================================
-          Theme Name: Medilab
-          Theme URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
-          Author: BootstrapMade.com
-          Author URL: https://bootstrapmade.com
-        ======================================================= -->
-        
         <style>
             .bg-color {
                 margin-bottom: -500px;
@@ -33,7 +26,7 @@
                 padding: 20px;
                 height: 500px;
                 width: 1000px;
-                margin-left: -420px;
+                margin-left: -25%;
                 margin-top: 100px;
                 
             }

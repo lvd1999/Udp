@@ -15,7 +15,7 @@ $userDetail2 = get_address($patient_pps);
 if (isset($_POST['submit'])) {
 //variables
     $firstname = $_POST['patientFirstName'];
-    $lastname = $_POST['patientLastName'];    
+    $lastname = $_POST['patientLastName'];
     $birthdate = $_POST['patientDOB'];
     $gender = $_POST['patientGender'];
 //    $address = $_POST['address'];
@@ -25,10 +25,10 @@ if (isset($_POST['submit'])) {
     $town = $_POST['patientTown'];
     $postcode = $_POST['patientPostcode'];
     $county = $_POST['county'];
-    
-$con = mysqli_connect("localhost","root","","drbook");
-$query2 = "UPDATE patients SET p_first_name='$firstname', p_last_name='$lastname',  birthdate='$birthdate', gender='$gender', contact_mobile='$contact', email='$email' WHERE pps_num='" . $patient_pps . "'";
-$query3 = "UPDATE addresses SET street_address='$address', town_city='$town', postcode='$postcode',county_id='$county' WHERE id='" . $userDetail2['id'] . "'";
+
+    $con = mysqli_connect("localhost", "root", "", "drbook");
+    $query2 = "UPDATE patients SET p_first_name='$firstname', p_last_name='$lastname',  birthdate='$birthdate', gender='$gender', contact_mobile='$contact', email='$email' WHERE pps_num='" . $patient_pps . "'";
+    $query3 = "UPDATE addresses SET street_address='$address', town_city='$town', postcode='$postcode',county_id='$county' WHERE id='" . $userDetail2['id'] . "'";
 
     $res = mysqli_query($con, $query2);
     $res2 = mysqli_query($con, $query3);
@@ -48,7 +48,6 @@ if ($userDetail['gender'] == 'male') {
 } elseif ($userDetail['gender'] == 'other') {
     $other = "checked";
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +71,7 @@ if ($userDetail['gender'] == 'male') {
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-        
+
         <script src="../../model/patient/scripts.js" type="text/javascript"></script>
     </head>
 
@@ -105,111 +104,111 @@ if ($userDetail['gender'] == 'male') {
                     }
                     ?>
                     <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
-                    <?php if (!empty($msg)): ?>
+                        <?php if (!empty($msg)): ?>
                             <div class="alert <?php echo $msg_class ?>" role="alert">
-                            <?php echo $$msg; ?>
+                                <?php echo $$msg; ?>
                             </div>
-                            <?php endif; ?>
+                        <?php endif; ?>
                         <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
                         <button type="submit" name="save_profile" class="btn btn-primary btn-block">Save Image</button>
                     </form>
-                    
-                    
+
+
                     <!--update profile form-->
                     <!-- form start -->
-                                        <form action="<?php $_PHP_SELF ?>" method="post" >
-                                            <table class="table table-user-information">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>PPS Number:</td>
-                                                        <td><?php echo $userDetail['pps_num']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>First Name:</td>
-                                                        <td><input type="text" class="form-control" name="patientFirstName" value="<?php echo $userDetail['p_first_name']; ?>"  /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Last Name</td>
-                                                        <td><input type="text" class="form-control" name="patientLastName" value="<?php echo $userDetail['p_last_name']; ?>"  /></td>
-                                                    </tr>
-
-                                                    
-                                                    <tr>
-                                                        <td>DOB</td>
-                                                         
-                                                        <td>
-                                                            <div class="form-group ">
-
-                                                                <div class="input-group">
-                                                                    <div class="input-group-addon">
-                                                                        <i class="fa fa-calendar">
-                                                                        </i>
-                                                                    </div>
-                                                                    <input class="form-control" id="patientDOB" name="patientDOB" placeholder="MM/DD/YYYY" type="text" value="<?php echo $userDetail['birthdate']; ?>"/>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-
-                                                    </tr>
-                                                    <!-- radio button -->
-                                                    <tr>
-                                                        <td>Gender</td>
-                                                        <td>
-                                                            <div class="radio">
-                                                                <label><input type="radio" name="patientGender" value="male" <?php echo $male; ?>>Male</label>
-                                                            </div>
-                                                            <div class="radio">
-                                                                <label><input type="radio" name="patientGender" value="female" <?php echo $female; ?>>Female</label>
-                                                            </div>
-                                                            <div class="radio">
-                                                                <label><input type="radio" name="patientGender" value="other" <?php echo $other; ?>>Other</label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <!-- radio button end -->
-
-                                                    <tr>
-                                                        <td>Phone number</td>
-                                                        <td><input type="text" class="form-control" name="patientPhone" value="<?php echo $userDetail['contact_mobile']; ?>"  /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Email</td>
-                                                        <td><input type="text" class="form-control" name="patientEmail" value="<?php echo $userDetail['email']; ?>"  /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Address</td>
-                                                        <td><textarea class="form-control" name="patientAddress"  ><?php echo $userDetail2['street_address']; ?></textarea></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Town</td>
-                                                        <td><textarea class="form-control" name="patientTown"  ><?php echo $userDetail2['town_city']; ?></textarea></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Postcode</td>
-                                                        <td><textarea class="form-control" name="patientPostcode"  ><?php echo $userDetail2['postcode']; ?></textarea></td>
-                                                    </tr>
-                                 <tr>
-                                                        <td>County</td>
-                                                        <td><select name="county" id="county">
-                                                                <option value="<?php echo $userDetail2['county_id']; ?>" selected hidden> <?php echo $userDetail2['county_name']; ?></option>
-                                                                <?php foreach ($counties as $county) : ?>
-                                                                    <option value="<?php echo $county['id']; ?>"><?php echo $county['name']; ?></option>
-                                                                <?php endforeach; ?>
-                                                            </select></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="submit" name="submit" class="btn btn-info" value="Update Info"></td>
-                                                    </tr>
-                                                </tbody>
-
-                                            </table>
+                    <form action="<?php $_PHP_SELF ?>" method="post" >
+                        <table class="table table-user-information">
+                            <tbody>
+                                <tr>
+                                    <td>PPS Number:</td>
+                                    <td><?php echo $userDetail['pps_num']; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>First Name:</td>
+                                    <td><input type="text" class="form-control" name="patientFirstName" value="<?php echo $userDetail['p_first_name']; ?>"  /></td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name</td>
+                                    <td><input type="text" class="form-control" name="patientLastName" value="<?php echo $userDetail['p_last_name']; ?>"  /></td>
+                                </tr>
 
 
+                                <tr>
+                                    <td>DOB</td>
 
-                                        </form>
-                                        <!-- form end -->
-                    
+                                    <td>
+                                        <div class="form-group ">
+
+                                            <div class="input-group">
+                                                <div class="input-group-addon">
+                                                    <i class="fa fa-calendar">
+                                                    </i>
+                                                </div>
+                                                <input class="form-control" id="patientDOB" name="patientDOB" placeholder="MM/DD/YYYY" type="text" value="<?php echo $userDetail['birthdate']; ?>"/>
+                                            </div>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                                <!-- radio button -->
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>
+                                        <div class="radio">
+                                            <label><input type="radio" name="patientGender" value="male" <?php echo $male; ?>>Male</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="patientGender" value="female" <?php echo $female; ?>>Female</label>
+                                        </div>
+                                        <div class="radio">
+                                            <label><input type="radio" name="patientGender" value="other" <?php echo $other; ?>>Other</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <!-- radio button end -->
+
+                                <tr>
+                                    <td>Phone number</td>
+                                    <td><input type="text" class="form-control" name="patientPhone" value="<?php echo $userDetail['contact_mobile']; ?>"  /></td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td><input type="text" class="form-control" name="patientEmail" value="<?php echo $userDetail['email']; ?>"  /></td>
+                                </tr>
+                                <tr>
+                                    <td>Address</td>
+                                    <td><textarea class="form-control" name="patientAddress"  ><?php echo $userDetail2['street_address']; ?></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>Town</td>
+                                    <td><textarea class="form-control" name="patientTown"  ><?php echo $userDetail2['town_city']; ?></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>Postcode</td>
+                                    <td><textarea class="form-control" name="patientPostcode"  ><?php echo $userDetail2['postcode']; ?></textarea></td>
+                                </tr>
+                                <tr>
+                                    <td>County</td>
+                                    <td><select name="county" id="county">
+                                            <option value="<?php echo $userDetail2['county_id']; ?>" selected hidden> <?php echo $userDetail2['county_name']; ?></option>
+                                            <?php foreach ($counties as $county) : ?>
+                                                <option value="<?php echo $county['id']; ?>"><?php echo $county['name']; ?></option>
+                                            <?php endforeach; ?>
+                                        </select></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="submit" name="submit" class="btn btn-info" value="Update Info"></td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+
+
+
+                    </form>
+                    <!-- form end -->
+
                     <!--End of page content-->
                 </div>
                 <!-- End of Main Content -->
@@ -264,7 +263,7 @@ if ($userDetail['gender'] == 'male') {
         <!-- Custom scripts for all pages-->
         <script src="../js/sb-admin-2.min.js"></script>
 
-        
+
         <!--  jQuery -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -288,7 +287,7 @@ if ($userDetail['gender'] == 'male') {
                                 });
                             });
         </script>
-        
+
     </body>
 
 </html>

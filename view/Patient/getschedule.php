@@ -2,7 +2,8 @@
 session_start();
 $con = mysqli_connect("localhost", "root", "", "drbook");
 $q = $_GET['q'];
-$res = mysqli_query($con,"SELECT s.doctor_id, s.id ,d.d_first_name, s.date, s.time, s.status FROM schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id WHERE s.date='" . $q . "'");
+$res = mysqli_query($con,"SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name, s.date, s.time, s.status FROM schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id WHERE s.date='" . $q . "'"
+        . " AND status='available'");
 
 //$_SESSION['doctor_id'] = $data['doctor_id'];
 //$_SESSION['date'] = $data['doctor_id'];
@@ -65,6 +66,7 @@ die("Error running $sql: " . mysqli_error());
                     . "<input style=\"display:none;\" type=\"text\" name=\"doctor_id\" value=\"" . $row['doctor_id'] . "\" />"
                     . "<input style=\"display:none;\" type=\"text\" name=\"date\" value=\"" . $row['date'] . "\" />"
                     . "<input style=\"display:none;\" type=\"text\" name=\"time\" value=\"" . $row['time'] . "\" />"
+                    . "<input style=\"display:none;\" type=\"text\" name=\"schedule_id\" value=\"" . $row['schedule_id'] . "\" />"
                     . "<input type=\"submit\" name=\"submit\" value=\"Book\" Book/> "
                     . "</form></td>";
 //                    echo "<td><a href='appointment.php?&appid=" . $row['id'] . "&date=".$q."' class='btn btn-".$btnclick." btn-xs' role='button' ".$btnstate.">Book Now</a></td>";

@@ -91,6 +91,7 @@ if ($userDetail['gender'] == 'male') {
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
+                    
                     <!--user profile pic-->
                     <?php
                     if (is_null($userDetail['profile_pic'])) {
@@ -106,7 +107,7 @@ if ($userDetail['gender'] == 'male') {
                             </div>
                             <?php endif; ?>
                         <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
-                        <button type="submit" name="save_profile" class="btn btn-primary btn-block">Save Image</button>
+                        <button type="submit" name="save_profile" class="btn btn-primary btn-block d-none" id="imageSubmit">Save Image</button>
                     </form>
                     
                     
@@ -252,7 +253,7 @@ if ($userDetail['gender'] == 'male') {
     </body>
 
 </html>
-<script src="assets/js/scripts.js"></script>
+<script src="../../Content/js/scripts.js" type="text/javascript"></script>
 
 <script type="text/javascript">
         $(document).ready(function () {

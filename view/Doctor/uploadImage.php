@@ -31,7 +31,7 @@ if (isset($_POST['save_profile'])) {
     if (empty($error)) {
         if (move_uploaded_file($_FILES["profileImage"]["tmp_name"], $target_file)) {
             $sql = "UPDATE doctors SET profile_pic='$profileImageName' WHERE pps_num='" . $_SESSION['pps2'] . "'";
-            $_SESSION['profile_pic'] = $profileImageName;
+            $_SESSION['profile_pic2'] = $profileImageName;
             if (mysqli_query($conn, $sql)) {
                 $msg = "Image uploaded and saved in the Database";
                 $msg_class = "alert-success";
@@ -49,5 +49,5 @@ if (isset($_POST['save_profile'])) {
 }
     ?> 
 <script type="text/javascript">
-    document.getElementById("upload_image").submit();
+
 </script>

@@ -49,5 +49,5 @@ if (isset($_POST['save_profile'])) {
 }
     ?> 
 <script type="text/javascript">
-    document.getElementById("upload_image").submit();
+   
 </script>

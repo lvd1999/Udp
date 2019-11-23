@@ -87,7 +87,7 @@ $userDetail2 = get_hospital($doctor_pps);
             }
             #myTabContent{
                 margin-left: 55%;
-                margin-top: -20%;
+                margin-top: 0;
 
             }
             .profile-tab label{
@@ -145,7 +145,7 @@ $userDetail2 = get_hospital($doctor_pps);
                                     <h3>
                                         <?php echo "$firstname $lastname"; ?>
                                     </h3>
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist" style="bottom:10px;position: relative;">
                                         <li class="nav-item">
                                             <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
                                         </li>

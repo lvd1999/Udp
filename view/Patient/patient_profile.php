@@ -85,7 +85,7 @@ $userDetail2 = get_address($patient_pps);
             }
             #myTabContent{
                 margin-left: 55%;
-                margin-top: -20%;
+                margin-top: -15%;
 
             }
             .profile-tab label{
@@ -157,7 +157,7 @@ $userDetail2 = get_address($patient_pps);
                             </div>
                             <div class="col-md-2">
                                 <form class="profile-edit-btn" action="patient_update_form.php">
-                                    <input type="submit" value="Edit Profile" />
+                                    <input class="form-control" type="submit" value="Edit Profile" />
                                 </form>
                             </div>
                         </div>

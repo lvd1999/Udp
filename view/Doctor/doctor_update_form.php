@@ -15,14 +15,14 @@ $userDetail2 = get_hospital($doctor_pps);
 if (isset($_POST['submit'])) {
 //variables
     $firstname = $_POST['patientFirstName'];
-    $lastname = $_POST['patientLastName'];    
+    $lastname = $_POST['patientLastName'];
 //    $address = $_POST['address'];
     $email = $_POST['patientEmail'];
     $hospital = $_POST['hospital'];
-    
-$con = mysqli_connect("localhost","root","","drbook");
-$query2 = "UPDATE doctors SET d_first_name='$firstname', d_last_name='$lastname', email='$email' WHERE pps_num='" . $doctor_pps . "'";
-$query3 = "UPDATE doctors set hospital_id = '$hospital' WHERE pps_num='" . $doctor_pps . "'";
+
+    $con = mysqli_connect("localhost", "root", "", "drbook");
+    $query2 = "UPDATE doctors SET d_first_name='$firstname', d_last_name='$lastname', email='$email' WHERE pps_num='" . $doctor_pps . "'";
+    $query3 = "UPDATE doctors set hospital_id = '$hospital' WHERE pps_num='" . $doctor_pps . "'";
 
 
     $res = mysqli_query($con, $query2);
@@ -43,7 +43,6 @@ if ($userDetail['gender'] == 'male') {
 } elseif ($userDetail['gender'] == 'other') {
     $other = "checked";
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +55,7 @@ if ($userDetail['gender'] == 'male') {
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Patient - Update Profile</title>
+        <title>Doctor - Update Profile</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -67,8 +66,18 @@ if ($userDetail['gender'] == 'male') {
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-        
+
         <script src="../../model/patient/scripts.js" type="text/javascript"></script>
+        
+        <style type="text/css">
+            .emp-profile{
+                padding: 3%;
+                margin-top: 3%;
+                margin-bottom: 3%;
+                border-radius: 0.5rem;
+                background: #fff;
+            }
+        </style>
     </head>
 
     <body id="page-top">
@@ -89,88 +98,67 @@ if ($userDetail['gender'] == 'male') {
                     <!-- Topbar -->
                     <?php include 'doctorTopBar.php'; ?>
                     <!-- End of Topbar -->
+                    <div class="container emp-profile">
+                        <!--update profile form-->
+                        <!-- form start -->
+                        <form action="<?php $_PHP_SELF ?>" method="post" >
+                            <table class="table table-user-information">
+                                <tbody>
+                                    <tr>
+                                        <td>PPS Number:</td>
+                                        <td><?php echo $userDetail['pps_num']; ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>First Name:</td>
+                                        <td><input type="text" class="form-control" name="patientFirstName" value="<?php echo $userDetail['d_first_name']; ?>"  /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Last Name</td>
+                                        <td><input type="text" class="form-control" name="patientLastName" value="<?php echo $userDetail['d_last_name']; ?>"  /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Email</td>
+                                        <td><input type="text" class="form-control" name="patientEmail" value="<?php echo $userDetail['email']; ?>"  /></td>
+                                    </tr>
 
-                    <!-- Begin Page Content -->
-                    
-                    <!--user profile pic-->
-                    <?php
-                    if (is_null($userDetail['profile_pic'])) {
-                        echo "<img src='../../Content/img/avatar.jpg' onClick='triggerClick()' id='profileDisplay'>";
-                    } else {
-                        echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "' onClick='triggerClick()' id='profileDisplay'>";
-                    }
-                    ?>
-                    <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
-                    <?php if (!empty($msg)): ?>
-                            <div class="alert <?php echo $msg_class ?>" role="alert">
-                            <?php echo $$msg; ?>
-                            </div>
-                            <?php endif; ?>
-                        <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
-                        <button type="submit" name="save_profile" class="btn btn-primary btn-block d-none" id="imageSubmit">Save Image</button>
-                    </form>
-                    
-                    
-                    <!--update profile form-->
-                    <!-- form start -->
-                                        <form action="<?php $_PHP_SELF ?>" method="post" >
-                                            <table class="table table-user-information">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>PPS Number:</td>
-                                                        <td><?php echo $userDetail['pps_num']; ?></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>First Name:</td>
-                                                        <td><input type="text" class="form-control" name="patientFirstName" value="<?php echo $userDetail['d_first_name']; ?>"  /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Last Name</td>
-                                                        <td><input type="text" class="form-control" name="patientLastName" value="<?php echo $userDetail['d_last_name']; ?>"  /></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Email</td>
-                                                        <td><input type="text" class="form-control" name="patientEmail" value="<?php echo $userDetail['email']; ?>"  /></td>
-                                                    </tr>
-                                                    
-                                 <tr>
-                                                        <td>County</td>
-                                                        <td><select name="county" id="county">
-                                                                <option value="<?php echo $userDetail2['county_id']; ?>" selected hidden> <?php echo $userDetail2['county_name']; ?></option>
-                    <?php foreach ($counties as $county) : ?>
-                        <option value="<?php echo $county['id']; ?>"><?php echo $county['name']; ?></option>
-                    <?php endforeach; ?>
-                </select></td>
-                                                    </tr>
-                                                    <tr>
-<!--                                                <div id="show_hospitals">
-                                                    <label>Hospital</label>
-                                                    <select name="hospital" id="hospital">                      
-                                                        <option value="0">Any</option>
-                                                    </select>
-                                                </div>-->
-<td>Hospital</td>
-<td>
-    <select name="hospital" id="show_hospitals">                      
-        <!--<option value="0" selected hidden>Any</option>-->
-        <option value="<?php echo $userDetail2['hospital_id']; ?>" selected hidden> <?php echo $userDetail2['hospital_name']; ?></option>
-                                                    </select>
-</td>
+                                    <tr>
+                                        <td>County</td>
+                                        <td><select name="county" id="county">
+                                                <option value="<?php echo $userDetail2['county_id']; ?>" selected hidden> <?php echo $userDetail2['county_name']; ?></option>
+                                                <?php foreach ($counties as $county) : ?>
+                                                    <option value="<?php echo $county['id']; ?>"><?php echo $county['name']; ?></option>
+                                                <?php endforeach; ?>
+                                            </select></td>
+                                    </tr>
+                                    <tr>
+                                        <!--                                                <div id="show_hospitals">
+                                                                                            <label>Hospital</label>
+                                                                                            <select name="hospital" id="hospital">                      
+                                                                                                <option value="0">Any</option>
+                                                                                            </select>
+                                                                                        </div>-->
+                                        <td>Hospital</td>
+                                        <td>
+                                            <select name="hospital" id="show_hospitals">                      
+                                                <!--<option value="0" selected hidden>Any</option>-->
+                                                <option value="<?php echo $userDetail2['hospital_id']; ?>" selected hidden> <?php echo $userDetail2['hospital_name']; ?></option>
+                                            </select>
+                                        </td>
 
-                                            </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="submit" name="submit" class="btn btn-info" value="Update Info"></td>
-                                                    </tr>
-                                                </tbody>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="submit" name="submit" class="btn btn-info" value="Update Info"></td>
+                                    </tr>
+                                </tbody>
 
-                                            </table>
+                            </table>
 
 
 
-                                        </form>
-                                        <!-- form end -->
-                    
+                        </form>
+                        <!-- form end -->
+                    </div>
                     <!--End of page content-->
                 </div>
                 <!-- End of Main Content -->
@@ -215,6 +203,23 @@ if ($userDetail['gender'] == 'male') {
             </div>
         </div>
 
+
+        <script src="../../Content/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="../../Content/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+
+        <!-- Core plugin JavaScript-->
+        <script src="../../Content/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
+
+        <!-- Custom scripts for all pages-->
+        <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
+
+        <!-- Page level plugins -->
+        <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
+
         <!-- Bootstrap core JavaScript-->
         <script src="../vendor/jquery/jquery.min.js"></script>
         <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -225,7 +230,7 @@ if ($userDetail['gender'] == 'male') {
         <!-- Custom scripts for all pages-->
         <script src="../js/sb-admin-2.min.js"></script>
 
-        
+
         <!--  jQuery -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
@@ -238,51 +243,49 @@ if ($userDetail['gender'] == 'male') {
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="assets/js/bootstrap.min.js"></script>
         <script>
-                            $(document).ready(function () {
-                                var date_input = $('input[name="date"]'); //our date input has the name "date"
-                                var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                                date_input.datepicker({
-                                    format: 'yyyy-mm-dd',
-                                    container: container,
-                                    todayHighlight: true,
-                                    autoclose: true,
-                                });
-                            });
+            $(document).ready(function () {
+                var date_input = $('input[name="date"]'); //our date input has the name "date"
+                var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                date_input.datepicker({
+                    format: 'yyyy-mm-dd',
+                    container: container,
+                    todayHighlight: true,
+                    autoclose: true,
+                });
+            });
         </script>
-        
+        <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#county').change(function (e) {
+                            $.ajax({
+                                url: "../../model/doctor/get_hospitals.php",
+                                method: "POST",
+                                data: {county_id: $(e.target).val()},
+                                success: function (data) {
+                                    var assArr = jQuery.parseJSON(data);
+                                    $("#output").html("Error");
+                                    if (assArr['success'])
+                                    {
+                                        $('#show_hospitals').html(assArr['output']);
+
+                                    } else {
+                                        $("#output").html("Error");
+                                    }
+                                },
+                                error: function (xhr, status, error) {
+                                    var err = eval("(" + xhr.responseText + ")");
+                                    alert(err.Message);
+                                    $("#output").html(error);
+
+                                }
+
+                            });
+                        });
+
+                    });
+
+        </script>
+
     </body>
 
 </html>
-<script src="../../Content/js/scripts.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-        $(document).ready(function () {
-            $('#county').change(function (e) {
-                $.ajax({
-                    url: "../../model/doctor/get_hospitals.php",
-                    method: "POST",
-                    data: {county_id: $(e.target).val()},
-                    success: function (data) {
-                        var assArr = jQuery.parseJSON(data);
-                        $("#output").html("Error");
-                        if (assArr['success'])
-                        {
-                            $('#show_hospitals').html(assArr['output']);
-
-                        } else {
-                            $("#output").html("Error");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        var err = eval("(" + xhr.responseText + ")");
-                        alert(err.Message);
-                        $("#output").html(error);
-
-                    }
-
-                });
-            });
-
-        });
-
-    </script>

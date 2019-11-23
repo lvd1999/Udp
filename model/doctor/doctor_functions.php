@@ -63,6 +63,7 @@ function get_hospital($doctor_pps) {
     $statement->closeCursor();
     return $record_list;
 }
+
 function get_additional_info_by_pps($doctor_pps) {
     global $db;
     $query = 'SELECT d.university, d.course, d.conferal_date, d.registration_num, d.registration_date, s.speciality_name, d.speciality_date
@@ -115,4 +116,15 @@ function get_patient_pastrecords_by_pps($patient_pps) {
     $statement->closeCursor();
     return $record_list;
 }
+
+function get_schedule() {
+    global $db;
+    $query = 'SELECT date,time FROM schedules';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $list = $statement->fetchAll();
+    $statement->closeCursor();
+    return $list;
+}
+
 ?>

@@ -82,7 +82,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
                         <!--Date table input-->
                         <div class="bootstrap-iso">
-                            <div id="txtHint" ></div>
+
 
                             <div class="input-group" style="margin-bottom:10px;">
                                 <div class="input-group-addon">
@@ -91,6 +91,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                                 </div>
                                 <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
                             </div>
+                            <div id="txtHint" ></div>
                         </div>
 
                     </div>

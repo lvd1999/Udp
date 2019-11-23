@@ -29,6 +29,15 @@ $_SESSION['first_name2'] = $list2['d_first_name'];
 $_SESSION['last_name2'] = $list2['d_last_name'];
 $_SESSION['pps2'] = $list2['pps_num'];
 $_SESSION['profile_pic2'] = $list2['profile_pic'];
+
+if(is_null($_SESSION['profile_pic']))
+{
+    $_SESSION['profile_pic'] = "avatar.jpg";
+}
+if(is_null($_SESSION['profile_pic2']))
+{
+    $_SESSION['profile_pic2'] = "avatar.jpg";
+}
 if (empty($list1) && empty($list2)) {
     echo '<script>
     setTimeout(function () { 

@@ -200,14 +200,9 @@ if ($userDetail['gender'] == 'male') {
                     <!--End of page content-->
                 </div>
                 <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2019</span>
-                        </div>
-                    </div>
-                </footer>
+                <?php include 'patientFooter.php'; ?>
                 <!-- End of Footer -->
+                
                 <!-- End of Content Wrapper -->
 
             </div>
@@ -272,21 +267,9 @@ if ($userDetail['gender'] == 'male') {
         <!-- Bootstrap Date-Picker Plugin -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="assets/js/bootstrap.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                var date_input = $('input[name="date"]'); //our date input has the name "date"
-                var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                date_input.datepicker({
-                    format: 'yyyy-mm-dd',
-                    container: container,
-                    todayHighlight: true,
-                    autoclose: true,
-                });
-            });
-        </script>
+        
 
     </body>
 
 </html>
+<script src="../../Content/js/scripts.js" type="text/javascript"></script>

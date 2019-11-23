@@ -87,7 +87,7 @@ $userDetail2 = get_hospital($doctor_pps);
             }
             #myTabContent{
                 margin-left: 55%;
-                margin-top: -20%;
+                margin-top: -10%;
 
             }
             .profile-tab label{
@@ -123,11 +123,11 @@ $userDetail2 = get_hospital($doctor_pps);
                             <div class="col-md-4">
                                 <div class="profile-img">
                                     <?php
-                                    if (is_null($userDetail['profile_pic'])) {
-                                        echo "<img src='../../Content/img/avatar.jpg' onClick='triggerClick()' id='profileDisplay'>";
-                                    } else {
-                                        echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "' onClick='triggerClick()' id='profileDisplay'>";
-                                    }
+//                                    if (is_null($userDetail['profile_pic2'])) {
+//                                        echo "<img src='../../Content/img/avatar.jpg' onClick='triggerClick()' id='profileDisplay'>";
+//                                    } else {
+                                        echo "<img src='" . "../../Content/img/" . $profile_pic . "' onClick='triggerClick()' id='profileDisplay'>";
+//                                    }
                                     ?>
                                     <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
                                         <?php if (!empty($msg)): ?>
@@ -136,7 +136,7 @@ $userDetail2 = get_hospital($doctor_pps);
                                             </div>
                                         <?php endif; ?>
                                         <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
-                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block">Save Image</button>
+                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block d-none" id="imageSubmit">Save Image</button>
                                     </form>
                                 </div>
                             </div>

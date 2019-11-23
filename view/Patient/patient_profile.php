@@ -85,7 +85,7 @@ $userDetail2 = get_address($patient_pps);
             }
             #myTabContent{
                 margin-left: 55%;
-                margin-top: -20%;
+                margin-top: -10%;
 
             }
             .profile-tab label{
@@ -136,7 +136,7 @@ $userDetail2 = get_address($patient_pps);
                                             </div>
                                         <?php endif; ?>
                                         <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
-                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block">Save Image</button>
+                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block d-none" id="imageSubmit">Save Image</button>
                                     </form>
                                 </div>
                             </div>

@@ -50,18 +50,6 @@ $profile_pic = $_SESSION['profile_pic2'];
 
                 <!-- Main Content -->
                 <div id="content">
-                    <!--Date table input-->
-                    <div class="bootstrap-iso">
-                        <div id="txtHint" ></div>
-
-                        <div class="input-group" style="margin-bottom:10px;">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar">
-                                </i>
-                            </div>
-                            <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
-                        </div>
-                    </div>
                     <!-- Topbar -->
                     <?php include 'doctorTopBar.php'; ?>
                     <!-- End of Topbar -->
@@ -74,6 +62,7 @@ $profile_pic = $_SESSION['profile_pic2'];
 
 
 
+                    
 
 
                     </div>

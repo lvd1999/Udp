@@ -40,7 +40,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
+        
     </head>
 
     <body id="page-top">

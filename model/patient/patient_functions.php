@@ -101,5 +101,4 @@ function get_hospital($doctor_pps) {
     $statement->closeCursor();
     return $record_list;
 }
-
 ?>

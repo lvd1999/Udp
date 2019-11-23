@@ -23,6 +23,7 @@ $_SESSION['first_name1'] = $list1['p_first_name'];
 $_SESSION['last_name1'] = $list1['p_last_name'];
 $_SESSION['pps1'] = $list1['pps_num'];
 $_SESSION['profile_pic'] = $list1['profile_pic'];
+$_SESSION['patient_id'] = $list1['id'];
 
 $_SESSION['first_name2'] = $list2['d_first_name'];
 $_SESSION['last_name2'] = $list2['d_last_name'];

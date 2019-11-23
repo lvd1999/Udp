@@ -51,13 +51,28 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
                 <!-- Main Content -->
                 <div id="content">
-
+                    
+                    
                     <!-- Topbar -->
                     <?php include 'patientTopBar.php'; ?>
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
                     <div id="home_1" class="container-fluid">
+                        
+                    <!--Date table input-->
+                    <div class="bootstrap-iso">
+                        <div id="txtHint" ></div>
+
+                        <div class="input-group" style="margin-bottom:10px;">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar">
+                                </i>
+                            </div>
+                            <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
+                        </div>
+                    </div>
+                    <!--End of date table-->
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-4 text-gray-800"></h1>
@@ -69,7 +84,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     </div>
                     
                     <!-- End of Main Content -->
-
+                    
                     <!-- Footer -->
                     <?php include 'patientFooter.php'; ?>
                     <!-- End of Footer -->
@@ -149,4 +164,28 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
     </body>
 
 </html>
+<script>
+                            function showUser(str) {
 
+                                if (str == "") {
+                                    document.getElementById("txtHint").innerHTML = "No data to be shown";
+                                    return;
+                                } else {
+                                    if (window.XMLHttpRequest) {
+                                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                                        xmlhttp = new XMLHttpRequest();
+                                    } else {
+                                        // code for IE6, IE5
+                                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                    }
+                                    xmlhttp.onreadystatechange = function () {
+                                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                            document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                                        }
+                                    };
+                                    xmlhttp.open("GET", "getschedule.php?q=" + str, true);
+                                    console.log(str);
+                                    xmlhttp.send();
+                                }
+                            }
+</script>

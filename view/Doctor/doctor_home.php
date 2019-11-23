@@ -50,7 +50,18 @@ $profile_pic = $_SESSION['profile_pic2'];
 
                 <!-- Main Content -->
                 <div id="content">
+                    <!--Date table input-->
+                    <div class="bootstrap-iso">
+                        <div id="txtHint" ></div>
 
+                        <div class="input-group" style="margin-bottom:10px;">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar">
+                                </i>
+                            </div>
+                            <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
+                        </div>
+                    </div>
                     <!-- Topbar -->
                     <?php include 'doctorTopBar.php'; ?>
                     <!-- End of Topbar -->
@@ -149,3 +160,31 @@ $profile_pic = $_SESSION['profile_pic2'];
 
 </html>
 
+
+
+
+<script>
+                            function showUser(str) {
+
+                                if (str == "") {
+                                    document.getElementById("txtHint").innerHTML = "No data to be shown";
+                                    return;
+                                } else {
+                                    if (window.XMLHttpRequest) {
+                                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                                        xmlhttp = new XMLHttpRequest();
+                                    } else {
+                                        // code for IE6, IE5
+                                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                    }
+                                    xmlhttp.onreadystatechange = function () {
+                                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                            document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                                        }
+                                    };
+                                    xmlhttp.open("GET", "getschedule.php?q=" + str, true);
+                                    console.log(str);
+                                    xmlhttp.send();
+                                }
+                            }
+                        </script>

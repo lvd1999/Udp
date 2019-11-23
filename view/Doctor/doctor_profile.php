@@ -58,13 +58,13 @@ $userDetail2 = get_hospital($doctor_pps);
                     <?php include 'doctorTopBar.php'; ?>
                     <!-- End of Topbar -->
                     <!-- Begin Page Content -->
-                    <h3><?php echo "$firstname $lastname's profile"; ?></h3>
+                    
                     <!--user profile pic-->
                     <?php
                     if (is_null($userDetail['profile_pic'])) {                  //fix this
                         echo "<img src='../../Content/img/avatar.jpg'  id='profileDisplay'>";
                     } else {
-                        echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "'  id='profileDisplay'>";
+                        echo "<img class=\"img-profile rounded-circle\" src='" . "../../Content/img/" . $userDetail['profile_pic'] . "'  id='profileDisplay'>";
                     }
                     ?>
 
@@ -139,8 +139,10 @@ $userDetail2 = get_hospital($doctor_pps);
                         </tbody>
                     </table>                   
 
-
-
+                    <form action="doctor_update_form.php">
+                        <input type="submit" value="Update Profile" />
+                    </form>
+                    
                     <!-- End Page Content -->
                     <!-- End of Main Content -->
 

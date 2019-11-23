@@ -35,7 +35,7 @@ $userDetail2 = get_hospital($doctor_pps);
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
         <!-- Datatable -->
-
+        <script src="../../model/patient/scripts.js" type="text/javascript"></script>
         <style type="text/css">
 
             .emp-profile{
@@ -119,157 +119,154 @@ $userDetail2 = get_hospital($doctor_pps);
                     <?php include 'doctorTopBar.php'; ?>
                     <!-- Main Content -->
                     <div class="container emp-profile">
-                        <form method="post">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="profile-img">
-                                        <?php
-                                        if (is_null($userDetail['profile_pic'])) {
-                                            echo "<img src='../../Content/img/avatar.jpg' onClick='triggerClick()' id='profileDisplay'>";
-                                        } else {
-                                            echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "' onClick='triggerClick()' id='profileDisplay'>";
-                                        }
-                                        ?>
-                                        <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
-                                            <?php if (!empty($msg)): ?>
-                                                <div class="alert <?php echo $msg_class ?>" role="alert">
-                                                    <?php echo $$msg; ?>
-                                                </div>
-                                            <?php endif; ?>
-                                            <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
-                                            <button type="submit" name="save_profile" class="btn btn-primary btn-block">Save Image</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="profile-head">
-                                        <h3>
-                                            <?php echo "$firstname $lastname"; ?>
-                                        </h3>
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Additional</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <form class="profile-edit-btn" action="doctor_update_form.php">
-                                        <input type="submit" value="Edit Profile" />
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="profile-img">
+                                    <?php
+                                    if (is_null($userDetail['profile_pic'])) {
+                                        echo "<img src='../../Content/img/avatar.jpg' onClick='triggerClick()' id='profileDisplay'>";
+                                    } else {
+                                        echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "' onClick='triggerClick()' id='profileDisplay'>";
+                                    }
+                                    ?>
+                                    <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
+                                        <?php if (!empty($msg)): ?>
+                                            <div class="alert <?php echo $msg_class ?>" role="alert">
+                                                <?php echo $$msg; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
+                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block">Save Image</button>
                                     </form>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="tab-content profile-tab" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>PPS Number</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail['pps_num']; ?></p>
-                                                </div>
+                            <div class="col-md-6">
+                                <div class="profile-head">
+                                    <h3>
+                                        <?php echo "$firstname $lastname"; ?>
+                                    </h3>
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Additional</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <form class="profile-edit-btn" action="doctor_update_form.php">
+                                    <input type="submit" value="Edit Profile" />
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="tab-content profile-tab" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>PPS Number</label>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Email</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail['email']; ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>First Name</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail['d_first_name']; ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Last Name</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail['d_last_name']; ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Gender</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail['gender']; ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Hospital</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail2['hospital_name']; ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Town</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail2['town_city']; ?></p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>County</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail2['county_name']; ?></p>
-                                                </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['pps_num']; ?></p>
                                             </div>
                                         </div>
-                                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>University</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail['university']; ?>
-                                                </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Course</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail['course']; ?></p>
-                                                </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['email']; ?></p>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Conferal Date</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail['conferal_date']; ?></p>
-                                                </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>First Name</label>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Restration Number</label>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><?php echo $userDetail['registration_num']; ?></p>
-                                                </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['d_first_name']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Last Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['d_last_name']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Gender</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['gender']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Hospital</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail2['hospital_name']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Town</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail2['town_city']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>County</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail2['county_name']; ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>University</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['university']; ?>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Course</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['course']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Conferal Date</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['conferal_date']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Restration Number</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['registration_num']; ?></p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </form>
-
+                        </div>
                     </div>
                     <!-- Footer -->
                     <?php include 'doctorFooter.php'; ?>
@@ -319,6 +316,29 @@ $userDetail2 = get_hospital($doctor_pps);
 
             <!-- Page level custom scripts -->
             <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
+
+            <!-- Bootstrap core JavaScript-->
+            <script src="../vendor/jquery/jquery.min.js"></script>
+            <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+            <!-- Core plugin JavaScript-->
+            <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+            <!-- Custom scripts for all pages-->
+            <script src="../js/sb-admin-2.min.js"></script>
+
+
+            <!--  jQuery -->
+            <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+            <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+            <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+            <!-- Bootstrap Date-Picker Plugin -->
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+            <script src="assets/js/bootstrap.min.js"></script>
     </body>
 
 </html>

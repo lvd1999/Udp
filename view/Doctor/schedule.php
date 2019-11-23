@@ -6,6 +6,8 @@ $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
 $profile_pic = $_SESSION['profile_pic2'];
+
+$schedule_list = get_schedule();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -285,7 +287,7 @@ $profile_pic = $_SESSION['profile_pic2'];
                                     $('#send').click(function () {
                                         console.log("hi " + availableTime);
                                         $.ajax({
-                                            url: "../../model/doctor/schedule.php",
+                                            url: "../../model/doctor/scheduleOut.php",
                                             method: "POST",
                                             data: {time: availableTime},
                                             success: function (data) {
@@ -306,9 +308,18 @@ $profile_pic = $_SESSION['profile_pic2'];
                                     document.getElementById("fri").textContent = "Fri " + getDateString(4, str);
                                     this.generateArray();
                                     var x = document.getElementById("tbody");
+<?php
+$lists = array();
+foreach ($schedule_list as $schedule) :
+    $x = $schedule['date'] . 'T' . $schedule['time'] . '.000Z';
+    array_push($lists, $x);
+endforeach;
+$js_array = json_encode($lists);
+?>
+                                    var arrayIn = <?php echo $js_array ?>;
                                     for (i = 0; i <= 44; i++)
                                     {
-                                        if (this.availableTime.indexOf(this.currentWeekByTime[i]) != -1) {
+                                        if (this.availableTime.indexOf(this.currentWeekByTime[i]) != -1 || arrayIn.indexOf(this.currentWeekByTime[i])!= -1) {
                                             x.getElementsByClassName("cells")[i].style.backgroundColor = "#f0d7cc";
                                         } else {
                                             x.getElementsByClassName("cells")[i].style.backgroundColor = "#ffffff";

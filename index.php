@@ -8,10 +8,7 @@ if (!isset($login_pps)) {
     $login_pps = '';
 }
 ?>
-<!-- login -->
-<!-- check session -->
-<?php
-?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,12 +24,6 @@ if (!isset($login_pps)) {
         <link href="Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="Content/css/style.css" rel="stylesheet" type="text/css"/>
         <link href="Content/css/style.css" rel="stylesheet" type="text/css"/>
-        <!-- =======================================================
-          Theme Name: Medilab
-          Theme URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
-          Author: BootstrapMade.com
-          Author URL: https://bootstrapmade.com
-        ======================================================= -->
     </head>
 
     <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
@@ -48,7 +39,7 @@ if (!isset($login_pps)) {
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                 </button>
-                                <a class="navbar-brand" href="#"><img src="content/img/logo.png" class="img-responsive" style="width: 40px; margin-top: -12px;"></a>
+                                <a class="navbar-brand" href="#"><img src="Content/img/logo.png" class="img-responsive" style="width: 40px; margin-top: -12px;"></a>
                                 <a id="navlogoname" class="navbar-brand" href="#">Dr.Book</a>
                             </div>
                             <div class="collapse navbar-collapse navbar-right" id="myNavbar">
@@ -62,6 +53,7 @@ if (!isset($login_pps)) {
                         </div>
                     </div>
                 </nav>
+
                 <div class="container">
                     <div class="row">
                         <div class="banner-info">
@@ -321,15 +313,66 @@ if (!isset($login_pps)) {
                 </div>
             </div>
         </section>
-        <!--/ contact-->
-        <?php include 'view/footer.php'; ?>
+
+        <footer id="footer">
+            <div class="top-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4 marb20">
+                            <div class="ftr-tle">
+                                <h4 class="white no-padding">About Us</h4>
+                            </div>
+                            <div class="info-sec">
+                                <p>Praesent convallis tortor et enim laoreet, vel consectetur purus latoque penatibus et dis parturient.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 marb20">
+                            <div class="ftr-tle">
+                                <h4 class="white no-padding">Quick Links</h4>
+                            </div>
+                            <div class="info-sec">
+                                <ul class="quick-info">
+                                    <li><a href="#banner"><i class="fa fa-circle"></i>Home</a></li>
+                                    <li><a href="#service"><i class="fa fa-circle"></i>Service</a></li>
+                                    <li><a href="#contact"><i class="fa fa-circle"></i>Appointment</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-4 marb20">
+                            <div class="ftr-tle">
+                                <h4 class="white no-padding">Follow us</h4>
+                            </div>
+                            <div class="info-sec">
+                                <ul class="social-icon">
+                                    <li class="bglight-blue"><i class="fa fa-facebook"></i></li>
+                                    <li class="bgred"><i class="fa fa-google-plus"></i></li>
+                                    <li class="bgdark-blue"><i class="fa fa-linkedin"></i></li>
+                                    <li class="bglight-blue"><i class="fa fa-twitter"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-line">
+                <div class="container">
+                    <div class="row">
+
+                    </div>
+                </div>
+            </div>
+        </footer>
 
         <script src="Content/js/jquery.min.js" type="text/javascript"></script>
         <script src="Content/js/jquery.easing.min.js" type="text/javascript"></script>
-        <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="Content/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="Content/js/custom.js" type="text/javascript"></script>
         <script src="Content/js/contactform.js" type="text/javascript"></script>
 
     </body>
 
 </html>
+
+
+
+

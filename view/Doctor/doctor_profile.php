@@ -157,7 +157,7 @@ $userDetail2 = get_hospital($doctor_pps);
                             </div>
                             <div class="col-md-2">
                                 <form class="profile-edit-btn" action="doctor_update_form.php">
-                                    <input type="submit" value="Edit Profile" />
+                                    <input class="form-control" type="submit" value="Edit Profile" />
                                 </form>
                             </div>
                         </div>

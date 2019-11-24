@@ -96,7 +96,7 @@ $doctor_records_list = get_pastrecords_by_pps($doctor_pps)
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Upcoming Appointments</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Past Appointments</h6>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">

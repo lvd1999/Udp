@@ -124,8 +124,11 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps)
                                         <tbody>
                                             <?php foreach ($doctor_records_list as $record_list) : ?>
                                                 <tr>
-                                                    <td><?php echo $record_list['id']; $pps = $record_list['pps_num'];?></td>
-                                                    <td><a href="view_patient.php?pps=<?php echo $pps;?>"><?php echo $record_list['pps_num']; ?></a></td>
+                                                    <td><?php
+                                                        echo $record_list['id'];
+                                                        $pps = $record_list['pps_num'];
+                                                        ?></td>
+                                                    <td><a href="view_patient.php?pps=<?php echo $pps; ?>"><?php echo $record_list['pps_num']; ?></a></td>
                                                     <td><?php echo $record_list['p_first_name']; ?> <?php echo $record_list['p_last_name']; ?></td>
                                                     <td><?php
                                                         $timestamp = strtotime($record_list['time']);
@@ -134,7 +137,12 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps)
                                                     <td><?php
                                                         echo date('h.ia', $timestamp);
                                                         ?></td>
-                                                    <td><?php echo $record_list['status']; ?></td>
+                                                    <td>
+                                                        <select class="form-control status">        
+                                                            <option value="<?php echo $record_list['id'] ?>pending" selected>pending</option>
+                                                            <option value="<?php echo $record_list['id'] ?>completed">completed</option>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>
@@ -225,6 +233,32 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps)
 
             <!-- Page level custom scripts -->
             <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.status').change(function (e) {
+                        
+                        $.ajax({
+                            url: "../../model/doctor/changeStatus.php",
+                            method: "POST",
+                            data: {string: $(e.target).val()},
+                            success: function (data) {
+                                console.log("hi " + data);
+                                window.location.reload(true);
+                            },
+                            error: function (xhr, status, error) {
+                                var err = eval("(" + xhr.responseText + ")");
+                                alert(err.Message);
+                                $("#output").html(error);
+
+                            }
+
+                        });
+                    });
+
+                });
+
+            </script>
     </body>
 
 </html>

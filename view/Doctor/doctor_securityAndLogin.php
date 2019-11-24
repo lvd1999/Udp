@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['block'])) {
+    header('Location: ../../index.php');
+}
 require('../../model/doctor/doctor_functions.php');
 include_once '../../model/database.php';
 
@@ -8,7 +11,6 @@ $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
 $doctor_additional_info = get_additional_info_by_pps($doctor_pps);
 $profile_pic = $_SESSION['profile_pic2'];
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -98,14 +100,11 @@ $profile_pic = $_SESSION['profile_pic2'];
 
 
                 <!-- End of Main Content -->
-
                 <!-- Footer -->
                 <?php include 'doctorFooter.php'; ?>
                 <!-- End of Footer -->
-
             </div>
             <!-- End of Content Wrapper -->
-
         </div>
         <!-- End of Page Wrapper -->
 

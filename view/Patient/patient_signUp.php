@@ -1,4 +1,7 @@
-<?php include('../../controller/signUp/patient_signUpProccess.php') ?>
+<?php 
+include('../../controller/signUp/patient_signUpProccess.php');
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,7 +20,7 @@
             }
             .form-group {
                 padding: 5px;
-                
+
             }
             .header {
                 margin-left: 325px;
@@ -26,9 +29,8 @@
                 padding: 20px;
                 height: 500px;
                 width: 1000px;
-                margin-left: -25%;
-                margin-top: 100px;
-                
+                margin-left: -620px;
+                margin-top: 85px;
             }
             .top {
                 height: 25px;
@@ -47,72 +49,89 @@
                 width: 400px;
             }
             #footer {
-               margin-top: 500px; 
+                margin-top: 200px; 
             }
         </style>
-        
+
     </head>
     <body>
-        <section id="banner" class="banner">
-            <div class="bg-color">
-                <?php include '../../view/header.php'; ?>
-                <section class="top">
-                </section>
-                <div id="loginarea">
-                    <div class="header">
-                        <h2>Register as Patient</h2>
+        <section class="banner">
+            <div >
+                <nav class="navbar navbar-default navbar-fixed-top" style="height:73px; background: #1D4E5F;opacity: 0.9;">
+                    <div class="container">
+                        <div class="col-md-12">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href="#"><img src="../../Content/img/logo.png" class="img-responsive" style="width: 40px; margin-top: -12px;"></a>
+                                <a id="navlogoname" class="navbar-brand" href="../../index.php">Dr.Book</a>
+                            </div>
+                            <div class="collapse navbar-collapse navbar-right" id="myNavbar">
+                                <ul class="nav navbar-nav">
+                                    <li class="active"><a href="../../index.php">Home</a></li>
+                                    <li class=""><a href="../signUp.php">Sign Up</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-
-                    <form method="post" action="patient_signUp.php" autocomplete="off">
-                        <?php include('../../controller/signUp/error.php'); ?>
-                        <div class="form-part" id="form-left">
-                            <div class="form-group">
-                                <label>First Name</label>
-                                <input type="text" class="form-control" name="firstname" placeholder="First Name" value="<?php echo $firstname; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label>Last Name</label>
-                                <input type="text" class="form-control" name="lastname" placeholder="Last Name" value="<?php echo $lastname; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label>Date of Birth</label>
-                                <input type="date" class="form-control" name="dob" value="<?php echo $dob; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label>PPS Number</label>
-                                <input type="text" class="form-control" name="pps" placeholder="PPS number" value="<?php echo $pps; ?>">
-                            </div>
-                        </div>
-                        <div class="form-part" id="form-right">
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>">
-                            </div>
-                            <div class="form-group" id="gender">
-                                <label>Gender</label>
-                                <input type="radio" name="gender" value="male" checked> Male
-                                <input type="radio" name="gender" value="female"> Female
-                                <input type="radio" name="gender" value="others"> Other<br>  
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" class="form-control" name="password_1" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <label>Confirm password</label>
-                                <input type="password" class="form-control" name="password_2" placeholder="Confirm password">
-                            </div>
-                        </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block" name="reg_user">Register</button>
-                            </div>
-                            <p>
-                                Already a member? <a href="../../index.php">Sign in</a>
-                            </p>
-                    </form>
-                </div>
+                </nav>
             </div>
         </section>
+        <div id="loginarea">
+            <div class="header">
+                <h2>Register as Patient</h2>
+            </div>
+
+            <form method="post" action="../../controller/signUp/patient_signUpProccess.php" autocomplete="off">
+                <div class="form-part" id="form-left">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input required type="text" class="form-control" name="firstname" placeholder="First Name" value="<?php echo $firstname; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input required type="text" class="form-control" name="lastname" placeholder="Last Name" value="<?php echo $lastname; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input required type="date" class="form-control" name="dob" value="<?php echo $dob; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label>PPS Number</label>
+                        <input required type="text" class="form-control" name="pps" placeholder="PPS number" value="<?php echo $pps; ?>">
+                    </div>
+                </div>
+                <div class="form-part" id="form-right">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input required type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>">
+                    </div>
+                    <div class="form-group" id="gender">
+                        <label>Gender</label>
+                        <input required type="radio" name="gender" value="male" checked> Male
+                        <input required type="radio" name="gender" value="female"> Female
+                        <input required type="radio" name="gender" value="others"> Other<br>  
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input required type="password" class="form-control" name="password_1" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm password</label>
+                        <input required type="password" class="form-control" name="password_2" placeholder="Confirm password">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block" name="reg_user">Register</button>
+                </div>
+                <p>
+                    Already a member? <a href="../../index.php">Sign in</a>
+                </p>
+            </form>
+        </div>
         <?php include '../../view/footer.php'; ?>
     </body>
 </html>

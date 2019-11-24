@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['block'])) {
+    header('Location: ../../index.php');
+}
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
 //if (!isset($_SESSION['patientSession'])) {
@@ -29,7 +32,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Patient - Home</title>
+        <title>Patient - Book</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -40,7 +43,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-        
+
     </head>
 
     <body id="page-top">
@@ -78,11 +81,11 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800">Appointment List</h1>
+                        <h1 class="h3 mb-4 text-gray-800">Book An Appointment</h1>
 
                         <!--Date table input-->
                         <div class="bootstrap-iso">
-                            <div id="txtHint" ></div>
+
 
                             <div class="input-group" style="margin-bottom:10px;">
                                 <div class="input-group-addon">
@@ -91,19 +94,18 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                                 </div>
                                 <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
                             </div>
+                            <div id="txtHint" ></div>
                         </div>
 
                     </div>
 
                     <!-- End of Main Content -->
 
-                    <!-- Footer -->
-                    <?php include 'patientFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+                <?php include 'patientFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 

@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['block'])) {
+    header('Location: ../../index.php');
+}
 require('../../model/doctor/doctor_functions.php');
 include_once '../../model/database.php';
 
@@ -87,7 +90,7 @@ $userDetail2 = get_hospital($doctor_pps);
             }
             #myTabContent{
                 margin-left: 55%;
-                margin-top: -10%;
+                margin-top: 0;
 
             }
             .profile-tab label{
@@ -123,11 +126,7 @@ $userDetail2 = get_hospital($doctor_pps);
                             <div class="col-md-4">
                                 <div class="profile-img">
                                     <?php
-//                                    if (is_null($userDetail['profile_pic2'])) {
-//                                        echo "<img src='../../Content/img/avatar.jpg' onClick='triggerClick()' id='profileDisplay'>";
-//                                    } else {
-                                        echo "<img src='" . "../../Content/img/" . $profile_pic . "' onClick='triggerClick()' id='profileDisplay'>";
-//                                    }
+                                    echo "<img src='" . "../../Content/img/" . $profile_pic . "' onClick='triggerClick()' id='profileDisplay' height=\"100\" width=\"100\">";
                                     ?>
                                     <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
                                         <?php if (!empty($msg)): ?>
@@ -140,206 +139,207 @@ $userDetail2 = get_hospital($doctor_pps);
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="profile-head">
                                     <h3>
                                         <?php echo "$firstname $lastname"; ?>
                                     </h3>
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Additional</a>
-                                        </li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <form class="profile-edit-btn" action="doctor_update_form.php">
-                                    <input type="submit" value="Edit Profile" />
-                                </form>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="tab-content profile-tab" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>PPS Number</label>
+                                <div class="col-md-12">
+                                    <nav>
+                                        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">About</a>
+                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Additional</a>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                            <div class="row">   
+                                                <div class="col-md-10 mb-3">
+                                                    <form class="profile-edit-btn" action="doctor_update_form.php">
+                                                        <input class="form-control" type="submit" value="Edit Profile" />
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>PPS Number</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['pps_num']; ?></p>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['pps_num']; ?></p>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Email</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['email']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>First Name</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['d_first_name']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Last Name</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['d_last_name']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Gender</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['gender']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Hospital</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail2['hospital_name']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Town</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail2['town_city']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>County</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail2['county_name']; ?></p>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Email</label>
+                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                            <div class="row">
+                                                <div class="col-md-10 mb-3">
+                                                    <form class="profile-edit-btn" action="doctor_settings.php">
+                                                        <input class="form-control" type="submit" value="Edit Additional" />
+                                                    </form>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label>University</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['university']; ?>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['email']; ?></p>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Course</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['course']; ?></p>
+                                                </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Conferal Date</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['conferal_date']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Restration Number</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['registration_num']; ?></p>
+                                                </div>
+                                            </div>
+
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>First Name</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['d_first_name']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Last Name</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['d_last_name']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Gender</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['gender']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Hospital</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['hospital_name']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Town</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['town_city']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>County</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['county_name']; ?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>University</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['university']; ?>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Course</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['course']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Conferal Date</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['conferal_date']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Restration Number</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['registration_num']; ?></p>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- Footer -->
-                    <?php include 'doctorFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
-            </div>
+                <!-- Footer -->
+                <?php include 'doctorFooter.php'; ?>
+                <!-- End of Footer -->
 
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
 
-            <!-- Scroll to Top Button-->
-            <a class="scroll-to-top rounded" href="#page-top">
-                <i class="fas fa-angle-up"></i>
-            </a>
-
-            <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="patientlogout.php?logout">Logout</a>
+                <!-- Logout Modal-->
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary" href="patientlogout.php?logout">Logout</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Bootstrap core JavaScript-->
-            <script src="../../Content/vendor/jquery/jquery.min.js" type="text/javascript"></script>
-            <script src="../../Content/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+                <!-- Bootstrap core JavaScript-->
+                <script src="../../Content/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+                <script src="../../Content/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
 
-            <!-- Core plugin JavaScript-->
-            <script src="../../Content/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
+                <!-- Core plugin JavaScript-->
+                <script src="../../Content/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
 
-            <!-- Custom scripts for all pages-->
-            <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
+                <!-- Custom scripts for all pages-->
+                <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
-            <!-- Page level plugins -->
-            <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-            <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+                <!-- Page level plugins -->
+                <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+                <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
 
-            <!-- Page level custom scripts -->
-            <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
+                <!-- Page level custom scripts -->
+                <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
 
-            <!-- Bootstrap core JavaScript-->
-            <script src="../vendor/jquery/jquery.min.js"></script>
-            <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+                <!-- Bootstrap core JavaScript-->
+                <script src="../vendor/jquery/jquery.min.js"></script>
+                <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-            <!-- Core plugin JavaScript-->
-            <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+                <!-- Core plugin JavaScript-->
+                <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
 
-            <!-- Custom scripts for all pages-->
-            <script src="../js/sb-admin-2.min.js"></script>
+                <!-- Custom scripts for all pages-->
+                <script src="../js/sb-admin-2.min.js"></script>
 
 
-            <!--  jQuery -->
-            <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+                <!--  jQuery -->
+                <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-            <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-            <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+                <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+                <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
-            <!-- Bootstrap Date-Picker Plugin -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-            <!-- Include all compiled plugins (below), or include individual files as needed -->
-            <script src="assets/js/bootstrap.min.js"></script>
-    </body>
+                <!-- Bootstrap Date-Picker Plugin -->
+                <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+                <!-- Include all compiled plugins (below), or include individual files as needed -->
+                <script src="assets/js/bootstrap.min.js"></script>
+                </body>
 
-</html>
+                </html>
+                <script src="../../Content/js/scripts.js" type="text/javascript"></script>
 

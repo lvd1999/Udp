@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['block'])) {
+    header('Location: ../../index.php');
+}
 include_once '../../model/database.php';
 require('../../model/doctor/doctor_functions.php');
 $firstname = $_SESSION['first_name2'];
@@ -20,7 +23,7 @@ $schedule_list = get_schedule();
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Doctor - Profile</title>
+        <title>Doctor - Schedule</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -65,6 +68,7 @@ $schedule_list = get_schedule();
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
+                    <h1 class="h3 mb-4 text-gray-800">Schedule your timetable</h1>
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="">
@@ -162,13 +166,11 @@ $schedule_list = get_schedule();
 
                     <!-- End of Main Content -->
 
-                    <!-- Footer -->
-                    <?php include 'doctorFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+                <?php include 'doctorFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 
@@ -301,11 +303,11 @@ $schedule_list = get_schedule();
                                 function dateChange(val) {
                                     var str = val;
 
-                                    document.getElementById("mon").textContent = "Mon" + getDateString(0, str);
-                                    document.getElementById("tues").textContent = "Tues " + getDateString(1, str);
-                                    document.getElementById("wed").textContent = "Wed " + getDateString(2, str);
-                                    document.getElementById("thurs").textContent = "Thurs " + getDateString(3, str);
-                                    document.getElementById("fri").textContent = "Fri " + getDateString(4, str);
+                                    document.getElementById("mon").textContent = "Monday" + "(" + getDateString(0, str) + ")";
+                                    document.getElementById("tues").textContent = "Tuesday" + "(" + getDateString(1, str) + ")";
+                                    document.getElementById("wed").textContent = "Wednesday " + "(" + getDateString(2, str) + ")";
+                                    document.getElementById("thurs").textContent = "Thursday " + "(" + getDateString(3, str) + ")";
+                                    document.getElementById("fri").textContent = "Friday " + "(" + getDateString(4, str) + ")";
                                     this.generateArray();
                                     var x = document.getElementById("tbody");
 <?php
@@ -319,7 +321,7 @@ $js_array = json_encode($lists);
                                     var arrayIn = <?php echo $js_array ?>;
                                     for (i = 0; i <= 44; i++)
                                     {
-                                        if (this.availableTime.indexOf(this.currentWeekByTime[i]) != -1 || arrayIn.indexOf(this.currentWeekByTime[i])!= -1) {
+                                        if (this.availableTime.indexOf(this.currentWeekByTime[i]) != -1 || arrayIn.indexOf(this.currentWeekByTime[i]) != -1) {
                                             x.getElementsByClassName("cells")[i].style.backgroundColor = "#f0d7cc";
                                         } else {
                                             x.getElementsByClassName("cells")[i].style.backgroundColor = "#ffffff";

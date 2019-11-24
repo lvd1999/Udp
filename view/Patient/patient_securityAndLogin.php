@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['block'])) {
+    header('Location: ../../index.php');
+}
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
 //if (!isset($_SESSION['patientSession'])) {
@@ -104,13 +107,11 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
                     <!-- End of Main Content -->
 
-                    <!-- Footer -->
-                    <?php include 'patientFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+                <?php include 'patientFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 

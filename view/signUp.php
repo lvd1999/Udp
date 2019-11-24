@@ -68,7 +68,7 @@
                 position: relative;
                 top: 20px;
                 opacity: 0;
-                color: #2c3e50;
+                color: white;
                 text-transform: uppercase;
                 
             }
@@ -81,13 +81,12 @@
                 margin: auto;
                 width: 0%;
                 height: 2px;
-                background: #2c3e50;
+                background: gold;
                 text-decoration: none;
             }
 
             figure:hover figcaption{
-                background: rgba(29, 78, 95, 0.1);
-                
+                background: rgba(29, 78, 95, 0.3);
             }
 
             figcaption:hover div{
@@ -103,6 +102,12 @@
             figure:hover img{
                 -webkit-transform: scale3d(1.02, 1.02, 1);
                 transform: scale3d(1.02, 1.02, 1);
+            }
+            a:hover{
+                color: white;
+            }
+            a{
+                color: white;
             }
 
         </style>

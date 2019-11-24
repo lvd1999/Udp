@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>view/Doctor/upcoming_appointments.php</url>
+            <bookmark id="1">
+                <name/>
+                <line>116</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/H:/Co%20Year3/UDP/adminlogin.php</file>
-            <file>file:/H:/Co%20Year3/UDP/view/Patient/patient_update_form.php</file>
-            <file>file:/H:/Co%20Year3/UDP/view/Doctor/doctor_profile.php</file>
-            <file>file:/H:/Co%20Year3/UDP/view/Doctor/doctor_home.php</file>
-            <file>file:/H:/Co%20Year3/UDP/view/Doctor/doctor_update_form.php</file>
-            <file>file:/H:/Co%20Year3/UDP/view/Patient/patient_profile.php</file>
-            <file>file:/H:/Co%20Year3/UDP/view/Patient/patient_home.php</file>
-            <file>file:/H:/Co%20Year3/UDP/view/Patient/patientTopBar.php</file>
-            <file>file:/H:/Co%20Year3/UDP/index.php</file>
+            <file>file:/D:/xampp/htdocs/udp/index.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/doctor_home.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/doctorTopBar.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Patient/patient_home.php</file>
+            <file>file:/D:/xampp/htdocs/udp/controller/loginout/patientlogout.php</file>
         </group>
     </open-files>
 </project-private>

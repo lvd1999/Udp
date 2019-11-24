@@ -1,5 +1,11 @@
 <?php
 include_once 'model/database.php';
+session_start();
+if (!isset($_SESSION['block']) && isset($_SESSION['doctor'])) {
+    header('Location: view/Doctor/doctor_home.php');
+}elseif (!isset($_SESSION['block']) && isset($_SESSION['patient'])) {
+    header('Location: view/Patient/patient_home.php');
+}
 // include_once 'assets/conn/server.php';
 if (!isset($login_password)) {
     $login_password = '';
@@ -69,17 +75,20 @@ if (!isset($login_pps)) {
 
                                             <div class="form-group">
                                                 <label class="sr-only" for="login_pps">PPS Number</label>
-                                                <input type="text" class="form-control" name="login_pps" placeholder="PPS Number" required>
+                                                <input required type="text" class="form-control" name="login_pps" placeholder="PPS Number" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="sr-only" for="password">Password</label>
-                                                <input type="password" class="form-control" name="login_password" placeholder="Password" required>
+                                                <input required type="password" class="form-control" name="login_password" placeholder="Password" required>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" name="login" id="login" class="btn btn-primary btn-block">
                                                     Sign In
                                                 </button>
                                             </div>
+                                            <p style="font-size: 12px;">
+                                                <a href="view/forgotAcc.php">Forgot account? </a>
+                                            </p>
                                         </form>
                                     </div>
                                 </div>

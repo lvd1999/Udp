@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+$_SESSION['block'] = true;
 //if(!isset($_SESSION['patientSession']))
 //{
 // header("Location: patient_home.php");
@@ -12,7 +12,6 @@ session_start();
 
 if(isset($_GET['logout']))
 {
- session_destroy();
  unset($_SESSION['patientSession']);
  header("Location: ../../index.php");
 }

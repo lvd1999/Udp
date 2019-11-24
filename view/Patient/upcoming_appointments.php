@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['block'])) {
+    header('Location: ../../index.php');
+}
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
 //if (!isset($_SESSION['patientSession'])) {
@@ -41,8 +44,17 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
         <!-- Datatable -->
-
-
+        <style>
+            .dataTables_filter {
+                text-align: right !important;
+            }       
+            .dataTables_filter label{
+                text-align: left !important;
+            }
+            #dataTable_paginate{
+                float: right!important;
+            }
+        </style>
 
     </head>
 
@@ -109,8 +121,11 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
                                         <tbody>
                                             <?php foreach ($patient_records_list as $record_list) : ?>
                                                 <tr>
-                                                    <td><?php echo $record_list['id']; $pps = $record_list['pps_num'];?></td>
-                                                    <td><a href="view_doctor.php?pps=<?php echo $pps;?>"><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
+                                                    <td><?php
+                                                        echo $record_list['id'];
+                                                        $pps = $record_list['pps_num'];
+                                                        ?></td>
+                                                    <td><a href="view_doctor.php?pps=<?php echo $pps; ?>"><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
                                                     <td><?php echo $record_list['name']; ?></td>
                                                     <td><?php
                                                         $timestamp = strtotime($record_list['time']);
@@ -121,7 +136,7 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
                                                         ?></td>
                                                     <td><?php echo $record_list['status']; ?></td>
                                                 </tr>
-                                            <?php endforeach; ?>
+<?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -135,7 +150,7 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
                     <!-- End of Main Content -->
 
                     <!-- Footer -->
-                    <?php include 'patientFooter.php'; ?>
+<?php include 'patientFooter.php'; ?>
                     <!-- End of Footer -->
 
                 </div>

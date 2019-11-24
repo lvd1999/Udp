@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['block'])) {
+    header('Location: ../../index.php');
+}
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
 $counties = get_counties();

@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION['block'])) {
+    header('Location: ../../index.php');
+}
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
 //if (!isset($_SESSION['patientSession'])) {
@@ -36,7 +39,17 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
         <!-- Datatable -->
-
+        <style>
+            .dataTables_filter {
+                text-align: right !important;
+            }       
+            .dataTables_filter label{
+                text-align: left !important;
+            }
+            #dataTable_paginate{
+                float: right!important;
+            }
+        </style>
 
 
     </head>

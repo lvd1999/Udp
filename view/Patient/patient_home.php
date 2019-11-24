@@ -1,5 +1,10 @@
 <?php
 session_start();
+if (isset($_SESSION['block'])) {
+    header('Location: ../../index.php');
+}
+$_SESSION['patient'] = true;
+$_SESSION['doctor'] = NULL;
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
 

@@ -1,9 +1,6 @@
 <?php 
 include('../../controller/signUp/patient_signUpProccess.php');
-session_start();
-if (isset($_SESSION['block'])) {
-    header('Location: ../../index.php');
-}
+
 ?>
 <!DOCTYPE html>
 <html>

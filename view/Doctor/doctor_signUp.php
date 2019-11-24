@@ -1,8 +1,5 @@
 <?php
-session_start();
-if (isset($_SESSION['block'])) {
-    header('Location: ../../index.php');
-}
+
 include('../../controller/signUp/doctor_signUpProcess.php');
 require_once('../../model/database.php');
 require('../../model/doctor/doctor_functions.php');

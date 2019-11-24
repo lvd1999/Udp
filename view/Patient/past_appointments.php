@@ -13,7 +13,6 @@ $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -117,8 +116,9 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                                         <tbody>
                                             <?php foreach ($patient_records_list as $record_list) : ?>
                                                 <tr>
-                                                    <td><?php echo $record_list['id']; $pps = $record_list['pps_num'];?></td>
-                                                    <td><a href="view_doctor.php?pps=<?php echo $pps;?>"><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
+                                                    <td><?php echo $record_list['id'];
+                                                $pps = $record_list['pps_num']; ?></td>
+                                                    <td><a href="view_doctor.php?pps=<?php echo $pps; ?>"><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
                                                     <td><?php echo $record_list['name']; ?></td>
                                                     <td><?php
                                                         $timestamp = strtotime($record_list['time']);
@@ -142,13 +142,11 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     </div>
                     <!-- End of Main Content -->
 
-                    <!-- Footer -->
-                    <?php include 'patientFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+                <?php include 'patientFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 

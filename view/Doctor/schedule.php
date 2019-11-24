@@ -165,13 +165,11 @@ $schedule_list = get_schedule();
 
                     <!-- End of Main Content -->
 
-                    <!-- Footer -->
-                    <?php include 'doctorFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+                <?php include 'doctorFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 
@@ -322,7 +320,7 @@ $js_array = json_encode($lists);
                                     var arrayIn = <?php echo $js_array ?>;
                                     for (i = 0; i <= 44; i++)
                                     {
-                                        if (this.availableTime.indexOf(this.currentWeekByTime[i]) != -1 || arrayIn.indexOf(this.currentWeekByTime[i])!= -1) {
+                                        if (this.availableTime.indexOf(this.currentWeekByTime[i]) != -1 || arrayIn.indexOf(this.currentWeekByTime[i]) != -1) {
                                             x.getElementsByClassName("cells")[i].style.backgroundColor = "#f0d7cc";
                                         } else {
                                             x.getElementsByClassName("cells")[i].style.backgroundColor = "#ffffff";

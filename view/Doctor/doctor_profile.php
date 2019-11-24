@@ -126,11 +126,9 @@ $userDetail2 = get_hospital($doctor_pps);
                             <div class="col-md-4">
                                 <div class="profile-img">
                                     <?php
-                                    if (is_null($userDetail['profile_pic'])) {
-                                        echo "<img src='../../Content/img/avatar.jpg' onClick='triggerClick()' id='profileDisplay'>";
-                                    } else {
-                                        echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "' onClick='triggerClick()' id='profileDisplay'>";
-                                    }
+                                    
+                                        echo "<img src='" . "../../Content/img/" . $profile_pic . "' onClick='triggerClick()' id='profileDisplay' height=\"100\" width=\"100\">";
+                                    
                                     ?>
                                     <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
                                         <?php if (!empty($msg)): ?>
@@ -139,36 +137,145 @@ $userDetail2 = get_hospital($doctor_pps);
                                             </div>
                                         <?php endif; ?>
                                         <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
-                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block">Save Image</button>
+                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block d-none" id="imageSubmit">Save Image</button>
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="profile-head">
                                     <h3>
                                         <?php echo "$firstname $lastname"; ?>
                                     </h3>
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist" style="bottom:10px;position: relative;">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Additional</a>
-                                        </li>
-                                    </ul>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <form class="profile-edit-btn" action="doctor_update_form.php">
-                                    <input class="form-control" type="submit" value="Edit Profile" />
-                                </form>
-                            </div>
-                        </div>
-                        <div class="row">
+                                 <div class="col-md-12">
+                                <nav>
+  <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">About</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Additional</a>
+  </div>
+</nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div class="row">   
+                                        <div class="col-md-10 mb-3">
+                                            <form class="profile-edit-btn" action="doctor_update_form.php">
+                                                <input class="form-control" type="submit" value="Edit Profile" />
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <label>PPS Number</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['pps_num']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['email']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>First Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['d_first_name']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Last Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['d_last_name']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Gender</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['gender']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Hospital</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail2['hospital_name']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Town</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail2['town_city']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>County</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail2['county_name']; ?></p>
+                                            </div>
+                                        </div>
+                                </div>
+                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="row">
+                                        <div class="col-md-10 mb-3">
+                                            <form class="profile-edit-btn" action="doctor_settings.php">
+                                                <input class="form-control" type="submit" value="Edit Additional" />
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <label>University</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['university']; ?>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Course</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['course']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Conferal Date</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['conferal_date']; ?></p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Restration Number</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p><?php echo $userDetail['registration_num']; ?></p>
+                                            </div>
+                                        </div>
+<!--                            </div>
+                        </div>-->
+<!--                        <div class="row">
                             <div class="col-md-8">
                                 <div class="tab-content profile-tab" id="myTabContent">
                                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
+                                            <div class="col-md-8">
+                                                <form class="profile-edit-btn" action="doctor_update_form.php">
+                                                    <input class="form-control" type="submit" value="Edit Profile" />
+                                                </form>
+                                            </div>
                                             <div class="col-md-6">
                                                 <label>PPS Number</label>
                                             </div>
@@ -235,6 +342,11 @@ $userDetail2 = get_hospital($doctor_pps);
                                     </div>
                                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                         <div class="row">
+                                            <div class="col-md-12">
+                                                <form class="profile-edit-btn" action="doctor_settings.php">
+                                                    <input class="form-control" type="submit" value="Edit Additional" />
+                                                </form>
+                                            </div>
                                             <div class="col-md-6">
                                                 <label>University</label>
                                             </div>
@@ -269,7 +381,7 @@ $userDetail2 = get_hospital($doctor_pps);
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <!-- Footer -->
                     <?php include 'doctorFooter.php'; ?>
@@ -345,4 +457,5 @@ $userDetail2 = get_hospital($doctor_pps);
     </body>
 
 </html>
+<script src="../../Content/js/scripts.js" type="text/javascript"></script>
 

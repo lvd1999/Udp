@@ -249,7 +249,13 @@ $userDetail2 = get_address($patient_pps);
                                                     <label>Smoker</label>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p><?php echo $userDetail['smoker']; ?></p>
+                                                    <p><?php
+                                                        if ($userDetail['smoker'] == 0) {
+                                                            echo 'NO';
+                                                        } else {
+                                                            echo 'YES';
+                                                        }
+                                                        ?></p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -257,7 +263,13 @@ $userDetail2 = get_address($patient_pps);
                                                     <label>Doner</label>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p><?php echo $userDetail['doner']; ?></p>
+                                                    <p><?php
+                                                        if ($userDetail['doner'] == 0) {
+                                                            echo 'NO';
+                                                        } else {
+                                                            echo 'YES';
+                                                        }
+                                                        ?></p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -306,7 +318,7 @@ $userDetail2 = get_address($patient_pps);
                 </div>
                 <!-- End of Page Wrapper -->
                 <!-- Footer -->
-                <?php include 'patientFooter.php'; ?>
+<?php include 'patientFooter.php'; ?>
                 <!-- End of Footer -->
                 <!-- Scroll to Top Button-->
                 <a class="scroll-to-top rounded" href="#page-top">

@@ -1,6 +1,8 @@
 <?php
 session_start();
-include_once '../../model/database.php';
+if (isset($_SESSION['block'])) {
+    header('Location: ../../index.php');
+}include_once '../../model/database.php';
 require('../../model/doctor/doctor_functions.php');
 $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];

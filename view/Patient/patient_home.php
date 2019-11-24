@@ -79,7 +79,22 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                         <!--End of date table-->
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800"></h1>
+                        <h1 class="h3 mb-4 text-gray-800">Book an appointment.</h1>
+
+                        <!--Date table input-->
+                        <div class="bootstrap-iso">
+                            <div id="txtHint" ></div>
+
+                            <div class="input-group" style="margin-bottom:10px;">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar">
+                                    </i>
+                                </div>
+                                <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
+                            </div>
+                        </div>
+                        <!--End of date table-->
+
 
 
 

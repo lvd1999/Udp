@@ -7,7 +7,6 @@
         <title>Dr.Book</title>
         <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
         <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
-
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Candal">
         <link href="../Content/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
         <link href="../Content/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>

@@ -1,67 +1,125 @@
 <?php
+require_once('../../model/database.php');
 session_start();
 
 // initializing variables
-$email    = "";
+$email = "";
 $firstname = "";
 $lastname = "";
 $pps = "";
 $gender = "";
-$errors = array(); 
+$errors = array();
 $dob = "";
-// connect to the database
-$db = mysqli_connect('localhost', 'root', '', 'drbook');
+
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
-  // receive all input values from the form
-  $firstname = mysqli_real_escape_string($db, $_POST['firstname']);
-  $lastname = mysqli_real_escape_string($db, $_POST['lastname']);
-  $dob = mysqli_real_escape_string($db, $_POST['dob']);
-  $pps = mysqli_real_escape_string($db, $_POST['pps']);
-  $gender = mysqli_real_escape_string($db, $_POST['gender']);
-  $email = mysqli_real_escape_string($db, $_POST['email']);
-  $password_1 = mysqli_real_escape_string($db, $_POST['password_1']);
-  $password_2 = mysqli_real_escape_string($db, $_POST['password_2']);
+    // receive all input values from the form
+    $firstname = filter_input(INPUT_POST, 'firstname');
+    $lastname = filter_input(INPUT_POST, 'lastname');
+    $dob = filter_input(INPUT_POST, 'dob');
+    $pps = filter_input(INPUT_POST, 'pps');
+    $gender = filter_input(INPUT_POST, 'gender');
+    $email = filter_input(INPUT_POST, 'email');
+    $password_1 = filter_input(INPUT_POST, 'password_1');
+    $password_2 = filter_input(INPUT_POST, 'password_2');
 
-  // form validation: ensure that the form is correctly filled ...
-  // by adding (array_push()) corresponding error unto $errors array
-  if (empty($pps)) { array_push($errors, "Username is required"); }
-  if (empty($firstname)) { array_push($errors, "First Name is required"); }
-  if (empty($lastname)) { array_push($errors, "Last Name is required"); }
-  if (empty($dob)) { array_push($errors, "Birthdate is required"); }
-  if (empty($gender)) { array_push($errors, "Gender is required"); }
-  if (empty($email)) { array_push($errors, "Email is required"); }
-  if (empty($password_1)) { array_push($errors, "Password is required"); }
-  if ($password_1 != $password_2) {
-	array_push($errors, "The two passwords do not match");
+    $count = 1;
+
+    if ($password_1 != $password_2) {
+        $count++;
+        echo '<script>
+    setTimeout(function () { 
+swal({
+  title: "There was a problem.",
+  text: "Confirm password and password are not the same.",
+  type: "error",
+  confirmButtonText: "Back"
+},
+function(isConfirm){
+  if (isConfirm) {
+    window.location.href = "../../view/Doctor/doctor_signUp.php";
   }
-
-  // first check the database to make sure 
-  // a user does not already exist with the same username and/or email
-  $user_check_query = "SELECT * FROM patients WHERE pps_num='$pps' OR email='$email' LIMIT 1";
-  $result = mysqli_query($db, $user_check_query);
-  $user = mysqli_fetch_assoc($result);
-  
-  if ($user) { // if user exists
-    if ($user['pps_num'] === $pps) {
-      array_push($errors, "PPS already exists");
+}); }, 1000);</script>';
     }
 
-    if ($user['email'] === $email) {
-      array_push($errors, "email already exists");
-    }
-  }
+    // first check the database to make sure 
+    // a user does not already exist with the same username and/or email
+    $query = "SELECT * FROM patients WHERE pps_num='$pps' OR email='$email' LIMIT 1";
+    $statement1 = $db->prepare($query);
+    $statement1->execute();
+    $user = $statement1->fetch();
+    $statement1->closeCursor();
 
-  // Finally, register user if there are no errors in the form
-  if (count($errors) == 0) {
+    if ($user) { // if user exists
+        if ($user['pps_num'] === $pps) {
+            $count++;
+            echo '<script>
+    setTimeout(function () { 
+swal({
+  title: "There was a problem.",
+  text: "PPS number already exist.",
+  type: "error",
+  confirmButtonText: "Back"
+},
+function(isConfirm){
+  if (isConfirm) {
+    window.location.href = "../../view/Doctor/doctor_signUp.php";
+  }
+}); }, 1000);</script>';
+        }
+
+        if ($user['email'] === $email) {
+            $count++;
+            echo '<script>
+    setTimeout(function () { 
+swal({
+  title: "There was a problem.",
+  text: "Email already exist.",
+  type: "error",
+  confirmButtonText: "Back"
+},
+function(isConfirm){
+  if (isConfirm) {
+    window.location.href = "../../view/Patient/patient_signUp.php";
+  }
+}); }, 1000);</script>';
+        }
+    }
+
+    // Finally, register user if there are no errors in the form
+    if ($count == 1) {
 //  	$password = md5($password_1);//encrypt the password before saving in the database
 
-  	$query = "INSERT INTO patients (p_first_name,p_last_name,birthdate,pps_num,gender, email, password) 
-  			  VALUES('$firstname', '$lastname','$dob', '$pps', '$gender', '$email', '$password_1')";
-  	mysqli_query($db, $query);
+        $query = "INSERT INTO patients (p_first_name,p_last_name,birthdate,pps_num,gender, email, password) 
+  			  VALUES(:firstname, :lastname, :dob, :pps, :gender, :email, :password_1)";
+        $statement3 = $db->prepare($query);
+        $statement3->bindValue(':firstname', $firstname);
+        $statement3->bindValue(':lastname', $lastname);
+        $statement3->bindValue(':dob', $dob);
+        $statement3->bindValue(':pps', $pps);
+        $statement3->bindValue(':gender', $gender);
+        $statement3->bindValue(':email', $email);
+        $statement3->bindValue(':password_1', $password_1);
+        $statement3->execute();
+        $statement3->closeCursor();
 
-//  	header('location: ../../index.php');
-        echo "Registered successfully.";
+        echo '<script>
+    setTimeout(function () { 
+swal({
+  title: "Congratulations!",
+  text: "Account created.",
+  type: "success",
+  confirmButtonText: "Back"
+},
+function(isConfirm){
+  if (isConfirm) {
+    window.location.href = "../../index.php";
   }
+}); }, 1000);</script>';
+    }
 }
+?>
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">

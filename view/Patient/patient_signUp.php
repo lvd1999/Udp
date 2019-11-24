@@ -82,44 +82,43 @@
                 <h2>Register as Patient</h2>
             </div>
 
-            <form method="post" action="patient_signUp.php" autocomplete="off">
-                <?php include('../../controller/signUp/error.php'); ?>
+            <form method="post" action="../../controller/signUp/patient_signUpProccess.php" autocomplete="off">
                 <div class="form-part" id="form-left">
                     <div class="form-group">
                         <label>First Name</label>
-                        <input type="text" class="form-control" name="firstname" placeholder="First Name" value="<?php echo $firstname; ?>">
+                        <input required type="text" class="form-control" name="firstname" placeholder="First Name" value="<?php echo $firstname; ?>">
                     </div>
                     <div class="form-group">
                         <label>Last Name</label>
-                        <input type="text" class="form-control" name="lastname" placeholder="Last Name" value="<?php echo $lastname; ?>">
+                        <input required type="text" class="form-control" name="lastname" placeholder="Last Name" value="<?php echo $lastname; ?>">
                     </div>
                     <div class="form-group">
                         <label>Date of Birth</label>
-                        <input type="date" class="form-control" name="dob" value="<?php echo $dob; ?>">
+                        <input required type="date" class="form-control" name="dob" value="<?php echo $dob; ?>">
                     </div>
                     <div class="form-group">
                         <label>PPS Number</label>
-                        <input type="text" class="form-control" name="pps" placeholder="PPS number" value="<?php echo $pps; ?>">
+                        <input required type="text" class="form-control" name="pps" placeholder="PPS number" value="<?php echo $pps; ?>">
                     </div>
                 </div>
                 <div class="form-part" id="form-right">
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>">
+                        <input required type="text" class="form-control" name="email" placeholder="Email" value="<?php echo $email; ?>">
                     </div>
                     <div class="form-group" id="gender">
                         <label>Gender</label>
-                        <input type="radio" name="gender" value="male" checked> Male
-                        <input type="radio" name="gender" value="female"> Female
-                        <input type="radio" name="gender" value="others"> Other<br>  
+                        <input required type="radio" name="gender" value="male" checked> Male
+                        <input required type="radio" name="gender" value="female"> Female
+                        <input required type="radio" name="gender" value="others"> Other<br>  
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-control" name="password_1" placeholder="Password">
+                        <input required type="password" class="form-control" name="password_1" placeholder="Password">
                     </div>
                     <div class="form-group">
                         <label>Confirm password</label>
-                        <input type="password" class="form-control" name="password_2" placeholder="Confirm password">
+                        <input required type="password" class="form-control" name="password_2" placeholder="Confirm password">
                     </div>
                 </div>
                 <div class="form-group">

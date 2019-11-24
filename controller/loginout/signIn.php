@@ -47,57 +47,45 @@ function(isConfirm){
     $password1 = $list1['password'];
 
     if ($login_password == $password1) {
+        $_SESSION['block'] = NULL;
         header('Location: ../../view/Patient/patient_home.php');
     } elseif ($login_password != $password1) {
-        echo 'no1';
+        echo '<script>
+    setTimeout(function () { 
+swal({
+  title: "There was a problem.",
+  text: "Wrong password.",
+  type: "error",
+  confirmButtonText: "Back"
+},
+function(isConfirm){
+  if (isConfirm) {
+    window.location.href = "../../index.php";
+  }
+}); }, 1000);</script>';
     }
-//    if (password_verify($login_password, $password1)) {
-//        $_SESSION['block'] = NULL;
-//        header('Location: patient_home.php');
-//    } else if (!(password_verify($login_password, $password1))) {
-//
-//        echo '<script>
-//    setTimeout(function () { 
-//swal({
-//  title: "There was a problem.",
-//  text: "Wrong password.",
-//  type: "error",
-//  confirmButtonText: "Back"
-//},
-//function(isConfirm){
-//  if (isConfirm) {
-//    window.location.href = "../index.php";
-//  }
-//}); }, 1000);</script>';
-//    }
+        
 } else {
     $password2 = $list2['password'];
 
     if ($login_password == $password2) {
+        $_SESSION['block'] = NULL;
         header('Location: ../../view/Doctor/doctor_home.php');
     } elseif ($login_password != $password2) {
-        echo 'no2';
+        echo '<script>
+    setTimeout(function () { 
+swal({
+  title: "There was a problem.",
+  text: "Wrong password.",
+  type: "error",
+  confirmButtonText: "Back"
+},
+function(isConfirm){
+  if (isConfirm) {
+    window.location.href = "../../index.php";
+  }
+}); }, 1000);</script>';
     }
-    
-//    if (password_verify($login_password, $password2)) {
-//        $_SESSION['block'] = NULL;
-//        header('Location: doctor_home.php');
-//    } else if (!(password_verify($login_password, $password2))) {
-//
-//        echo '<script>
-//    setTimeout(function () { 
-//swal({
-//  title: "There was a problem.",
-//  text: "Wrong password.",
-//  type: "error",
-//  confirmButtonText: "Back"
-//},
-//function(isConfirm){
-//  if (isConfirm) {
-//    window.location.href = "../index.php";
-//  }
-//}); }, 1000);</script>';
-//    }
 }
 ?>
 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>

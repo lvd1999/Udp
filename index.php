@@ -69,17 +69,20 @@ if (!isset($login_pps)) {
 
                                             <div class="form-group">
                                                 <label class="sr-only" for="login_pps">PPS Number</label>
-                                                <input type="text" class="form-control" name="login_pps" placeholder="PPS Number" required>
+                                                <input required type="text" class="form-control" name="login_pps" placeholder="PPS Number" required>
                                             </div>
                                             <div class="form-group">
                                                 <label class="sr-only" for="password">Password</label>
-                                                <input type="password" class="form-control" name="login_password" placeholder="Password" required>
+                                                <input required type="password" class="form-control" name="login_password" placeholder="Password" required>
                                             </div>
                                             <div class="form-group">
                                                 <button type="submit" name="login" id="login" class="btn btn-primary btn-block">
                                                     Sign In
                                                 </button>
                                             </div>
+                                            <p style="font-size: 12px;">
+                                                <a href="view/forgotAcc.php">Forgot account? </a>
+                                            </p>
                                         </form>
                                     </div>
                                 </div>

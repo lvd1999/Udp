@@ -1,7 +1,11 @@
 <?php
 include_once 'model/database.php';
 session_start();
-$_SESSION['block'] = true;
+if (!isset($_SESSION['block']) && isset($_SESSION['doctor'])) {
+    header('Location: view/Doctor/doctor_home.php');
+}elseif (!isset($_SESSION['block']) && isset($_SESSION['patient'])) {
+    header('Location: view/Patient/patient_home.php');
+}
 // include_once 'assets/conn/server.php';
 if (!isset($login_password)) {
     $login_password = '';

@@ -5,20 +5,18 @@
             <url>view/Doctor/upcoming_appointments.php</url>
             <bookmark id="1">
                 <name/>
-                <line>113</line>
+                <line>116</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/udp/view/Doctor/doctor_signUp.php</file>
             <file>file:/D:/xampp/htdocs/udp/index.php</file>
-            <file>file:/D:/xampp/htdocs/udp/view/signUp.php</file>
-            <file>file:/D:/xampp/htdocs/udp/Content/img/map-pin.png</file>
-            <file>file:/D:/xampp/htdocs/udp/Content/img/doctor-icon.jpg</file>
-            <file>file:/D:/xampp/htdocs/udp/Content/img/doctor_signup.jpg</file>
-            <file>file:/D:/xampp/htdocs/udp/view/Patient/patient_signUp.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/doctor_home.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/doctorTopBar.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Patient/patient_home.php</file>
+            <file>file:/D:/xampp/htdocs/udp/controller/loginout/patientlogout.php</file>
         </group>
     </open-files>
 </project-private>

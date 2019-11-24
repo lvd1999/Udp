@@ -304,11 +304,11 @@ $schedule_list = get_schedule();
                                 function dateChange(val) {
                                     var str = val;
 
-                                    document.getElementById("mon").textContent = "Mon" + getDateString(0, str);
-                                    document.getElementById("tues").textContent = "Tues " + getDateString(1, str);
-                                    document.getElementById("wed").textContent = "Wed " + getDateString(2, str);
-                                    document.getElementById("thurs").textContent = "Thurs " + getDateString(3, str);
-                                    document.getElementById("fri").textContent = "Fri " + getDateString(4, str);
+                                    document.getElementById("mon").textContent = "Monday" + "(" + getDateString(0, str) + ")";
+                                    document.getElementById("tues").textContent = "Tuesday" + "(" + getDateString(1, str) + ")";
+                                    document.getElementById("wed").textContent = "Wednesday " + "(" + getDateString(2, str) + ")";
+                                    document.getElementById("thurs").textContent = "Thursday " + "(" + getDateString(3, str) + ")";
+                                    document.getElementById("fri").textContent = "Friday " + "(" + getDateString(4, str) + ")";
                                     this.generateArray();
                                     var x = document.getElementById("tbody");
 <?php

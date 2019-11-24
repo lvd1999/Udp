@@ -12,7 +12,6 @@ $patient_pps = $_SESSION['pps1'];
 $userDetail = get_patient($patient_pps);
 $profile_pic = $_SESSION['profile_pic'];
 $userDetail2 = get_address($patient_pps);
-//$county = get_county($patient_pps);
 ?>
 
 <!DOCTYPE html>
@@ -126,170 +125,178 @@ $userDetail2 = get_address($patient_pps);
                             <div class="col-md-4">
                                 <div class="profile-img">
                                     <?php
-                                    if (is_null($userDetail['profile_pic'])) {
-                                        echo "<img src='../../Content/img/avatar.jpg' onClick='triggerClick()' id='profileDisplay'>";
-                                    } else {
-                                        echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "' onClick='triggerClick()' id='profileDisplay'>";
-                                    }
+                                    echo "<img src='" . "../../Content/img/" . $profile_pic . "' onClick='triggerClick()' id='profileDisplay' height=\"100\" width=\"100\">";
                                     ?>
                                     <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
-                                        <?php if (!empty($msg)): ?>
+                                    <?php if (!empty($msg)): ?>
                                             <div class="alert <?php echo $msg_class ?>" role="alert">
-                                                <?php echo $$msg; ?>
+                                            <?php echo $$msg; ?>
                                             </div>
-                                        <?php endif; ?>
+                                            <?php endif; ?>
                                         <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
-                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block">Save Image</button>
+                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block d-none" id="imageSubmit">Save Image</button>
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="profile-head">
                                     <h3>
                                         <?php echo "$firstname $lastname"; ?>
                                     </h3>
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Additional</a>
-                                        </li>
-                                    </ul>
+
+                                    
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <form class="profile-edit-btn" action="patient_update_form.php">
-                                    <input class="form-control" type="submit" value="Edit Profile" />
-                                </form>
-                            </div>
+                            <!--</div>-->
+                            
+                        <!--<div class="col-md-8">-->
+                            <div class="col-md-12">
+                                <nav>
+  <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">About</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Additional</a>
+  </div>
+</nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div class="row">   
+                                        <div class="col-md-10 mb-3">
+                                            <form class="profile-edit-btn" action="patient_update_form.php">
+                                                <input class="form-control" type="submit" value="Edit Profile" />
+                                            </form>
+                                        </div>
+                                    <div class="col-md-4">
+                                            <label>Email</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p><?php echo $userDetail['email']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Birthdate</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p><?php echo $userDetail['birthdate']; ?></p>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>gender</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p><?php echo $userDetail['gender']; ?></p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Phone</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p><?php echo $userDetail['contact_mobile']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Address</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p><?php echo $userDetail2['street_address']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Town</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p><?php echo $userDetail2['town_city']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>Postcode</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p><?php echo $userDetail2['postcode']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <label>County</label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <p><?php echo $userDetail2['county_name']; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                        
+                                   
+                                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                    <div class="row">
+                                        <div class="col-md-10 mb-3">
+                                            <form class="profile-edit-btn" action="patient_settings.php">
+                                                <input class="form-control" type="submit" value="Edit Additional" />
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Smoker</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><?php echo $userDetail['smoker']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Doner</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><?php echo $userDetail['doner']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Blood Type</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><?php echo $userDetail['blood_type']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Allergies</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><?php echo $userDetail['allergies']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Diseases</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><?php echo $userDetail['diseases']; ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Immunisations</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p><?php echo $userDetail['immunisations']; ?></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            
                         </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="tab-content profile-tab" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Email</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['email']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>birthdate</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['birthdate']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>gender</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['gender']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Phone</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['contact_mobile']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Address</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['street_address']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Town</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['town_city']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Postcode</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['postcode']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>County</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['county_name']; ?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Smoker</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['smoker']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Doner</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['doner']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Blood Type</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['blood_type']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Allergies</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['allergies']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Diseases</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['diseases']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Immunisations</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['immunisations']; ?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>      
+                        </div>
+
+
                     </div>
                 </div>
                 <!-- Footer -->
-                <?php include 'patientFooter.php'; ?>
+<?php include 'patientFooter.php'; ?>
                 <!-- End of Footer -->
             </div>
             <!-- End of Content Wrapper -->
@@ -364,3 +371,4 @@ $userDetail2 = get_address($patient_pps);
     </body>
 
 </html>
+<script src="../../Content/js/scripts.js" type="text/javascript"></script>

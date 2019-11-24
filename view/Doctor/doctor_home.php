@@ -23,7 +23,7 @@ $profile_pic = $_SESSION['profile_pic2'];
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Doctor - Profile</title>
+        <title>Doctor - Home</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>

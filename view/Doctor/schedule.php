@@ -23,7 +23,7 @@ $schedule_list = get_schedule();
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Doctor - Profile</title>
+        <title>Doctor - Schedule</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>

@@ -33,7 +33,7 @@ $doctor_records_list = get_pastrecords_by_pps($doctor_pps)
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Doctor - Upcoming Appointments</title>
+        <title>Doctor - Past Appointments</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>

@@ -32,7 +32,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Patient - Home</title>
+        <title>Patient - Book</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -81,7 +81,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800">Appointment List</h1>
+                        <h1 class="h3 mb-4 text-gray-800">Book An Appointment</h1>
 
                         <!--Date table input-->
                         <div class="bootstrap-iso">
@@ -101,13 +101,11 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
                     <!-- End of Main Content -->
 
-                    <!-- Footer -->
-                    <?php include 'patientFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+                <?php include 'patientFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 

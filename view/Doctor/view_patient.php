@@ -360,14 +360,12 @@ $patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
                 </div>
                 <!-- End Page Content -->
                 <!-- End of Main Content -->
-
-                <!-- Footer -->
-                <?php include 'doctorFooter.php'; ?>
-                <!-- End of Footer -->
-
+<!-- Footer -->
+            <?php include 'doctorFooter.php'; ?>
+            <!-- End of Footer -->
             </div>
             <!-- End of Content Wrapper -->
-
+         
         </div>
         <!-- End of Page Wrapper -->
 

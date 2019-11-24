@@ -23,7 +23,7 @@ $profile_pic = $_SESSION['profile_pic2'];
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Doctor - Profile</title>
+        <title>Doctor - Home</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -60,17 +60,15 @@ $profile_pic = $_SESSION['profile_pic2'];
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    
+                    <h1 class="h3 mb-4 text-gray-800">Home</h1>
 
                     <!-- End of Main Content -->
 
-                    <!-- Footer -->
-                    <?php include 'doctorFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+                <?php include 'doctorFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 
@@ -122,16 +120,16 @@ $profile_pic = $_SESSION['profile_pic2'];
             <!--Include all compiled plugins (below), or include individual files as needed--> 
             <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
             <script>
-                                $(document).ready(function () {
-                                    var date_input = $('input[name="date"]'); //our date input has the name "date"
-                                    var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                                    date_input.datepicker({
-                                        format: 'yyyy-mm-dd',
-                                        container: container,
-                                        todayHighlight: true,
-                                        autoclose: true,
-                                    });
-                                });
+                $(document).ready(function () {
+                    var date_input = $('input[name="date"]'); //our date input has the name "date"
+                    var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                    date_input.datepicker({
+                        format: 'yyyy-mm-dd',
+                        container: container,
+                        todayHighlight: true,
+                        autoclose: true,
+                    });
+                });
             </script>
 
             <!-- Page level plugins -->
@@ -148,27 +146,27 @@ $profile_pic = $_SESSION['profile_pic2'];
 
 
 <script>
-                                function showUser(str) {
+                function showUser(str) {
 
-                                    if (str == "") {
-                                        document.getElementById("txtHint").innerHTML = "No data to be shown";
-                                        return;
-                                    } else {
-                                        if (window.XMLHttpRequest) {
-                                            // code for IE7+, Firefox, Chrome, Opera, Safari
-                                            xmlhttp = new XMLHttpRequest();
-                                        } else {
-                                            // code for IE6, IE5
-                                            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                                        }
-                                        xmlhttp.onreadystatechange = function () {
-                                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-                                            }
-                                        };
-                                        xmlhttp.open("GET", "getschedule.php?q=" + str, true);
-                                        console.log(str);
-                                        xmlhttp.send();
-                                    }
-                                }
+                    if (str == "") {
+                        document.getElementById("txtHint").innerHTML = "No data to be shown";
+                        return;
+                    } else {
+                        if (window.XMLHttpRequest) {
+                            // code for IE7+, Firefox, Chrome, Opera, Safari
+                            xmlhttp = new XMLHttpRequest();
+                        } else {
+                            // code for IE6, IE5
+                            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                        }
+                        xmlhttp.onreadystatechange = function () {
+                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                            }
+                        };
+                        xmlhttp.open("GET", "getschedule.php?q=" + str, true);
+                        console.log(str);
+                        xmlhttp.send();
+                    }
+                }
 </script>

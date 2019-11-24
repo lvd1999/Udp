@@ -12,7 +12,6 @@ $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,47 +55,41 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
                 <!-- Main Content -->
                 <div id="content">
-                    
-                    
+
+
                     <!-- Topbar -->
                     <?php include 'patientTopBar.php'; ?>
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
+                    <h1 class="h3 mb-4 text-gray-800">Home- Book An Appointment</h1>
                     <div id="home_1" class="container-fluid">
-                        
-                    <!--Date table input-->
-                    <div class="bootstrap-iso">
-                        <div id="txtHint" ></div>
 
-                        <div class="input-group" style="margin-bottom:10px;">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar">
-                                </i>
+                        <!--Date table input-->
+                        <div class="bootstrap-iso">
+                            <div class="input-group" style="margin-bottom:10px;">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar">
+                                    </i>
+                                </div>
+                                <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
                             </div>
-                            <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
+                            <div id="txtHint" ></div>
                         </div>
-                    </div>
-                    <!--End of date table-->
+                        <!--End of date table-->
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800"></h1>
-
-
-
-
+                        
 
                     </div>
-                    
+
                     <!-- End of Main Content -->
-                    
-                    <!-- Footer -->
-                    <?php include 'patientFooter.php'; ?>
-                    <!-- End of Footer -->
 
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+                <?php include 'patientFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 
@@ -135,31 +128,31 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
             <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
 
-          
-                      <!--jQuery--> 
-                    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-            
-                     <!--Isolated Version of Bootstrap, not needed if your site already uses Bootstrap--> 
-                    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-            
-                     <!--Bootstrap Date-Picker Plugin--> 
-                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-                     <!--Include all compiled plugins (below), or include individual files as needed--> 
-                    <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
-                    <script>
-                        $(document).ready(function () {
-                            var date_input = $('input[name="date"]'); //our date input has the name "date"
-                            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                            date_input.datepicker({
-                                format: 'yyyy-mm-dd',
-                                container: container,
-                                todayHighlight: true,
-                                autoclose: true,
-                            });
-                        });
-                    </script>
-                
+
+            <!--jQuery--> 
+            <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+            <!--Isolated Version of Bootstrap, not needed if your site already uses Bootstrap--> 
+            <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+            <!--Bootstrap Date-Picker Plugin--> 
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+            <!--Include all compiled plugins (below), or include individual files as needed--> 
+            <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
+            <script>
+                                    $(document).ready(function () {
+                                        var date_input = $('input[name="date"]'); //our date input has the name "date"
+                                        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                                        date_input.datepicker({
+                                            format: 'yyyy-mm-dd',
+                                            container: container,
+                                            todayHighlight: true,
+                                            autoclose: true,
+                                        });
+                                    });
+            </script>
+
             <!-- Page level plugins -->
             <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
@@ -170,27 +163,27 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
 </html>
 <script>
-                            function showUser(str) {
+                                    function showUser(str) {
 
-                                if (str == "") {
-                                    document.getElementById("txtHint").innerHTML = "No data to be shown";
-                                    return;
-                                } else {
-                                    if (window.XMLHttpRequest) {
-                                        // code for IE7+, Firefox, Chrome, Opera, Safari
-                                        xmlhttp = new XMLHttpRequest();
-                                    } else {
-                                        // code for IE6, IE5
-                                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                                    }
-                                    xmlhttp.onreadystatechange = function () {
-                                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                            document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                                        if (str == "") {
+                                            document.getElementById("txtHint").innerHTML = "No data to be shown";
+                                            return;
+                                        } else {
+                                            if (window.XMLHttpRequest) {
+                                                // code for IE7+, Firefox, Chrome, Opera, Safari
+                                                xmlhttp = new XMLHttpRequest();
+                                            } else {
+                                                // code for IE6, IE5
+                                                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                            }
+                                            xmlhttp.onreadystatechange = function () {
+                                                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                                    document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                                                }
+                                            };
+                                            xmlhttp.open("GET", "getschedule.php?q=" + str, true);
+                                            console.log(str);
+                                            xmlhttp.send();
                                         }
-                                    };
-                                    xmlhttp.open("GET", "getschedule.php?q=" + str, true);
-                                    console.log(str);
-                                    xmlhttp.send();
-                                }
-                            }
+                                    }
 </script>

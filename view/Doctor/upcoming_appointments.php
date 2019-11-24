@@ -157,13 +157,11 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps)
                     </div>
                     <!-- End of Main Content -->
 
-                    <!-- Footer -->
-                    <?php include 'doctorFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+                <?php include 'doctorFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 
@@ -237,7 +235,7 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps)
             <script type="text/javascript">
                 $(document).ready(function () {
                     $('.status').change(function (e) {
-                        
+
                         $.ajax({
                             url: "../../model/doctor/changeStatus.php",
                             method: "POST",

@@ -136,7 +136,7 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
                                                         ?></td>
                                                     <td><?php echo $record_list['status']; ?></td>
                                                 </tr>
-<?php endforeach; ?>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -149,13 +149,11 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
                     </div>
                     <!-- End of Main Content -->
 
-                    <!-- Footer -->
-<?php include 'patientFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+                <?php include 'patientFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 

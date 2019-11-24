@@ -33,7 +33,7 @@ $doctor_records_list = get_pastrecords_by_pps($doctor_pps)
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Doctor - Upcoming Appointments</title>
+        <title>Doctor - Past Appointments</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -124,8 +124,9 @@ $doctor_records_list = get_pastrecords_by_pps($doctor_pps)
                                         <tbody>
                                             <?php foreach ($doctor_records_list as $record_list) : ?>
                                                 <tr>
-                                                    <td><?php echo $record_list['id']; $pps = $record_list['pps_num'];?></td>
-                                                    <td><a href="view_patient.php?pps=<?php echo $pps;?>"><?php echo $record_list['pps_num']; ?></a></td>
+                                                    <td><?php echo $record_list['id'];
+                                            $pps = $record_list['pps_num']; ?></td>
+                                                    <td><a href="view_patient.php?pps=<?php echo $pps; ?>"><?php echo $record_list['pps_num']; ?></a></td>
                                                     <td><?php echo $record_list['p_first_name']; ?> <?php echo $record_list['p_last_name']; ?></td>
                                                     <td><?php
                                                         $timestamp = strtotime($record_list['time']);
@@ -136,7 +137,7 @@ $doctor_records_list = get_pastrecords_by_pps($doctor_pps)
                                                         ?></td>
                                                     <td><?php echo $record_list['status']; ?></td>
                                                 </tr>
-                                            <?php endforeach; ?>
+<?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -149,13 +150,11 @@ $doctor_records_list = get_pastrecords_by_pps($doctor_pps)
                     </div>
                     <!-- End of Main Content -->
 
-                    <!-- Footer -->
-                    <?php include 'doctorFooter.php'; ?>
-                    <!-- End of Footer -->
-
                 </div>
                 <!-- End of Content Wrapper -->
-
+                <!-- Footer -->
+<?php include 'doctorFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
 

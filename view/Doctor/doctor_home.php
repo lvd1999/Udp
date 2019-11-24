@@ -60,7 +60,7 @@ $profile_pic = $_SESSION['profile_pic2'];
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-
+                    <h1 class="h3 mb-4 text-gray-800">Home</h1>
 
                     <!-- End of Main Content -->
 

@@ -81,7 +81,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
-                        <h1 class="h3 mb-4 text-gray-800">Appointment List</h1>
+                        <h1 class="h3 mb-4 text-gray-800">Book An Appointment</h1>
 
                         <!--Date table input-->
                         <div class="bootstrap-iso">

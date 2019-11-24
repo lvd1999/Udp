@@ -100,12 +100,11 @@ $profile_pic = $_SESSION['profile_pic2'];
 
 
                 <!-- End of Main Content -->
-
+                <!-- Footer -->
+                <?php include 'doctorFooter.php'; ?>
+                <!-- End of Footer -->
             </div>
             <!-- End of Content Wrapper -->
-            <!-- Footer -->
-            <?php include 'doctorFooter.php'; ?>
-            <!-- End of Footer -->
         </div>
         <!-- End of Page Wrapper -->
 

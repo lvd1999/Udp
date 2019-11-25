@@ -3,7 +3,7 @@ include_once 'model/database.php';
 session_start();
 if (!isset($_SESSION['block']) && isset($_SESSION['doctor'])) {
     header('Location: view/Doctor/doctor_home.php');
-}elseif (!isset($_SESSION['block']) && isset($_SESSION['patient'])) {
+} elseif (!isset($_SESSION['block']) && isset($_SESSION['patient'])) {
     header('Location: view/Patient/patient_home.php');
 }
 // include_once 'assets/conn/server.php';
@@ -60,41 +60,39 @@ if (!isset($login_pps)) {
                     </div>
                 </nav>
 
-                <div class="container">
+                <div class="container-fluid">
                     <div class="row">
                         <div class="banner-info">
                             <div class="banner-text text-center">
                                 <h1 class="white">Healthcare at your desk!!</h1>
                                 <p>We aim to be the leading healthcare provider in Europe that integrates technology in <br>healthcare, improving health services accessibility.</p>
-
-                                <div id="loginarea" class="row">
-                                    <h3 id="loginheader">Login into Dr.Book</h3>
-                                    <div id="logininner" class="col-md-12">
-
-                                        <form action="controller/loginout/signIn.php" id="loginform" class="form" method="POST" accept-charset="UTF-8" >
-
-                                            <div class="form-group">
-                                                <label class="sr-only" for="login_pps">PPS Number</label>
-                                                <input required type="text" class="form-control" name="login_pps" placeholder="PPS Number" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="sr-only" for="password">Password</label>
-                                                <input required type="password" class="form-control" name="login_password" placeholder="Password" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <button type="submit" name="login" id="login" class="btn btn-primary btn-block">
-                                                    Sign In
-                                                </button>
-                                            </div>
-                                            <p style="font-size: 12px;">
-                                                <a href="view/forgotAcc.php">Forgot account? </a>
-                                            </p>
-                                        </form>
-                                    </div>
-                                </div>
-
                             </div>
-                            <div class="overlay-detail text-center">
+                            <div id="loginarea" class=" col-lg-3 col-md-3 col-sm-3">
+                                <h3 id="loginheader" >Login into Dr.Book</h3>
+                                <div id="logininner" class="container-fluid  col-lg-12 col-md-12 col-sm-12 ">
+
+                                    <form action="controller/loginout/signIn.php" id="loginform" class="contactForm" method="POST" accept-charset="UTF-8" >
+
+                                        <div class="form-group container-fluid  col-lg-12 col-md-12 col-sm-12">
+                                            <label class="sr-only" for="login_pps">PPS Number</label>
+                                            <input required type="text" class="form-control" name="login_pps" placeholder="PPS Number" required>
+                                        </div>
+                                        <div class="form-group container-fluid  col-lg-12 col-md-12 col-sm-12">
+                                            <label class="sr-only" for="password">Password</label>
+                                            <input required type="password" class="form-control" name="login_password" placeholder="Password" required>
+                                        </div>
+                                        <div class="form-group container-fluid  col-lg-12 col-md-12 col-sm-12">
+                                            <button type="submit" name="login" id="login" class="btn btn-primary btn-block">
+                                                Sign In
+                                            </button>
+                                        </div>
+                                        <p style="font-size: 12px;">
+                                            <a href="view/forgotAcc.php">Forgot account? </a>
+                                        </p>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="overlay-detail text-center col-sm-12" style="margin-top: 23%">
                                 <a href="#service"><i class="fa fa-angle-down"></i></a>
                             </div>
                         </div>

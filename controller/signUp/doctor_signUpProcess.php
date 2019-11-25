@@ -106,24 +106,17 @@ function(isConfirm){
 
     // Finally, register user if there are no errors in the form
     if ($count == 1) {
-//  	$password = md5($password_1);//encrypt the password before saving in the database
-        echo $firstname;
-        echo $lastname;
-        echo $pps;
-        echo $gender;
-        echo $email;
-        echo $password_1;
-        echo $speciality;
-        echo $hospital;
+  	$password = md5($password_1);//encrypt the password before saving in the database
+
         $query = "INSERT INTO doctors (d_first_name,d_last_name,pps_num,gender, email, password, speciality_id, hospital_id) 
-  			  VALUES(:firstname, :lastname, :pps, :gender, :email, :password_1, (SELECT id FROM speciality WHERE speciality_name = :speciality), :hospital)";
+  			  VALUES(:firstname, :lastname, :pps, :gender, :email, :password, (SELECT id FROM speciality WHERE speciality_name = :speciality), :hospital)";
         $statement3 = $db->prepare($query);
         $statement3->bindValue(':firstname', $firstname);
         $statement3->bindValue(':lastname', $lastname);
         $statement3->bindValue(':pps', $pps);
         $statement3->bindValue(':gender', $gender);
         $statement3->bindValue(':email', $email);
-        $statement3->bindValue(':password_1', $password_1);
+        $statement3->bindValue(':password', $password);
         $statement3->bindValue(':speciality', $speciality);
         $statement3->bindValue(':hospital', $hospital);
         $statement3->execute();

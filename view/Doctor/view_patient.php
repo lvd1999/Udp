@@ -146,13 +146,11 @@ $patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="profile-img">
-                                    <?php
-                                    if (is_null($userDetail['profile_pic'])) {
-                                        echo "<img src='../../Content/img/avatar.jpg' onClick='triggerClick()' id='profileDisplay'>";
-                                    } else {
-                                        echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "' onClick='triggerClick()' id='profileDisplay'>";
-                                    }
-                                    ?>
+                                    <div class="hovereffect text-center">
+                                    
+                                        <img src="<?php echo "../../Content/img/" . $profile_pic;?>" onClick='triggerClick()' id='profileDisplay' class='rounded mx-auto d-block'>
+                                        
+                                    </div>
                                     <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
                                         <?php if (!empty($msg)): ?>
                                             <div class="alert <?php echo $msg_class ?>" role="alert">
@@ -160,255 +158,277 @@ $patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
                                             </div>
                                         <?php endif; ?>
                                         <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
-                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block">Save Image</button>
+                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block d-none" id="imageSubmit">Save Image</button>
                                     </form>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <div class="profile-head">
                                     <h3>
-                                        <?php echo "$firstname $lastname"; ?>
+                                        <?php echo $userDetail['p_first_name'] . " " . $userDetail['p_last_name']; ?>
                                     </h3>
-                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Additional</a>
-                                        </li>
-                                    </ul>
+
+
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <form class="profile-edit-btn" action="patient_update_form.php">
-                                    <input class="form-control" type="submit" value="Edit Profile" />
-                                </form>
+                                <!--</div>-->
+
+                                <!--<div class="col-md-8">-->
+                                <div class="col-md-12">
+                                    <nav>
+                                        <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">About</a>
+                                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Additional</a>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                            <div class="row">   
+                                                
+                                                <div class="col-md-4">
+                                                    <label>Email</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p><?php echo $userDetail['email']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Birthdate</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p><?php echo $userDetail['birthdate']; ?></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>gender</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p><?php echo $userDetail['gender']; ?></p>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Phone</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p><?php echo $userDetail['contact_mobile']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Address</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p><?php echo $userDetail2['street_address']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Town</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p><?php echo $userDetail2['town_city']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>Postcode</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p><?php echo $userDetail2['postcode']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <label>County</label>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <p><?php echo $userDetail2['county_name']; ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                                            <div class="row">
+                                                
+                                                <div class="col-md-6">
+                                                    <label>Smoker</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php
+                                                        if ($userDetail['smoker'] == 0) {
+                                                            echo 'NO';
+                                                        } else {
+                                                            echo 'YES';
+                                                        }
+                                                        ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Doner</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php
+                                                        if ($userDetail['doner'] == 0) {
+                                                            echo 'NO';
+                                                        } else {
+                                                            echo 'YES';
+                                                        }
+                                                        ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Blood Type</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['blood_type']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Allergies</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['allergies']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Diseases</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['diseases']; ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <label>Immunisations</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><?php echo $userDetail['immunisations']; ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-8">
-                                <div class="tab-content profile-tab" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Email</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['email']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>birthdate</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['birthdate']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>gender</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['gender']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Phone</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['contact_mobile']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Address</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['street_address']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Town</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['town_city']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Postcode</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['postcode']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>County</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail2['county_name']; ?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Smoker</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['smoker']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Doner</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['doner']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Blood Type</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['blood_type']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Allergies</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['allergies']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Diseases</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['diseases']; ?></p>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>Immunisations</label>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <p><?php echo $userDetail['immunisations']; ?></p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>      
-                    </div>
-                </div>               
 
-                <div class="card shadow mb-4">
-                    <div class="card-header py-3">
-                        <h6 class="m-0 font-weight-bold text-primary">Past Appointments</h6>
                     </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Appointment ID<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                        <th>Doctor<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                        <th>Hospital<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                        <th>Date<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                        <th>Time<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                        <th>Status<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                    </tr>
-                                </thead>
-                                <tfoot>
-                                    <tr>
-                                        <th>Appointment ID</th>
-                                        <th>Doctor</th>
-                                        <th>Hospital</th>
-                                        <th>Date</th>
-                                        <th>Time</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </tfoot>
-                                <tbody>
-                                    <?php foreach ($patient_records_list as $record_list) : ?>
+
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Past Appointments</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
                                         <tr>
-                                            <td><?php echo $record_list['id']; ?></td>
-                                            <td><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
-                                            <td><?php echo $record_list['name']; ?></td>
-                                            <td><?php
-                                                $timestamp = strtotime($record_list['time']);
-                                                echo date('d-m-Y', $timestamp);
-                                                ?></td>
-                                            <td><?php
-                                                echo date('h.ia', $timestamp);
-                                                ?></td>
-                                            <td><?php echo $record_list['status']; ?></td>
+                                            <th>Appointment ID<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Doctor<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Hospital<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Date<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Time<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <th>Status<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Appointment ID</th>
+                                            <th>Doctor</th>
+                                            <th>Hospital</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        <?php foreach ($patient_records_list as $record_list) : ?>
+                                            <tr>
+                                                <td><?php echo $record_list['id']; ?></td>
+                                                <td><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
+                                                <td><?php echo $record_list['name']; ?></td>
+                                                <td><?php
+                                                    $timestamp = strtotime($record_list['time']);
+                                                    echo date('d-m-Y', $timestamp);
+                                                    ?></td>
+                                                <td><?php
+                                                    echo date('h.ia', $timestamp);
+                                                    ?></td>
+                                                <td><?php echo $record_list['status']; ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- End Page Content -->
+                    <!-- End of Main Content -->
+                    <!-- Footer -->
+                    <?php include 'doctorFooter.php'; ?>
+                    <!-- End of Footer -->
+                </div>
+                <!-- End of Content Wrapper -->
+
+            </div>
+            <!-- End of Page Wrapper -->
+
+            <!-- Scroll to Top Button-->
+            <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+            </a>
+
+            <!-- Logout Modal-->
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                        <div class="modal-footer">
+                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                            <a class="btn btn-primary" href="patientlogout.php?logout">Logout</a>
                         </div>
                     </div>
                 </div>
-                <!-- End Page Content -->
-                <!-- End of Main Content -->
-<!-- Footer -->
-            <?php include 'doctorFooter.php'; ?>
-            <!-- End of Footer -->
             </div>
-            <!-- End of Content Wrapper -->
-         
-        </div>
-        <!-- End of Page Wrapper -->
 
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
+            <!-- Bootstrap core JavaScript-->
+            <script src="../../Content/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+            <script src="../../Content/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
 
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                        <a class="btn btn-primary" href="patientlogout.php?logout">Logout</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <!-- Core plugin JavaScript-->
+            <script src="../../Content/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="../../Content/vendor/jquery/jquery.min.js" type="text/javascript"></script>
-        <script src="../../Content/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+            <!-- Custom scripts for all pages-->
+            <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="../../Content/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
+            <!-- Page level plugins -->
+            <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+            <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
-
-        <!-- Page level plugins -->
-        <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
-
-        <!-- Page level custom scripts -->
-        <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
+            <!-- Page level custom scripts -->
+            <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
     </body>
 
 </html>

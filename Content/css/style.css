@@ -102,28 +102,41 @@ banner
 #loginarea {
     background: #e8eaed;
     height: 300px;
-    width: 400px;
     border-radius: 7px;
-    position: relative;
-    left:900px;
-    top: 30px;
+    position: absolute;
+    text-align: center;
+    margin-left: 56%;
 }
 
+#logininner{
+    padding :0 ;
+}
 #loginheader{
 
 }
 
 #loginform {
-    width: 350px;
     padding-top: 30px;
-    margin: auto;
+    
 }
 
 @media (max-width: 768px) {
     .navbar-collapse {
         background: rgba(28,74,90, 0.9);
     }
+    #loginarea {
+        width: 100%;
+        margin-left : 73%;
+    }
 }
+
+
+@media (max-width: 400px) {
+    #loginarea {
+        width: 100%;
+    }
+}
+
 
 .top-nav-collapse {
     padding: 0;

@@ -56,10 +56,10 @@ function(isConfirm){
 } elseif (!empty($list1)) {
     $password1 = $list1['password'];
 
-    if ($login_password == $password1) {
+    if (md5($login_password) == $password1) {
         $_SESSION['block'] = NULL;
         header('Location: ../../view/Patient/patient_home.php');
-    } elseif ($login_password != $password1) {
+    } elseif (md5($login_password) != $password1) {
         echo '<script>
     setTimeout(function () { 
 swal({
@@ -78,10 +78,10 @@ function(isConfirm){
 } else {
     $password2 = $list2['password'];
 
-    if ($login_password == $password2) {
+    if (md5($login_password) == $password2) {
         $_SESSION['block'] = NULL;
         header('Location: ../../view/Doctor/doctor_home.php');
-    } elseif ($login_password != $password2) {
+    } elseif (md5($login_password) != $password2) {
         echo '<script>
     setTimeout(function () { 
 swal({

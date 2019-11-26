@@ -13,12 +13,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/xampp/htdocs/udp/controller/loginout/signIn.php</file>
+            <file>file:/D:/xampp/htdocs/udp/model/doctor/doctor_functions.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/schedule.php</file>
             <file>file:/D:/xampp/htdocs/udp/index.php</file>
-            <file>file:/D:/xampp/htdocs/udp/view/Doctor/doctor_signUp.php</file>
             <file>file:/D:/xampp/htdocs/udp/controller/signUp/doctor_signUpProcess.php</file>
             <file>file:/D:/xampp/htdocs/udp/controller/signUp/patient_signUpProccess.php</file>
             <file>file:/D:/xampp/htdocs/udp/Content/css/style.css</file>
-            <file>file:/D:/xampp/htdocs/udp/view/Patient/patient_signUp.php</file>
+            <file>file:/D:/xampp/htdocs/udp/controller/forgotAccProccess.php</file>
         </group>
     </open-files>
 </project-private>

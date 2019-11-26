@@ -2,7 +2,7 @@
 session_start();
 $con = mysqli_connect("localhost", "root", "", "drbook");
 $q = $_GET['q'];
-$res = mysqli_query($con,"SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name, s.date, s.time, s.status FROM schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id WHERE s.date='" . $q . "'"
+$res = mysqli_query($con,"SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name,d.d_last_name, s.date, s.time, s.status, spec.speciality_name, d.pps_num FROM (schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id ) INNER JOIN speciality as spec ON d.speciality_id = spec.id WHERE s.date='" . $q . "'"
         . " AND status='available'");
 
 //$_SESSION['doctor_id'] = $data['doctor_id'];
@@ -28,6 +28,7 @@ die("Error running $sql: " . mysqli_error());
             echo " <thead>";
                 echo " <tr>";
                     echo " <th>Doctor</th>";
+                    echo " <th>Speciality</th>";
                     echo " <th>Date</th>";
                     echo "  <th>Start Time</th>";
                     echo " <th>Availability</th>";
@@ -52,15 +53,10 @@ die("Error running $sql: " . mysqli_error());
                     }
 
                    
-                    // if ($rowapp['bookAvail']!="available") {
-                    // $btnstate="disabled";
-                    // } else {
-                    // $btnstate="";
-                    // }
-                    echo "<td>" . $row['d_first_name'] . "</td>";
+                    echo "<td><a href=\"view_doctor.php?pps=" .$row['pps_num']."\">". $row['d_first_name'] . " " .$row['d_last_name'] ."</a></td>";
+                    echo "<td>" . $row['speciality_name'] . "</td>";
                     echo "<td>" . $row['date'] . "</td>";
                     echo "<td>" . $row['time'] . "</td>";
-//                    echo "<td>" . $row['status'] . "</td>";
                     echo "<td>" . $row['status'] ."</span></td>";
                     echo "<td><form action=\"book_proccess.php\" method=\"post\">"
                     . "<input style=\"display:none;\" type=\"text\" name=\"doctor_id\" value=\"" . $row['doctor_id'] . "\" />"

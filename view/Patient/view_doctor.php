@@ -134,7 +134,7 @@ $userDetail2 = get_hospital($doctor_pps);
                             <div class="col-md-8">
                                 <div class="profile-head">
                                     <h3>
-                                        <?php echo "$firstname $lastname"; ?>
+                                        <?php echo $userDetail['d_first_name'] . " " .$userDetail['d_last_name']; ?>
                                     </h3>
                                 </div>
                                 <div class="col-md-12">

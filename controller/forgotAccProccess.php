@@ -52,7 +52,7 @@ function(isConfirm){
 } elseif (!empty($list1)) {
 
     $subject = 'Dr.Book - Find Password';
-    $message = 'Your password is ' . password_verify($password1, $md5hash) . '.';
+    $message = 'Your password is ' . $password1 . '.';
     $headers = 'From: Dr.Book <no_reply@drbook.com>\r\n';
     $headers .= 'Content-type: text/html\r\n';
 
@@ -76,7 +76,7 @@ function(isConfirm){
 }); }, 1000);</script>';
 } else {
     $subject = 'Dr.Book - Find Password';
-    $message = 'Your password is ' . password_verify($password2, $md5hash) . '.';
+    $message = 'Your password is ' . $password2 . '.';
 
     $mail->Subject = $subject;
     $mail->Body = $message;

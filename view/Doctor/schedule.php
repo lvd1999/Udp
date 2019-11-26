@@ -227,6 +227,7 @@ $schedule_list = get_schedule($doctor_pps);
                                 var availableTime = new Array();
                                 var currentWeekByTime = [];
                                 var string;
+                                var arrayIn;
 
                                 $('#datepicker').datepicker({
                                     autoclose: true,
@@ -285,21 +286,6 @@ $schedule_list = get_schedule($doctor_pps);
                                     }
                                 }
 
-                                $(document).ready(function () {
-                                    $('#send').click(function () {
-                                        console.log("hi " + availableTime);
-                                        $.ajax({
-                                            url: "../../model/doctor/scheduleOut.php",
-                                            method: "POST",
-                                            data: {time: availableTime},
-                                            success: function (data) {
-                                                console.log("success: " + data);
-                                            }
-                                        });
-                                    });
-
-                                });
-
                                 function dateChange(val) {
                                     var str = val;
 
@@ -318,16 +304,53 @@ foreach ($schedule_list as $schedule) :
 endforeach;
 $js_array = json_encode($lists);
 ?>
-                                    var arrayIn = <?php echo $js_array ?>;
+                                    this.arrayIn = <?php echo $js_array ?>;
                                     for (i = 0; i <= 44; i++)
                                     {
-                                        if (this.availableTime.indexOf(this.currentWeekByTime[i]) != -1 || arrayIn.indexOf(this.currentWeekByTime[i]) != -1) {
+                                        if (this.availableTime.indexOf(this.currentWeekByTime[i]) != -1 || this.arrayIn.indexOf(this.currentWeekByTime[i]) != -1) {
                                             x.getElementsByClassName("cells")[i].style.backgroundColor = "#f0d7cc";
                                         } else {
                                             x.getElementsByClassName("cells")[i].style.backgroundColor = "#ffffff";
                                         }
                                     }
                                 }
+
+                                $(document).ready(function () {
+                                    $('#send').click(function () {
+                                        for (i = 0; i <= (availableTime).length - 1; i++)
+                                        {
+                                            for (j = 0; j <= (arrayIn).length - 1; j++)
+                                            {
+                                                if ((availableTime[i]).indexOf(arrayIn[j]) == 0) {
+                                                    (availableTime).splice(availableTime[i], 1);
+                                                }
+                                            }
+                                        }
+                                        console.log("hi " + availableTime);
+                                        $.ajax({
+                                            url: "../../model/doctor/scheduleOut.php",
+                                            method: "POST",
+                                            data: {time: availableTime},
+                                            success: function (data) {
+                                                console.log("success: " + data);
+                                                setTimeout(function () {
+                                                    swal({
+                                                        title: "OK.",
+                                                        text: "Timetable updated.",
+                                                        type: "success",
+                                                        confirmButtonText: "Back"
+                                                    },
+                                                            function (isConfirm) {
+                                                                if (isConfirm) {
+                                                                    window.location.reload(true);
+                                                                }
+                                                            });
+                                                }, 1000);
+                                            }
+                                        });
+                                    });
+
+                                });
             </script>
             <script>
                 $(document).ready(function () {
@@ -344,7 +367,11 @@ $js_array = json_encode($lists);
 
             <!-- Page level custom scripts -->
             <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
-    </body>
 
-</html>
+            <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+            </body>
+
+            </html>
 

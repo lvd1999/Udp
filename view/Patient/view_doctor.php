@@ -9,6 +9,8 @@ $doctor_pps = $_GET['pps'];
 
 $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
+$firstname2 = $_SESSION['first_name2'];
+$lastname2 = $_SESSION['last_name2'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
 $userDetail = get_doctor($doctor_pps);
@@ -134,7 +136,7 @@ $userDetail2 = get_hospital($doctor_pps);
                             <div class="col-md-8">
                                 <div class="profile-head">
                                     <h3>
-                                        <?php echo "$firstname $lastname"; ?>
+                                        <?php echo $userDetail['d_first_name']." " .$userDetail['d_last_name'];; ?>
                                     </h3>
                                 </div>
                                 <div class="col-md-12">

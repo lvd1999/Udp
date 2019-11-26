@@ -9,6 +9,8 @@ $doctor_pps = $_GET['pps'];
 
 $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
+$firstname2 = $_SESSION['first_name2'];
+$lastname2 = $_SESSION['last_name2'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
 $userDetail = get_doctor($doctor_pps);

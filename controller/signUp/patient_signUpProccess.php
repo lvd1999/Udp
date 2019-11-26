@@ -89,10 +89,10 @@ function(isConfirm){
 
     // Finally, register user if there are no errors in the form
     if ($count == 1) {
-  	$password = md5($password_1);//encrypt the password before saving in the database
+        $password = md5($password_1); //encrypt the password before saving in the database
 
         $query = "INSERT INTO patients (p_first_name,p_last_name,birthdate,pps_num,gender, email, password) 
-  			  VALUES(:firstname, :lastname, :dob, :pps, :gender, :email, :password)";
+  			  VALUES('$firstname', '$lastname', '$dob', '$pps', '$gender', '$email', '$password')";
         $statement3 = $db->prepare($query);
         $statement3->bindValue(':firstname', $firstname);
         $statement3->bindValue(':lastname', $lastname);

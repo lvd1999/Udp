@@ -10,7 +10,7 @@ $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
 $profile_pic = $_SESSION['profile_pic2'];
 
-$schedule_list = get_schedule();
+$schedule_list = get_schedule($doctor_pps);
 ?>
 <!DOCTYPE html>
 <html lang="en">

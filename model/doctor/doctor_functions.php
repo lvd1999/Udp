@@ -117,10 +117,11 @@ function get_patient_pastrecords_by_pps($patient_pps) {
     return $record_list;
 }
 
-function get_schedule() {
+function get_schedule($doctor_pps) {
     global $db;
-    $query = 'SELECT date,time FROM schedules';
+    $query = 'SELECT date,time FROM schedules WHERE doctor_id = (SELECT id FROM doctors WHERE pps_num = :doctor_pps)';
     $statement = $db->prepare($query);
+    $statement->bindValue(":doctor_pps", $doctor_pps);
     $statement->execute();
     $list = $statement->fetchAll();
     $statement->closeCursor();

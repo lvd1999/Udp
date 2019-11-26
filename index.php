@@ -60,28 +60,27 @@ if (!isset($login_pps)) {
                     </div>
                 </nav>
 
-                <div class="container-fluid">
+                <div class="container">
                     <div class="row">
                         <div class="banner-info">
                             <div class="banner-text text-center">
                                 <h1 class="white">Healthcare at your desk!!</h1>
                                 <p>We aim to be the leading healthcare provider in Europe that integrates technology in <br>healthcare, improving health services accessibility.</p>
                             </div>
-                            <div id="loginarea" class=" col-lg-3 col-md-3 col-sm-3">
-                                <h3 id="loginheader" >Login into Dr.Book</h3>
-                                <div id="logininner" class="container-fluid  col-lg-12 col-md-12 col-sm-12 ">
+                            <div id="loginarea" class="row col-md-3">
+                                <h3 id="loginheader">Login into Dr.Book</h3>
 
-                                    <form action="controller/loginout/signIn.php" id="loginform" class="contactForm" method="POST" accept-charset="UTF-8" >
+                                    <form action="controller/loginout/signIn.php" id="loginform" class="form" method="POST" accept-charset="UTF-8" >
 
-                                        <div class="form-group container-fluid  col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
                                             <label class="sr-only" for="login_pps">PPS Number</label>
                                             <input required type="text" class="form-control" name="login_pps" placeholder="PPS Number" required>
                                         </div>
-                                        <div class="form-group container-fluid  col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
                                             <label class="sr-only" for="password">Password</label>
                                             <input required type="password" class="form-control" name="login_password" placeholder="Password" required>
                                         </div>
-                                        <div class="form-group container-fluid  col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
                                             <button type="submit" name="login" id="login" class="btn btn-primary btn-block">
                                                 Sign In
                                             </button>
@@ -91,8 +90,7 @@ if (!isset($login_pps)) {
                                         </p>
                                     </form>
                                 </div>
-                            </div>
-                            <div class="overlay-detail text-center col-sm-12" style="margin-top: 23%">
+                            <div class="overlay-detail text-center">
                                 <a href="#service"><i class="fa fa-angle-down"></i></a>
                             </div>
                         </div>

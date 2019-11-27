@@ -5,22 +5,14 @@ if (isset($_SESSION['block'])) {
 }
 require('../../model/doctor/doctor_functions.php');
 include_once '../../model/database.php';
-//if (!isset($_SESSION['patientSession'])) {
-//    header("Location: ../index.php");
-//}
-//$usersession = $_SESSION['patientSession'];
 $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
 $profile_pic = $_SESSION['profile_pic2'];
 
-$doctor_records_list = get_upcomingrecords_by_pps($doctor_pps)
+$doctor_records_list = get_upcomingrecords_by_pps($doctor_pps);
 
-//$res = mysqli_query($con, "SELECT * FROM patient WHERE icPatient=" . $usersession);
-//if ($res === false) {
-//    echo mysql_error();
-//}
-//$userRow = mysqli_fetch_array($res, MYSQLI_ASSOC);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -200,31 +192,7 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps)
             <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
 
-            <!--        START OF BUG
-                      jQuery 
-                    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
             
-                     Isolated Version of Bootstrap, not needed if your site already uses Bootstrap 
-                    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-            
-                     Bootstrap Date-Picker Plugin 
-                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-                     Include all compiled plugins (below), or include individual files as needed 
-                    <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
-                    <script>
-                        $(document).ready(function () {
-                            var date_input = $('input[name="date"]'); //our date input has the name "date"
-                            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                            date_input.datepicker({
-                                format: 'yyyy-mm-dd',
-                                container: container,
-                                todayHighlight: true,
-                                autoclose: true,
-                            });
-                        });
-                    </script>
-                    END OF BUG-->
             <!-- Page level plugins -->
             <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>

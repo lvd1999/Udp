@@ -11,6 +11,7 @@ $firstname = $_SESSION['first_name2'];
 $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
 $profile_pic = $_SESSION['profile_pic2'];
+$doctor_records_list = get_upcomingrecords_by_pps($doctor_pps);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +61,70 @@ $profile_pic = $_SESSION['profile_pic2'];
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <h1 class="h3 mb-4 text-gray-800">Home</h1>
+                   <div class="container-fluid">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Upcoming Appointments</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Appointment ID<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>PPS no.<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>Patient<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>Date<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>Time<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>Status<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Appointment ID</th>
+                                                <th>PPS no.</th>
+                                                <th>Patient</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+                                            <?php foreach ($doctor_records_list as $record_list) : ?>
+                                                <tr>
+                                                    <td><?php
+                                                        echo $record_list['id'];
+                                                        $pps = $record_list['pps_num'];
+                                                        ?></td>
+                                                    <td><a href="view_patient.php?pps=<?php echo $pps; ?>"><?php echo $record_list['pps_num']; ?></a></td>
+                                                    <td><?php echo $record_list['p_first_name']; ?> <?php echo $record_list['p_last_name']; ?></td>
+                                                    <td><?php
+                                                        $timestamp = strtotime($record_list['time']);
+                                                        echo date('d-m-Y', $timestamp);
+                                                        ?></td>
+                                                    <td><?php
+                                                        echo date('h.ia', $timestamp);
+                                                        ?></td>
+                                                    <td>
+                                                        <select class="form-control status">        
+                                                            <option value="<?php echo $record_list['id'] ?>pending" selected>pending</option>
+                                                            <option value="<?php echo $record_list['id'] ?>completed">completed</option>
+                                                        </select>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- /.container-fluid -->
+
+                    </div>
 
                     <!-- End of Main Content -->
 
@@ -143,30 +207,30 @@ $profile_pic = $_SESSION['profile_pic2'];
 </html>
 
 
+ <script type="text/javascript">
+                $(document).ready(function () {
+                    $('.status').change(function (e) {
 
+                        $.ajax({
+                            url: "../../model/doctor/changeStatus.php",
+                            method: "POST",
+                            data: {string: $(e.target).val()},
+                            success: function (data) {
+                                console.log("hi " + data);
+                                window.location.reload(true);
+                            },
+                            error: function (xhr, status, error) {
+                                var err = eval("(" + xhr.responseText + ")");
+                                alert(err.Message);
+                                $("#output").html(error);
 
-<script>
-                function showUser(str) {
-
-                    if (str == "") {
-                        document.getElementById("txtHint").innerHTML = "No data to be shown";
-                        return;
-                    } else {
-                        if (window.XMLHttpRequest) {
-                            // code for IE7+, Firefox, Chrome, Opera, Safari
-                            xmlhttp = new XMLHttpRequest();
-                        } else {
-                            // code for IE6, IE5
-                            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                        }
-                        xmlhttp.onreadystatechange = function () {
-                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
                             }
-                        };
-                        xmlhttp.open("GET", "getschedule.php?q=" + str, true);
-                        console.log(str);
-                        xmlhttp.send();
-                    }
-                }
-</script>
+
+                        });
+                    });
+
+                });
+
+            </script>
+
+

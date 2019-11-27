@@ -31,7 +31,7 @@ die("Error running $sql: " . mysqli_error());
                     echo " <th>Speciality</th>";
                     echo " <th>Date</th>";
                     echo "  <th>Start Time</th>";
-                    echo " <th>Availability</th>";
+//                    echo " <th>Availability</th>";
                     echo "  <th>Book Now!</th>";
                 echo " </tr>";
             echo "  </thead>";
@@ -40,8 +40,6 @@ die("Error running $sql: " . mysqli_error());
                 ?>
                 <tr>
                     <?php
-                    // $avail=null;
-                    // $btnclick="";
                     if ($row['status']!='available') {
                     $avail="danger";
                     $btnstate="disabled";
@@ -57,7 +55,7 @@ die("Error running $sql: " . mysqli_error());
                     echo "<td>" . $row['speciality_name'] . "</td>";
                     echo "<td>" . $row['date'] . "</td>";
                     echo "<td>" . $row['time'] . "</td>";
-                    echo "<td>" . $row['status'] ."</span></td>";
+//                    echo "<td>" . $row['status'] ."</span></td>";
                     echo "<td><form action=\"book_proccess.php\" method=\"post\">"
                     . "<input style=\"display:none;\" type=\"text\" name=\"doctor_id\" value=\"" . $row['doctor_id'] . "\" />"
                     . "<input style=\"display:none;\" type=\"text\" name=\"date\" value=\"" . $row['date'] . "\" />"

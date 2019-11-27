@@ -62,7 +62,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <h1 class="h3 mb-4 text-gray-800">Home- Book An Appointment</h1>
+                    <h1 class="h3 mb-4 text-black-800 ml-5 text-">Book An Appointment</h1>
                     <div id="home_1" class="container-fluid">
 
                         <!--Date table input-->

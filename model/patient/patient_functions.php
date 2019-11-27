@@ -61,7 +61,7 @@ function get_patient($patient_pps) {
 
 function get_address($patient_pps) {
     global $db;
-    $query = 'SELECT a.id, a.street_address, a.town_city, a.county_id, a.postcode, c.name AS county_name FROM ((addresses as a INNER JOIN patients as p ON p.address_id = a.id)INNER JOIN counties as c ON a.county_id = c.id) WHERE pps_num = :patient_pps';
+    $query = 'SELECT a.id, a.street_address, a.town_city, a.county_id, a.postcode, c.name AS county_name FROM ((addresses as a INNER JOIN patients as p ON p.address_id = a.id)INNER JOIN counties as c ON a.county_id = c.id) WHERE p.pps_num = :patient_pps';
     $statement = $db->prepare($query);
     $statement->bindValue(":patient_pps", $patient_pps);
     $statement->execute();

@@ -31,10 +31,23 @@ if (isset($_POST['submit'])) {
 
     $con = mysqli_connect("localhost", "root", "", "drbook");
     $query2 = "UPDATE patients SET p_first_name='$firstname', p_last_name='$lastname',  birthdate='$birthdate', gender='$gender', contact_mobile='$contact', email='$email' WHERE pps_num='" . $patient_pps . "'";
+    
+    if($userDetail2['id']!=null)
+    {
     $query3 = "UPDATE addresses SET street_address='$address', town_city='$town', postcode='$postcode',county_id='$county' WHERE id='" . $userDetail2['id'] . "'";
-
     $res = mysqli_query($con, $query2);
     $res2 = mysqli_query($con, $query3);
+    }
+    else
+    {
+        $query3 = "INSERT INTO addresses (street_address, town_city, postcode, county_id) VALUES ('$address','$town','$postcode','$county')";  
+        $query4 = "UPDATE patients SET address_id = (SELECT id FROM addresses WHERE ((street_address = '$address') AND(town_city='$town') AND(county_id='$county')))
+                    WHERE pps_num ='". $patient_pps . "'";
+        $res = mysqli_query($con, $query2);
+    $res2 = mysqli_query($con, $query3);
+    $res3 = mysqli_query($con, $query4);
+    }
+    
     $_SESSION['first_name1'] = $firstname;
     $_SESSION['last_name1'] = $lastname;
     header('Location: patient_profile.php');

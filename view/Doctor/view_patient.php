@@ -329,7 +329,7 @@ $patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Past Appointments</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Past Appointments with you</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -337,7 +337,7 @@ $patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
                                     <thead>
                                         <tr>
                                             <th>Appointment ID<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                            <th>Doctor<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                            <!--<th>Doctor<span id="sort_icon"><i class="fas fa-sort"></i></span></th>-->
                                             <th>Hospital<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
                                             <th>Date<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
                                             <th>Time<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
@@ -347,7 +347,7 @@ $patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
                                     <tfoot>
                                         <tr>
                                             <th>Appointment ID</th>
-                                            <th>Doctor</th>
+                                            <!--<th>Doctor</th>-->
                                             <th>Hospital</th>
                                             <th>Date</th>
                                             <th>Time</th>
@@ -358,7 +358,7 @@ $patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
                                         <?php foreach ($patient_records_list as $record_list) : ?>
                                             <tr>
                                                 <td><?php echo $record_list['id']; ?></td>
-                                                <td><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
+                                                <!--<td><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>-->
                                                 <td><?php echo $record_list['name']; ?></td>
                                                 <td><?php
                                                     $timestamp = strtotime($record_list['time']);

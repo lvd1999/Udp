@@ -41,10 +41,11 @@ $countryResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM 
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-        <!-- Datatable -->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-
-
+        <style>
+            .dataTables_filter, .dataTables_info { display: none; }
+        </style>
     </head>
 
     <body id="page-top">
@@ -67,10 +68,53 @@ $countryResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM 
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <h1 class="h3 mb-4 text-black-800 ml-5 text-">Book An Appointment</h1>
-                    <div id="home_1" class="container-fluid">
 
-<!--                        Date table input
+
+                    <div id="home_1" class="container-fluid" style="display:inline-block;">
+                        <div class="card shadow mb-4" style="width:49%;float: left;height: 300px;">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Appointments in next 3 days</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Appointment ID</th>
+                                                <th>PPS</th>
+                                                <th>Patient</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbody">
+                                            <tr>
+                                                <td class="cells" onClick="tableClick(this, 0, '09')"></td>
+                                                <td class="cells" onClick="tableClick(this, 0, 10)"></td>
+                                                <td class="cells" onClick="tableClick(this, 0, 11)"></td>
+                                                <td class="cells" onClick="tableClick(this, 0, 12)"></td>
+                                                <td class="cells" onClick="tableClick(this, 0, 13)"></td>
+                                                <td class="cells" onClick="tableClick(this, 0, 14)"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card shadow mb-4" style="width:49%;float: left;margin-left: 20px;height: 300px;">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Number of past appointments in this year</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="piechart_3d" style="width: 100%; height: 100%;"></div>
+                            </div>
+                        </div>
+                        <!--booking input-->
+                      
+                        <!--                        Date table input
                         <div class="bootstrap-iso">
                             <div class="input-group" style="margin-bottom:10px;">
                                 <div class="input-group-addon">
@@ -81,8 +125,8 @@ $countryResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM 
                             </div>
                             <div id="txtHint" ></div>
                         </div>-->
-
-                        <!--FILTER SYSTEM-->
+                      
+                      <!--FILTER SYSTEM-->
                         <form method="POST" name="search" action="patient_home.php">
                             <div id="demo-grid">
                                 <div class="search-box">
@@ -175,9 +219,17 @@ INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name 
                                 ?>  
                             </div>
                         </form>
+                        <!--End of booking-->
+
+                        <!-- Page Heading -->
+                    </div>
+                   
+
+                        
                         <!--End of date table-->
 
                         <!-- Page Heading -->
+
 
 
                     </div>
@@ -187,7 +239,10 @@ INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name 
                 </div>
                 <!-- End of Content Wrapper -->
                 <!-- Footer -->
-<?php include 'patientFooter.php'; ?>
+
+                <div style="margin-top:200px;"></div>
+                <?php include 'patientFooter.php'; ?>
+
                 <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->
@@ -240,16 +295,16 @@ INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name 
             <!--Include all compiled plugins (below), or include individual files as needed--> 
             <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
             <script>
-                                    $(document).ready(function () {
-                                        var date_input = $('input[name="date"]'); //our date input has the name "date"
-                                        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                                        date_input.datepicker({
-                                            format: 'yyyy-mm-dd',
-                                            container: container,
-                                            todayHighlight: true,
-                                            autoclose: true,
-                                        });
+                                $(document).ready(function () {
+                                    var date_input = $('input[name="date"]'); //our date input has the name "date"
+                                    var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                                    date_input.datepicker({
+                                        format: 'yyyy-mm-dd',
+                                        container: container,
+                                        todayHighlight: true,
+                                        autoclose: true,
                                     });
+                                });
             </script>
 
             <!-- Page level plugins -->
@@ -262,27 +317,49 @@ INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name 
 
 </html>
 <script>
-                                    function showUser(str) {
+                                function showUser(str) {
 
-                                        if (str == "") {
-                                            document.getElementById("txtHint").innerHTML = "No data to be shown";
-                                            return;
+                                    if (str == "") {
+                                        document.getElementById("txtHint").innerHTML = "No data to be shown";
+                                        return;
+                                    } else {
+                                        if (window.XMLHttpRequest) {
+                                            // code for IE7+, Firefox, Chrome, Opera, Safari
+                                            xmlhttp = new XMLHttpRequest();
                                         } else {
-                                            if (window.XMLHttpRequest) {
-                                                // code for IE7+, Firefox, Chrome, Opera, Safari
-                                                xmlhttp = new XMLHttpRequest();
-                                            } else {
-                                                // code for IE6, IE5
-                                                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                                            }
-                                            xmlhttp.onreadystatechange = function () {
-                                                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                                    document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-                                                }
-                                            };
-                                            xmlhttp.open("GET", "getschedule.php?q=" + str, true);
-                                            console.log(str);
-                                            xmlhttp.send();
+                                            // code for IE6, IE5
+                                            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
                                         }
+                                        xmlhttp.onreadystatechange = function () {
+                                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                                            }
+                                        };
+                                        xmlhttp.open("GET", "getschedule.php?q=" + str, true);
+                                        console.log(str);
+                                        xmlhttp.send();
                                     }
+                                }
+                                $('table').dataTable({searching: false, paging: false, info: false});
 </script>
+<script type="text/javascript">
+    google.charts.load("current", {packages: ["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Month', 'Hours per Day'],
+            ['Work', 11],
+            ['Eat', 2],
+            ['Commute', 2],
+        ]);
+
+        var options = {
+            title: 'Month',
+            is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+    }
+</script>
+

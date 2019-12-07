@@ -29,7 +29,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <!--<a class="collapse-item" href="book.php">Book</a>-->
+
                 <a class="collapse-item" href="upcoming_appointments.php">Upcoming</a>
                 <a class="collapse-item" href="past_appointments.php">Past</a>
             </div>

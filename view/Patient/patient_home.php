@@ -3,6 +3,7 @@ session_start();
 if (isset($_SESSION['block'])) {
     header('Location: ../../index.php');
 }
+
 $_SESSION['patient'] = true;
 $_SESSION['doctor'] = NULL;
 require('../../model/patient/patient_functions.php');
@@ -12,6 +13,10 @@ $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
+
+//filter booking
+$db_handle = new DBController();
+$countryResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM ((doctors as d INNER JOIN schedules as s ON s.doctor_id = d.id)INNER JOIN speciality as spc)");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,6 +69,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
                     <!-- Begin Page Content -->
 
+
                     <div id="home_1" class="container-fluid" style="display:inline-block;">
                         <div class="card shadow mb-4" style="width:49%;float: left;height: 300px;">
                             <div class="card-header py-3">
@@ -92,9 +98,11 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                                                 <td class="cells" onClick="tableClick(this, 0, 14)"></td>
                                             </tr>
                                         </tbody>
-                                    </table>                                
+                                    </table>
+
                                 </div>
                             </div>
+
                         </div>
                         <div class="card shadow mb-4" style="width:49%;float: left;margin-left: 20px;height: 300px;">
                             <div class="card-header py-3">
@@ -105,22 +113,125 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                             </div>
                         </div>
                         <!--booking input-->
+                      
+                        <!--                        Date table input
+                        <div class="bootstrap-iso">
+                            <div class="input-group" style="margin-bottom:10px;">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar">
+                                    </i>
+                                </div>
+                                <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
+                            </div>
+                            <div id="txtHint" ></div>
+                        </div>-->
+                      
+                      <!--FILTER SYSTEM-->
+                        <form method="POST" name="search" action="patient_home.php">
+                            <div id="demo-grid">
+                                <div class="search-box">
+                                    <select id="Place" name="country[]" multiple="multiple">
+                                        <option value="0" selected="selected">Select Country</option>
+                                        <?php
+                                        if (!empty($countryResult)) {
+                                            foreach ($countryResult as $key => $value) {
+                                                echo '<option value="' . $countryResult[$key]['speciality_name'] . '">' . $countryResult[$key]['speciality_name'] . '</option>';
+                                            }
+                                        }
+                                        ?>
+                                    </select><br> <br>
+
+<!--<input type="date" name="date" value=>-->
+                                    <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" />
+
+                                    <button id="Filter">Search</button>
+                                </div>
+
+                                <?php
+                                if (!empty($_POST['country'])) {
+                                    ?>
+                                    <table cellpadding="10" cellspacing="1">
+
+                                        <thead>
+                                            <tr>
+                                                <th><strong>Name</strong></th>
+                                                <th><strong>Speciality</strong></th>
+                                                <th><strong>Date</strong></th>
+                                                <th><strong>Start Time</strong></th>
+                                                <th><strong>Book</strong></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $i = 0;
+                                            $selectedOptionCount = count($_POST['country']);
+                                            $date = $_POST['date'];
+                                            $selectedOption = "";
+                                            while ($i < $selectedOptionCount) {
+                                                $selectedOption = $selectedOption . $_POST['country'][$i];
+                                                if ($i < $selectedOptionCount - 1) {
+                                                    $selectedOption = $selectedOption . ", ";
+                                                }
+
+                                                $i ++;
+                                            }
+                                            $query = "SELECT sch.id as schedule_id, d.pps_num, spc.speciality_name, sch.date, sch.time, sch.doctor_id, d.d_first_name, d.d_last_name FROM ((schedules as sch INNER JOIN doctors as d ON sch.doctor_id = d.id)
+INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name = \"" . $selectedOption . "\"" . " AND date=" . "\"" . $date . "\"" . " AND status=\"available\"";
+                                            $result = $db_handle->runQuery($query);
+                                        }
+                                        if (!empty($result)) {
+                                            foreach ($result as $key => $value) {
+                                                ?>
+                                                <tr>
+                                                    <td><a href="view_doctor.php?pps=<?php echo $result[$key]['pps_num']; ?>"/><div class="col" id="user_data_1"><?php echo $result[$key]['d_first_name'] . " " . $result[$key]['d_last_name']; ?></div></td>
+                                                    <td><div class="col" id="user_data_2"><?php echo $result[$key]['speciality_name']; ?> </div></td>
+                                                    <td><div class="col" id="user_data_3"><?php echo $result[$key]['date']; ?> </div></td>
+                                                    <td><div class="col" id="user_data_4"><?php echo $result[$key]['time']; ?> </div></td>
+                                                    
+                                                        <form>
+<!--                                                        <form action="book_proccess.php" method="post">
+                                                            <input style="display:none;" type="text" name="doctor_id" value="<?php echo $result[$key]['doctor_id']; ?>" />
+                                                            <input style="display:none;" type="text" value="<?php echo $result[$key]['date']; ?>"   />
+                                                            <input style="display:none;" type="text" name="time" value="<?php echo $result[$key]['time']; ?>"   />
+                                                            <input style="display:none;" type="text" name="schedule_id" value="<?php echo $result[$key]['id']; ?>" />
+                                                            <input style="display:none;" type="submit" name="submit" value="Book" Book/> -->
+                                                        </form>
+                                                    
+
+                                                    <?php
+                                                    echo "<td><form action=\"book_proccess.php\" method=\"post\">"
+                                                    . "<input style=\"display:none;\" type=\"text\" name=\"doctor_id\" value=\"" . $result[$key]['doctor_id'] . "\" />"
+                                                    . "<input style=\"display:none;\" type=\"text\" name=\"date\" value=\"" . $result[$key]['date'] . "\" />"
+                                                    . "<input style=\"display:none;\" type=\"text\" name=\"time\" value=\"" . $result[$key]['time'] . "\" />"
+                                                    . "<input style=\"display:none;\" type=\"text\" name=\"schedule_id\" value=\"" . $result[$key]['schedule_id'] . "\" />"
+                                                    . "<input type=\"submit\" name=\"submit\" value=\"Book\" Book/> "
+                                                    . "</form></td>";
+                                                    ?>
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                    <?php
+                                }
+                                ?>  
+                            </div>
+                        </form>
                         <!--End of booking-->
 
                         <!-- Page Heading -->
                     </div>
-                    <div class="bootstrap-iso"style="width: 96%;margin-left: auto;margin-right: auto;border: 1px solid #edeef2;border-radius: 4px;box-shadow: 2px 2px #edeef2;">
-                        <div class="card-header py-3" style="background:#F8F9FC;">
-                            <h6 class="m-0 font-weight-bold text-primary">Book Appointments</h6>
-                        </div>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar">
-                                </i>
-                            </div>
-                            <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
-                        </div>
-                        <div id="txtHint" ></div>
+                   
+
+                        
+                        <!--End of date table-->
+
+                        <!-- Page Heading -->
+
+
+
                     </div>
 
                     <!-- End of Main Content -->
@@ -128,8 +239,10 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                 </div>
                 <!-- End of Content Wrapper -->
                 <!-- Footer -->
+
                 <div style="margin-top:200px;"></div>
                 <?php include 'patientFooter.php'; ?>
+
                 <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->

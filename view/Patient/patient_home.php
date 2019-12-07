@@ -16,7 +16,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
 
 //filter booking
 $db_handle = new DBController();
-$countryResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM ((doctors as d INNER JOIN schedules as s ON s.doctor_id = d.id)INNER JOIN speciality as spc)");
+$specialityResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM ((doctors as d INNER JOIN schedules as s ON s.doctor_id = d.id)INNER JOIN speciality as spc)");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,7 +113,7 @@ $countryResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM 
                             </div>
                         </div>
                         <!--booking input-->
-                      
+
                         <!--                        Date table input
                         <div class="bootstrap-iso">
                             <div class="input-group" style="margin-bottom:10px;">
@@ -125,222 +125,222 @@ $countryResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM 
                             </div>
                             <div id="txtHint" ></div>
                         </div>-->
-                      
-                      <!--FILTER SYSTEM-->
-                        <form method="POST" name="search" action="patient_home.php">
-                            <div id="demo-grid">
-                                <div class="search-box">
-                                    <select id="Place" name="country[]" multiple="multiple">
-                                        <option value="0" selected="selected">Select Country</option>
-                                        <?php
-                                        if (!empty($countryResult)) {
-                                            foreach ($countryResult as $key => $value) {
-                                                echo '<option value="' . $countryResult[$key]['speciality_name'] . '">' . $countryResult[$key]['speciality_name'] . '</option>';
+                        
+                        <div class="card shadow mb-4" style="width:100%;height: auto;">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Book Appointment</h6>
+                            </div>
+                            <!--FILTER SYSTEM-->
+                            <form method="POST" name="search" action="patient_home.php">
+                                Select date: <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" />
+                                
+                                Select speciality:
+                                    <div class="search-box">
+                                        <select id="Place" name="speciality[]">
+                                            <?php
+                                            if (!empty($specialityResult)) {
+                                                foreach ($specialityResult as $key => $value) {
+                                                    echo '<option value="' . $specialityResult[$key]['speciality_name'] . '">' . $specialityResult[$key]['speciality_name'] . '</option>';
+                                                }
                                             }
-                                        }
-                                        ?>
-                                    </select><br> <br>
+                                            ?>
+                                        </select><br> <br>
 
 <!--<input type="date" name="date" value=>-->
-                                    <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" />
 
-                                    <button id="Filter">Search</button>
-                                </div>
+                                        <button id="Filter">Search</button>
+                                    </div>
 
-                                <?php
-                                if (!empty($_POST['country'])) {
-                                    ?>
-                                    <table cellpadding="10" cellspacing="1">
+                                    <?php
+                                    if (!empty($_POST['speciality'])) {
+                                        ?>
+                                        <table cellpadding="10" cellspacing="1">
 
-                                        <thead>
-                                            <tr>
-                                                <th><strong>Name</strong></th>
-                                                <th><strong>Speciality</strong></th>
-                                                <th><strong>Date</strong></th>
-                                                <th><strong>Start Time</strong></th>
-                                                <th><strong>Book</strong></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $i = 0;
-                                            $selectedOptionCount = count($_POST['country']);
-                                            $date = $_POST['date'];
-                                            $selectedOption = "";
-                                            while ($i < $selectedOptionCount) {
-                                                $selectedOption = $selectedOption . $_POST['country'][$i];
-                                                if ($i < $selectedOptionCount - 1) {
-                                                    $selectedOption = $selectedOption . ", ";
-                                                }
-
-                                                $i ++;
-                                            }
-                                            $query = "SELECT sch.id as schedule_id, d.pps_num, spc.speciality_name, sch.date, sch.time, sch.doctor_id, d.d_first_name, d.d_last_name FROM ((schedules as sch INNER JOIN doctors as d ON sch.doctor_id = d.id)
-INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name = \"" . $selectedOption . "\"" . " AND date=" . "\"" . $date . "\"" . " AND status=\"available\"";
-                                            $result = $db_handle->runQuery($query);
-                                        }
-                                        if (!empty($result)) {
-                                            foreach ($result as $key => $value) {
-                                                ?>
+                                            <thead>
                                                 <tr>
-                                                    <td><a href="view_doctor.php?pps=<?php echo $result[$key]['pps_num']; ?>"/><div class="col" id="user_data_1"><?php echo $result[$key]['d_first_name'] . " " . $result[$key]['d_last_name']; ?></div></td>
-                                                    <td><div class="col" id="user_data_2"><?php echo $result[$key]['speciality_name']; ?> </div></td>
-                                                    <td><div class="col" id="user_data_3"><?php echo $result[$key]['date']; ?> </div></td>
-                                                    <td><div class="col" id="user_data_4"><?php echo $result[$key]['time']; ?> </div></td>
-                                                    
-                                                        <form>
-<!--                                                        <form action="book_proccess.php" method="post">
-                                                            <input style="display:none;" type="text" name="doctor_id" value="<?php echo $result[$key]['doctor_id']; ?>" />
-                                                            <input style="display:none;" type="text" value="<?php echo $result[$key]['date']; ?>"   />
-                                                            <input style="display:none;" type="text" name="time" value="<?php echo $result[$key]['time']; ?>"   />
-                                                            <input style="display:none;" type="text" name="schedule_id" value="<?php echo $result[$key]['id']; ?>" />
-                                                            <input style="display:none;" type="submit" name="submit" value="Book" Book/> -->
-                                                        </form>
-                                                    
+                                                    <th><strong>Name</strong></th>
+                                                    <th><strong>Speciality</strong></th>
+                                                    <th><strong>Date</strong></th>
+                                                    <th><strong>Start Time</strong></th>
+                                                    <th><strong>Book</strong></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $i = 0;
+                                                $selectedOptionCount = count($_POST['speciality']);
+                                                $date = $_POST['date'];
+                                                $selectedOption = "";
+                                                while ($i < $selectedOptionCount) {
+                                                    $selectedOption = $selectedOption . $_POST['speciality'][$i];
+                                                    if ($i < $selectedOptionCount - 1) {
+                                                        $selectedOption = $selectedOption . ", ";
+                                                    }
 
-                                                    <?php
-                                                    echo "<td><form action=\"book_proccess.php\" method=\"post\">"
-                                                    . "<input style=\"display:none;\" type=\"text\" name=\"doctor_id\" value=\"" . $result[$key]['doctor_id'] . "\" />"
-                                                    . "<input style=\"display:none;\" type=\"text\" name=\"date\" value=\"" . $result[$key]['date'] . "\" />"
-                                                    . "<input style=\"display:none;\" type=\"text\" name=\"time\" value=\"" . $result[$key]['time'] . "\" />"
-                                                    . "<input style=\"display:none;\" type=\"text\" name=\"schedule_id\" value=\"" . $result[$key]['schedule_id'] . "\" />"
-                                                    . "<input type=\"submit\" name=\"submit\" value=\"Book\" Book/> "
-                                                    . "</form></td>";
+                                                    $i ++;
+                                                }
+                                                $query = "SELECT sch.id as schedule_id, d.pps_num, spc.speciality_name, sch.date, sch.time, sch.doctor_id, d.d_first_name, d.d_last_name FROM ((schedules as sch INNER JOIN doctors as d ON sch.doctor_id = d.id)
+INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name = \"" . $selectedOption . "\"" . " AND date=" . "\"" . $date . "\"" . " AND status=\"available\"";
+                                                $result = $db_handle->runQuery($query);
+                                            }
+                                            if (!empty($result)) {
+                                                foreach ($result as $key => $value) {
                                                     ?>
+                                                    <tr>
+                                                        <td><a href="view_doctor.php?pps=<?php echo $result[$key]['pps_num']; ?>"/><div class="col" id="user_data_1"><?php echo $result[$key]['d_first_name'] . " " . $result[$key]['d_last_name']; ?></div></td>
+                                                        <td><div class="col" id="user_data_2"><?php echo $result[$key]['speciality_name']; ?> </div></td>
+                                                        <td><div class="col" id="user_data_3"><?php echo $result[$key]['date']; ?> </div></td>
+                                                        <td><div class="col" id="user_data_4"><?php echo $result[$key]['time']; ?> </div></td>
+
+                                                <form>
+                                                </form>
+
+
+                                                <?php
+                                                echo "<td><form action=\"book_proccess.php\" method=\"post\">"
+                                                . "<input style=\"display:none;\" type=\"text\" name=\"doctor_id\" value=\"" . $result[$key]['doctor_id'] . "\" />"
+                                                . "<input style=\"display:none;\" type=\"text\" name=\"date\" value=\"" . $result[$key]['date'] . "\" />"
+                                                . "<input style=\"display:none;\" type=\"text\" name=\"time\" value=\"" . $result[$key]['time'] . "\" />"
+                                                . "<input style=\"display:none;\" type=\"text\" name=\"schedule_id\" value=\"" . $result[$key]['schedule_id'] . "\" />"
+                                                . "<input type=\"submit\" name=\"submit\" value=\"Book\" Book/> "
+                                                . "</form></td>";
+                                                ?>
                                                 </tr>
                                                 <?php
                                             }
                                             ?>
 
-                                        </tbody>
-                                    </table>
-                                    <?php
-                                }
-                                ?>  
-                            </div>
-                        </form>
+                                            </tbody>
+                                        </table>
+                                        <?php
+                                    }
+                                    ?>  
+                                
+                            </form>
+                        </div>
                         <!--End of booking-->
 
                         <!-- Page Heading -->
                     </div>
-                   
-
-                        
-                        <!--End of date table-->
-
-                        <!-- Page Heading -->
 
 
 
-                    </div>
+                    <!--End of date table-->
 
-                    <!-- End of Main Content -->
+                    <!-- Page Heading -->
+
+
 
                 </div>
-                <!-- End of Content Wrapper -->
-                <!-- Footer -->
 
-                <div style="margin-top:200px;"></div>
-                <?php include 'patientFooter.php'; ?>
+                <!-- End of Main Content -->
 
-                <!-- End of Footer -->
             </div>
-            <!-- End of Page Wrapper -->
+        </div>
+            <!-- End of Content Wrapper -->
+            <!-- Footer -->
 
-            <!-- Scroll to Top Button-->
-            <a class="scroll-to-top rounded" href="#page-top">
-                <i class="fas fa-angle-up"></i>
-            </a>
+            <!--<div style="margin-top:200px;"></div>-->
+            <?php include 'patientFooter.php'; ?>
 
-            <!-- Logout Modal-->
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                            <a class="btn btn-primary" href="patientlogout.php?logout">Logout</a>
-                        </div>
+            <!-- End of Footer -->
+        
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="patientlogout.php?logout">Logout</a>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Bootstrap core JavaScript-->
-            <script src="../../Content/vendor/jquery/jquery.min.js" type="text/javascript"></script>
-            <script src="../../Content/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="../../Content/vendor/jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="../../Content/vendor/bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
 
-            <!-- Core plugin JavaScript-->
-            <script src="../../Content/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="../../Content/vendor/jquery-easing/jquery.easing.min.js" type="text/javascript"></script>
 
-            <!-- Custom scripts for all pages-->
-            <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
 
 
-            <!--jQuery--> 
-            <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <!--jQuery--> 
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-            <!--Isolated Version of Bootstrap, not needed if your site already uses Bootstrap--> 
-            <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+        <!--Isolated Version of Bootstrap, not needed if your site already uses Bootstrap--> 
+        <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
 
-            <!--Bootstrap Date-Picker Plugin--> 
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-            <!--Include all compiled plugins (below), or include individual files as needed--> 
-            <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
-            <script>
-                                $(document).ready(function () {
-                                    var date_input = $('input[name="date"]'); //our date input has the name "date"
-                                    var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                                    date_input.datepicker({
-                                        format: 'yyyy-mm-dd',
-                                        container: container,
-                                        todayHighlight: true,
-                                        autoclose: true,
-                                    });
-                                });
-            </script>
+        <!--Bootstrap Date-Picker Plugin--> 
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+        <!--Include all compiled plugins (below), or include individual files as needed--> 
+        <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
+        <script>
+                                                $(document).ready(function () {
+                                                    var date_input = $('input[name="date"]'); //our date input has the name "date"
+                                                    var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                                                    date_input.datepicker({
+                                                        format: 'yyyy-mm-dd',
+                                                        container: container,
+                                                        todayHighlight: true,
+                                                        autoclose: true,
+                                                    });
+                                                });
+        </script>
 
-            <!-- Page level plugins -->
-            <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
-            <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+        <!-- Page level plugins -->
+        <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>
 
-            <!-- Page level custom scripts -->
-            <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
+        <!-- Page level custom scripts -->
+        <script src="../../Content/js/demo/datatables-demo.js" type="text/javascript"></script>
     </body>
 
 </html>
 <script>
-                                function showUser(str) {
+                                                    function showUser(str) {
 
-                                    if (str == "") {
-                                        document.getElementById("txtHint").innerHTML = "No data to be shown";
-                                        return;
-                                    } else {
-                                        if (window.XMLHttpRequest) {
-                                            // code for IE7+, Firefox, Chrome, Opera, Safari
-                                            xmlhttp = new XMLHttpRequest();
-                                        } else {
-                                            // code for IE6, IE5
-                                            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                                        }
-                                        xmlhttp.onreadystatechange = function () {
-                                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                                document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-                                            }
-                                        };
-                                        xmlhttp.open("GET", "getschedule.php?q=" + str, true);
-                                        console.log(str);
-                                        xmlhttp.send();
-                                    }
-                                }
-                                $('table').dataTable({searching: false, paging: false, info: false});
+                                                        if (str == "") {
+                                                            document.getElementById("txtHint").innerHTML = "No data to be shown";
+                                                            return;
+                                                        } else {
+                                                            if (window.XMLHttpRequest) {
+                                                                // code for IE7+, Firefox, Chrome, Opera, Safari
+                                                                xmlhttp = new XMLHttpRequest();
+                                                            } else {
+                                                                // code for IE6, IE5
+                                                                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                                            }
+                                                            xmlhttp.onreadystatechange = function () {
+                                                                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                                                    document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                                                                }
+                                                            };
+                                                            xmlhttp.open("GET", "getschedule.php?q=" + str, true);
+                                                            console.log(str);
+                                                            xmlhttp.send();
+                                                        }
+                                                    }
+                                                    $('table').dataTable({searching: false, paging: false, info: false});
 </script>
 <script type="text/javascript">
     google.charts.load("current", {packages: ["corechart"]});

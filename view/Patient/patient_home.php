@@ -12,6 +12,8 @@ $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
+$nextThree = nextThreeRecords($patient_pps);
+$pieChart = pieChartPastAppointments($patient_pps);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,38 +67,46 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     <!-- Begin Page Content -->
 
                     <div id="home_1" class="container-fluid" style="display:inline-block;">
-                        <div class="card shadow mb-4" style="width:49%;float: left;height: 300px;">
+                        <div class="card shadow mb-4" style="width:49%;float: left;height: 410px;">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Appointments in next 3 days</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Your next 3 appointments</h6>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Appointment ID</th>
-                                                <th>PPS</th>
-                                                <th>Patient</th>
+                                                <th>Appt.ID</th>
+                                                <th>Doctor</th>
+                                                <th>Hospital</th>
                                                 <th>Date</th>
                                                 <th>Time</th>
-                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tbody">
-                                            <tr>
-                                                <td class="cells" onClick="tableClick(this, 0, '09')"></td>
-                                                <td class="cells" onClick="tableClick(this, 0, 10)"></td>
-                                                <td class="cells" onClick="tableClick(this, 0, 11)"></td>
-                                                <td class="cells" onClick="tableClick(this, 0, 12)"></td>
-                                                <td class="cells" onClick="tableClick(this, 0, 13)"></td>
-                                                <td class="cells" onClick="tableClick(this, 0, 14)"></td>
-                                            </tr>
+                                            <?php foreach ($nextThree as $record_list) : ?>
+                                                <tr>
+                                                    <td><?php
+                                                        echo $record_list['id'];
+                                                        $pps = $record_list['pps_num'];
+                                                        ?></td>
+                                                    <td><a href="view_doctor.php?pps=<?php echo $pps; ?>"><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
+                                                    <td><?php echo $record_list['name']; ?></td>
+                                                    <td style="color:orange;"><strong><?php
+                                                        $timestamp = strtotime($record_list['time']);
+                                                        echo date('d-m-Y', $timestamp);
+                                                        ?></strong></td>
+                                                    <td><?php
+                                                        echo date('h.ia', $timestamp);
+                                                        ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>                                
                                 </div>
                             </div>
                         </div>
-                        <div class="card shadow mb-4" style="width:49%;float: left;margin-left: 20px;height: 300px;">
+                        <div class="card shadow mb-4" style="width:49%;float: left;margin-left: 20px;height: 410px;">
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Number of past appointments in this year</h6>
                             </div>
@@ -235,9 +245,9 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
             ['Month', 'Hours per Day'],
-            ['Work', 11],
-            ['Eat', 2],
-            ['Commute', 2],
+            <?php foreach ($pieChart as $pc) : ?>
+            ['<?php echo $pc['month']; ?>',<?php echo $pc['count']; ?>],
+            <?php endforeach; ?>
         ]);
 
         var options = {

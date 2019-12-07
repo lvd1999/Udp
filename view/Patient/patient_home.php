@@ -3,6 +3,7 @@ session_start();
 if (isset($_SESSION['block'])) {
     header('Location: ../../index.php');
 }
+
 $_SESSION['patient'] = true;
 $_SESSION['doctor'] = NULL;
 require('../../model/patient/patient_functions.php');
@@ -12,6 +13,10 @@ $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
+
+//filter booking
+$db_handle = new DBController();
+$countryResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM ((doctors as d INNER JOIN schedules as s ON s.doctor_id = d.id)INNER JOIN speciality as spc)");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,7 +70,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     <h1 class="h3 mb-4 text-black-800 ml-5 text-">Book An Appointment</h1>
                     <div id="home_1" class="container-fluid">
 
-                        <!--Date table input-->
+<!--                        Date table input
                         <div class="bootstrap-iso">
                             <div class="input-group" style="margin-bottom:10px;">
                                 <div class="input-group-addon">
@@ -75,11 +80,105 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                                 <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value)"/>
                             </div>
                             <div id="txtHint" ></div>
-                        </div>
+                        </div>-->
+
+                        <!--FILTER SYSTEM-->
+                        <form method="POST" name="search" action="patient_home.php">
+                            <div id="demo-grid">
+                                <div class="search-box">
+                                    <select id="Place" name="country[]" multiple="multiple">
+                                        <option value="0" selected="selected">Select Country</option>
+                                        <?php
+                                        if (!empty($countryResult)) {
+                                            foreach ($countryResult as $key => $value) {
+                                                echo '<option value="' . $countryResult[$key]['speciality_name'] . '">' . $countryResult[$key]['speciality_name'] . '</option>';
+                                            }
+                                        }
+                                        ?>
+                                    </select><br> <br>
+
+<!--<input type="date" name="date" value=>-->
+                                    <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" />
+
+                                    <button id="Filter">Search</button>
+                                </div>
+
+                                <?php
+                                if (!empty($_POST['country'])) {
+                                    ?>
+                                    <table cellpadding="10" cellspacing="1">
+
+                                        <thead>
+                                            <tr>
+                                                <th><strong>Name</strong></th>
+                                                <th><strong>Speciality</strong></th>
+                                                <th><strong>Date</strong></th>
+                                                <th><strong>Start Time</strong></th>
+                                                <th><strong>Book</strong></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $i = 0;
+                                            $selectedOptionCount = count($_POST['country']);
+                                            $date = $_POST['date'];
+                                            $selectedOption = "";
+                                            while ($i < $selectedOptionCount) {
+                                                $selectedOption = $selectedOption . $_POST['country'][$i];
+                                                if ($i < $selectedOptionCount - 1) {
+                                                    $selectedOption = $selectedOption . ", ";
+                                                }
+
+                                                $i ++;
+                                            }
+                                            $query = "SELECT sch.id as schedule_id, d.pps_num, spc.speciality_name, sch.date, sch.time, sch.doctor_id, d.d_first_name, d.d_last_name FROM ((schedules as sch INNER JOIN doctors as d ON sch.doctor_id = d.id)
+INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name = \"" . $selectedOption . "\"" . " AND date=" . "\"" . $date . "\"" . " AND status=\"available\"";
+                                            $result = $db_handle->runQuery($query);
+                                        }
+                                        if (!empty($result)) {
+                                            foreach ($result as $key => $value) {
+                                                ?>
+                                                <tr>
+                                                    <td><a href="view_doctor.php?pps=<?php echo $result[$key]['pps_num']; ?>"/><div class="col" id="user_data_1"><?php echo $result[$key]['d_first_name'] . " " . $result[$key]['d_last_name']; ?></div></td>
+                                                    <td><div class="col" id="user_data_2"><?php echo $result[$key]['speciality_name']; ?> </div></td>
+                                                    <td><div class="col" id="user_data_3"><?php echo $result[$key]['date']; ?> </div></td>
+                                                    <td><div class="col" id="user_data_4"><?php echo $result[$key]['time']; ?> </div></td>
+                                                    
+                                                        <form>
+<!--                                                        <form action="book_proccess.php" method="post">
+                                                            <input style="display:none;" type="text" name="doctor_id" value="<?php echo $result[$key]['doctor_id']; ?>" />
+                                                            <input style="display:none;" type="text" value="<?php echo $result[$key]['date']; ?>"   />
+                                                            <input style="display:none;" type="text" name="time" value="<?php echo $result[$key]['time']; ?>"   />
+                                                            <input style="display:none;" type="text" name="schedule_id" value="<?php echo $result[$key]['id']; ?>" />
+                                                            <input style="display:none;" type="submit" name="submit" value="Book" Book/> -->
+                                                        </form>
+                                                    
+
+                                                    <?php
+                                                    echo "<td><form action=\"book_proccess.php\" method=\"post\">"
+                                                    . "<input style=\"display:none;\" type=\"text\" name=\"doctor_id\" value=\"" . $result[$key]['doctor_id'] . "\" />"
+                                                    . "<input style=\"display:none;\" type=\"text\" name=\"date\" value=\"" . $result[$key]['date'] . "\" />"
+                                                    . "<input style=\"display:none;\" type=\"text\" name=\"time\" value=\"" . $result[$key]['time'] . "\" />"
+                                                    . "<input style=\"display:none;\" type=\"text\" name=\"schedule_id\" value=\"" . $result[$key]['schedule_id'] . "\" />"
+                                                    . "<input type=\"submit\" name=\"submit\" value=\"Book\" Book/> "
+                                                    . "</form></td>";
+                                                    ?>
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>
+
+                                        </tbody>
+                                    </table>
+                                    <?php
+                                }
+                                ?>  
+                            </div>
+                        </form>
                         <!--End of date table-->
 
                         <!-- Page Heading -->
-                        
+
 
                     </div>
 
@@ -88,7 +187,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                 </div>
                 <!-- End of Content Wrapper -->
                 <!-- Footer -->
-                <?php include 'patientFooter.php'; ?>
+<?php include 'patientFooter.php'; ?>
                 <!-- End of Footer -->
             </div>
             <!-- End of Page Wrapper -->

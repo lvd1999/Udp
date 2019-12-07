@@ -12,16 +12,8 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Udp-master/view/Patient/view_doctor.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/controller/signUp/patient_signUpProccess.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/view/Patient/patient_home.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/view/Patient/patient_signUp.php</file>
             <file>file:/C:/xampp/htdocs/Udp-master/view/Patient/getschedule.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/view/Doctor/doctor_home.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/view/Patient/patient_update_form.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/view/Doctor/view_patient.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/model/patient/patient_functions.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/view/Doctor/upcoming_appointments.php</file>
+            <file>file:/C:/xampp/htdocs/Udp-master/index.php</file>
         </group>
     </open-files>
 </project-private>

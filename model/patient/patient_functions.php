@@ -23,7 +23,7 @@ function get_upcomingrecords_by_pps($patient_pps) {
                     INNER JOIN patients as p ON r.patient_id = p.id)
                     INNER JOIN doctors as d ON r.doctor_id = d.id)
                     INNER JOIN hospitals as h ON d.hospital_id = h.id)
-                        WHERE p.pps_num = :patient_pps;';
+                        WHERE r.status="pending" AND p.pps_num = :patient_pps;';
     $statement = $db->prepare($query);
     $statement->bindValue(":patient_pps", $patient_pps);
     $statement->execute();
@@ -150,32 +150,5 @@ INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name 
     $bookings = $statement->fetchAll();
     $statement->closeCursor();
     return $bookings;
-}
-?>
-
-
-<?php
-class DBController {
-	private $host = "localhost";
-	private $user = "root";
-	private $password = "";
-	private $database = "drbook";
-	private $conn;
-	
-        function __construct() {
-        $this->conn = $this->connectDB();
-	}	
-	function connectDB() {
-		$conn = mysqli_connect($this->host,$this->user,$this->password,$this->database);
-		return $conn;
-	}
-        function runQuery($query) {
-                $result = mysqli_query($this->conn,$query);
-                while($row=mysqli_fetch_assoc($result)) {
-                $resultset[] = $row;
-                }		
-                if(!empty($resultset))
-                return $resultset;
-	}
 }
 ?>

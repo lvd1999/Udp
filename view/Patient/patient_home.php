@@ -14,9 +14,6 @@ $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
 $specialities = getSpecialities();
-//filter booking
-//$db_handle = new DBController();
-//$specialityResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM ((doctors as d INNER JOIN schedules as s ON s.doctor_id = d.id)INNER JOIN speciality as spc)");
 $nextThree = nextThreeRecords($patient_pps);
 $pieChart = pieChartPastAppointments($patient_pps);
 ?>
@@ -79,14 +76,14 @@ $pieChart = pieChartPastAppointments($patient_pps);
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
+                                    <table class="table" width="100%" cellspacing="0">
+                                        <thead class="thead-dark">
                                             <tr>
-                                                <th>Appt.ID</th>
-                                                <th>Doctor</th>
-                                                <th>Hospital</th>
-                                                <th>Date</th>
-                                                <th>Time</th>
+                                                <th scope="col">Appt.ID</th>
+                                                <th scope="col">Doctor</th>
+                                                <th scope="col">Hospital</th>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Time</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tbody">
@@ -228,8 +225,6 @@ $pieChart = pieChartPastAppointments($patient_pps);
                 <!-- End of Content Wrapper -->
                 <!-- Footer -->
 
-                <div style="margin-top:100px;"></div>
-                <?php include 'patientFooter.php'; ?>
 
                 <!-- End of Footer -->
 

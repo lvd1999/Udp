@@ -13,10 +13,10 @@ $firstname = $_SESSION['first_name1'];
 $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
-
+$specialities = getSpecialities();
 //filter booking
-$db_handle = new DBController();
-$specialityResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM ((doctors as d INNER JOIN schedules as s ON s.doctor_id = d.id)INNER JOIN speciality as spc)");
+//$db_handle = new DBController();
+//$specialityResult = $db_handle->runQuery("SELECT DISTINCT spc.speciality_name FROM ((doctors as d INNER JOIN schedules as s ON s.doctor_id = d.id)INNER JOIN speciality as spc)");
 $nextThree = nextThreeRecords($patient_pps);
 $pieChart = pieChartPastAppointments($patient_pps);
 ?>
@@ -129,16 +129,16 @@ $pieChart = pieChartPastAppointments($patient_pps);
                                 </div>
                                 <!--FILTER SYSTEM-->
                                 <div style="width:98%;margin: 15px auto">
-                                    <form method="POST" name="search" action="patient_home.php">
+                                    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                                         Select date: <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" />
 
                                         Select speciality:
                                         <div class="search-box">
-                                            <select id="Place" name="speciality[]">
+                                            <select id="Place" name="speciality">
                                                 <?php
-                                                if (!empty($specialityResult)) {
-                                                    foreach ($specialityResult as $key => $value) {
-                                                        echo '<option value="' . $specialityResult[$key]['speciality_name'] . '">' . $specialityResult[$key]['speciality_name'] . '</option>';
+                                                if (!empty($specialities)) {
+                                                    foreach ($specialities as $key => $value) {
+                                                        echo '<option name="speciality" value="' . $specialities[$key]['speciality_name'] . '">' . $specialities[$key]['speciality_name'] . '</option>';
                                                     }
                                                 }
                                                 ?>
@@ -146,11 +146,11 @@ $pieChart = pieChartPastAppointments($patient_pps);
 
 <!--<input type="date" name="date" value=>-->
 
-                                            <button id="Filter">Search</button>
+                                            <button id="submit" class="btn btn-info" name="submit">Search</button>
                                         </div>
-
+                                    </form>
                                         <?php
-                                        if (!empty($_POST['speciality'])) {
+                                        if (isset($_POST['submit'])) {
                                             ?>
                                             <div class="table-responsive">
                                                 <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
@@ -165,21 +165,10 @@ $pieChart = pieChartPastAppointments($patient_pps);
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    $i = 0;
-                                                    $selectedOptionCount = count($_POST['speciality']);
                                                     $date = $_POST['date'];
-                                                    $selectedOption = "";
-                                                    while ($i < $selectedOptionCount) {
-                                                        $selectedOption = $selectedOption . $_POST['speciality'][$i];
-                                                        if ($i < $selectedOptionCount - 1) {
-                                                            $selectedOption = $selectedOption . ", ";
-                                                        }
-
-                                                        $i ++;
-                                                    }
-                                                    $query = "SELECT sch.id as schedule_id, d.pps_num, spc.speciality_name, sch.date, sch.time, sch.doctor_id, d.d_first_name, d.d_last_name FROM ((schedules as sch INNER JOIN doctors as d ON sch.doctor_id = d.id)
-INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name = \"" . $selectedOption . "\"" . " AND date=" . "\"" . $date . "\"" . " AND status=\"available\"";
-                                                    $result = $db_handle->runQuery($query);
+                                                    $selectedOption = $_POST['speciality'];
+                                                    
+                                                    $result = filter_bookings($selectedOption, $date);
                                                 }
                                                 if (!empty($result)) {
                                                     foreach ($result as $key => $value) {

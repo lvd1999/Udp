@@ -83,64 +83,21 @@ $sevenDaysReminder = upcomingSevenDaysRecords($doctor_pps);
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <div>
-                        <div class="container-fluid">
-                            <div class="card shadow mb-4" style="width:49%;float: left;height: 410px;">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Upcoming appointments for next 7 days</h6>
-                                </div>
-                                <div class="card-body">
-                                    <div id="table-wrapper">
-                                        <div id="table-scroll">
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered" width="100%" cellspacing="0">
-                                                    <thead class="thead-dark">
-                                                        <tr>
-                                                            <th>Appt.ID</th>
-                                                            <th>PPS</th>
-                                                            <th>Patient</th>
-                                                            <th>Date</th>
-                                                            <th>Time</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody id="tbody">
-                                                        <?php foreach ($sevenDaysReminder as $record_list) : ?>
-                                                            <tr>
-                                                                <td><?php
-                                                                    echo $record_list['id'];
-                                                                    $pps = $record_list['pps_num'];
-                                                                    ?></td>
-                                                                <td><a href="view_patient.php?pps=<?php echo $pps; ?>"><?php echo $record_list['pps_num']; ?></a></td>
-                                                                <td><?php echo $record_list['p_first_name']; ?> <?php echo $record_list['p_last_name']; ?></td>
-                                                                <td><?php
-                                                                    $timestamp = strtotime($record_list['time']);
-                                                                    echo date('d-m-Y', $timestamp);
-                                                                    ?></td>
-                                                                <td><?php
-                                                                    echo date('h.ia', $timestamp);
-                                                                    ?></td>
 
-                                                            </tr>
-                                                        <?php endforeach; ?>
-                                                    </tbody>
-                                                </table>
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <div class="card shadow mb-4" style="width:49%;float: left;margin-left: 20px;height: 410px;">
+                    <div class="container-fluid">
+                        <!--Date table input-->
+                        <div class="card shadow mb-4" style="width:98%;margin-left: auto;margin-right: auto;">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Alert</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Make Appointment for your patient</h6>
                             </div>
-                            <div class="card-body">
-                                <div id="piechart_3d" style="width: 100%; height: 100%;"></div>
+                            <div class="input-group" style="margin-bottom:10px;">
+                                <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value,'<?php echo $doctor_pps ?>')"/>
                             </div>
+                            <div id="txtHint" ></div>
                         </div>
+
                     </div>
+
                     <!-- End of Page Content -->
                 </div>
                 <!-- End of Main Content -->
@@ -197,20 +154,6 @@ $sevenDaysReminder = upcomingSevenDaysRecords($doctor_pps);
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
             <!--Include all compiled plugins (below), or include individual files as needed--> 
             <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
-            <script>
-                $(document).ready(function () {
-                    var date_input = $('input[name="date"]'); //our date input has the name "date"
-                    var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                    date_input.datepicker({
-                        format: 'yyyy-mm-dd',
-                        container: container,
-                        todayHighlight: true,
-                        autoclose: true,
-                    });
-                });
-
-                $('table').dataTable({searching: false, paging: false, info: false});
-            </script>
 
             <!-- Page level plugins -->
             <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
@@ -222,3 +165,39 @@ $sevenDaysReminder = upcomingSevenDaysRecords($doctor_pps);
 
 </html>
 
+<script>
+                                    $(document).ready(function () {
+                                        var date_input = $('input[name="date"]'); //our date input has the name "date"
+                                        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                                        date_input.datepicker({
+                                            format: 'yyyy-mm-dd',
+                                            container: container,
+                                            todayHighlight: true,
+                                            autoclose: true,
+                                        });
+                                    });
+
+                                    function showUser(str,pps) {
+
+                                        if (str == "") {
+                                            document.getElementById("txtHint").innerHTML = "No data to be shown";
+                                            return;
+                                        } else {
+                                            if (window.XMLHttpRequest) {
+                                                // code for IE7+, Firefox, Chrome, Opera, Safari
+                                                xmlhttp = new XMLHttpRequest();
+                                            } else {
+                                                // code for IE6, IE5
+                                                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                            }
+                                            xmlhttp.onreadystatechange = function () {
+                                                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                                    document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                                                }
+                                            };
+                                            xmlhttp.open("GET", "getschedule.php?s=" + str + pps, true);
+                                            console.log(str);
+                                            xmlhttp.send();
+                                        }
+                                    }
+</script>

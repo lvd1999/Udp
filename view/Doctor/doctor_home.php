@@ -12,6 +12,7 @@ $lastname = $_SESSION['last_name2'];
 $doctor_pps = $_SESSION['pps2'];
 $profile_pic = $_SESSION['profile_pic2'];
 $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps);
+$sevenDaysReminder = upcomingSevenDaysRecords($doctor_pps);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +37,28 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps);
         <!-- Custom styles for this page -->
         <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-        <!-- Datatable -->
+        <style>
+            #table-wrapper {
+                position:relative;
+            }
+            #table-scroll {
+                height:300px;
+                overflow:auto;  
+                margin-top:20px;
+            }
+            #table-wrapper table {
+                width:100%;
+
+            }
+            #table-wrapper table thead th .text {
+                position:absolute;   
+                top:-20px;
+                z-index:2;
+                height:20px;
+                width:35%;
+                border:1px solid red;
+            }
+        </style>
 
 
 
@@ -61,80 +83,72 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps);
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                   <div class="container-fluid">
-
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Upcoming Appointments</h6>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>Appointment ID<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                                <th>PPS no.<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                                <th>Patient<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                                <th>Date<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                                <th>Time<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                                <th>Status<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
-                                            </tr>
-                                        </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Appointment ID</th>
-                                                <th>PPS no.</th>
-                                                <th>Patient</th>
-                                                <th>Date</th>
-                                                <th>Time</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </tfoot>
-                                        <tbody>
-                                            <?php foreach ($doctor_records_list as $record_list) : ?>
-                                                <tr>
-                                                    <td><?php
-                                                        echo $record_list['id'];
-                                                        $pps = $record_list['pps_num'];
-                                                        ?></td>
-                                                    <td><a href="view_patient.php?pps=<?php echo $pps; ?>"><?php echo $record_list['pps_num']; ?></a></td>
-                                                    <td><?php echo $record_list['p_first_name']; ?> <?php echo $record_list['p_last_name']; ?></td>
-                                                    <td><?php
-                                                        $timestamp = strtotime($record_list['time']);
-                                                        echo date('d-m-Y', $timestamp);
-                                                        ?></td>
-                                                    <td><?php
-                                                        echo date('h.ia', $timestamp);
-                                                        ?></td>
-                                                    <td>
-                                                        <select class="form-control status">        
-                                                            <option value="<?php echo $record_list['id'] ?>pending" selected>pending</option>
-                                                            <option value="<?php echo $record_list['id'] ?>completed">completed</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
+                    <div>
+                        <div class="container-fluid">
+                            <div class="card shadow mb-4" style="width:49%;float: left;height: 410px;">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Upcoming appointments for next 7 days</h6>
                                 </div>
+                                <div class="card-body">
+                                    <div id="table-wrapper">
+                                        <div id="table-scroll">
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Appt.ID</th>
+                                                            <th>PPS</th>
+                                                            <th>Patient</th>
+                                                            <th>Date</th>
+                                                            <th>Time</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="tbody">
+                                                        <?php foreach ($sevenDaysReminder as $record_list) : ?>
+                                                            <tr>
+                                                                <td><?php
+                                                                    echo $record_list['id'];
+                                                                    $pps = $record_list['pps_num'];
+                                                                    ?></td>
+                                                                <td><a href="view_patient.php?pps=<?php echo $pps; ?>"><?php echo $record_list['pps_num']; ?></a></td>
+                                                                <td><?php echo $record_list['p_first_name']; ?> <?php echo $record_list['p_last_name']; ?></td>
+                                                                <td><?php
+                                                                    $timestamp = strtotime($record_list['time']);
+                                                                    echo date('d-m-Y', $timestamp);
+                                                                    ?></td>
+                                                                <td><?php
+                                                                    echo date('h.ia', $timestamp);
+                                                                    ?></td>
+
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
-
-
-                        <!-- /.container-fluid -->
-
+                        <div class="card shadow mb-4" style="width:49%;float: left;margin-left: 20px;height: 410px;">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Alert</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="piechart_3d" style="width: 100%; height: 100%;"></div>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- End of Main Content -->
-
+                    <!-- End of Page Content -->
                 </div>
-                <!-- End of Content Wrapper -->
+                <!-- End of Main Content -->
                 <!-- Footer -->
                 <?php include 'doctorFooter.php'; ?>
                 <!-- End of Footer -->
             </div>
-            <!-- End of Page Wrapper -->
+            <!-- End of Content Wrapper -->
 
             <!-- Scroll to Top Button-->
             <a class="scroll-to-top rounded" href="#page-top">
@@ -207,7 +221,7 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps);
 </html>
 
 
- <script type="text/javascript">
+<script type="text/javascript">
                 $(document).ready(function () {
                     $('.status').change(function (e) {
 
@@ -230,7 +244,7 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps);
                     });
 
                 });
-
-            </script>
+                $('table').dataTable({searching: false, paging: false, info: false});
+</script>
 
 

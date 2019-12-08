@@ -20,23 +20,6 @@
             <span>Home</span></a>
     </li>
     <!-- Heading -->
-    <!--                <div class="sidebar-heading">
-                        Original
-                    </div>-->
-    <!--
-                     Book appointment
-                    <li class="nav-item active">
-                        <a class="nav-link" href="patientpagewithbootstrap.php">
-                            <i class="fas fa-fw fa-chart-area"></i>
-                            <span>Book</span></a>
-                    </li>
-    
-                     Past appointment
-                    <li class="nav-item">
-                        <a class="nav-link" href="patientapplist.php?patientId=<?php echo $userRow['icPatient']; ?>">
-                            <i class="fas fa-fw fa-chart-area"></i>
-                            <span>Past appointments</span></a>
-                    </li>-->
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
@@ -46,6 +29,7 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
+
                 <a class="collapse-item" href="upcoming_appointments.php">Upcoming</a>
                 <a class="collapse-item" href="past_appointments.php">Past</a>
             </div>

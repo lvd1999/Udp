@@ -44,7 +44,27 @@ $schedule_list = get_schedule($doctor_pps);
 
         <style>
             .dataTables_filter, .dataTables_info { display: none; }
+            dl
+            {
+                width: 200px;
+                background: #fff;
+                border: 1px solid #cfcfcf;
+                padding: 5px 15px;
+                float: right;
+                border-radius: 4px;
+            }
 
+            dt, dd
+            {
+                display: inline;
+            }  
+            .dot {
+                height: 13px;
+                width: 13px;
+                background-color: #77e08a;
+                border-radius: 50%;
+                display: inline-block;
+            }
         </style>
 
     </head>
@@ -68,10 +88,12 @@ $schedule_list = get_schedule($doctor_pps);
                     <!-- End of Topbar -->
 
                     <!-- Begin Page Content -->
-                    <h1 class="h3 mb-4 text-gray-800">Schedule your timetable</h1>
                     <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="">
+                    <div class="card shadow mb-4" style="width:98%;margin-left: auto;margin-right: auto;">
+                        <div class="card-header py-3" style="background:#F8F9FC;">
+                            <h6 class="m-0 font-weight-bold text-primary">Schedule</h6>
+                        </div>
+                        <div class="" style="width:98%;margin-left: auto;margin-right: auto;margin-top: 15px;">
                             <input type="text" onchange="dateChange(this.value)" class="form-control" id="datepicker" placeholder="Selected date">
                         </div>
                         <div class="card-body">
@@ -156,10 +178,13 @@ $schedule_list = get_schedule($doctor_pps);
                                 </table>                                
                             </div>
                             <button id="send" onClick="send">Update</button>
+                            <div>
+                                <dl>
+                                    <dt><span class="dot"></span></dt>
+                                    <dd>&nbsp;&nbsp;Available Time</dd>
+                                </dl>
+                            </div>
                         </div>
-                    </div>
-                    <div id="show_hospitals">
-
                     </div>
 
                     <!-- End Page Content -->
@@ -252,13 +277,13 @@ $schedule_list = get_schedule($doctor_pps);
                                     return day + "/" + month;
                                 }
                                 function tableClick(event, currentDay, start) {
-                                    if (event.style.backgroundColor == "rgb(240, 215, 204)") {
+                                    if (event.style.backgroundColor == "rgb(119, 224, 138)") {
                                         event.style.backgroundColor = "#ffffff";
                                         //remove from list
                                         var value = this.availableTime.indexOf(this.currentWeek[currentDay].substr(0, 11) + "" + start + this.currentWeek[currentDay].substr(13, 11));
                                         this.availableTime.splice(value, 1);
                                     } else {
-                                        event.style.backgroundColor = "#f0d7cc";
+                                        event.style.backgroundColor = "#77e08a";
                                         this.availableTime.push(this.currentWeek[currentDay].substr(0, 11) + "" + start + this.currentWeek[currentDay].substr(13, 11));
                                         this.string = JSON.stringify(this.availableTime);
                                     }
@@ -308,7 +333,7 @@ $js_array = json_encode($lists);
                                     for (i = 0; i <= 44; i++)
                                     {
                                         if (this.availableTime.indexOf(this.currentWeekByTime[i]) != -1 || this.arrayIn.indexOf(this.currentWeekByTime[i]) != -1) {
-                                            x.getElementsByClassName("cells")[i].style.backgroundColor = "#f0d7cc";
+                                            x.getElementsByClassName("cells")[i].style.backgroundColor = "#77e08a";
                                         } else {
                                             x.getElementsByClassName("cells")[i].style.backgroundColor = "#ffffff";
                                         }

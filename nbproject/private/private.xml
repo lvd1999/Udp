@@ -5,17 +5,21 @@
             <url>view/Doctor/upcoming_appointments.php</url>
             <bookmark id="1">
                 <name/>
-                <line>118</line>
+                <line>126</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Udp-master/view/Patient/patient_home.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/view/Patient/getschedule.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/view/Patient/book_proccess.php</file>
-            <file>file:/C:/xampp/htdocs/Udp-master/model/patient/patient_functions.php</file>
+            <file>file:/D:/xampp/htdocs/udp/model/doctor/doctor_functions.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/schedule.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/doctor_settings.php</file>
+            <file>file:/D:/xampp/htdocs/udp/index.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Patient/patientSideBar.php</file>
+            <file>file:/D:/xampp/htdocs/udp/model/patient/patient_functions.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Patient/patient_home.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/upcoming_appointments.php</file>
         </group>
     </open-files>
 </project-private>

@@ -48,6 +48,20 @@ function nextThreeRecords($patient_pps){
     return $record_list;
 }
 
+function pieChartPastAppointments($patient_pps){
+        global $db;
+    $query = 'SELECT COUNT(MONTHNAME(time)) AS count,MONTHNAME(time) AS month
+              FROM (past_records as r
+              INNER JOIN patients as p ON r.patient_id = p.id)
+              WHERE p.pps_num = :patient_pps  AND YEAR(time) = YEAR(NOW()) GROUP BY month';
+    $statement = $db->prepare($query);
+    $statement->bindValue(":patient_pps", $patient_pps);
+    $statement->execute();
+    $record_list = $statement->fetchAll();
+    $statement->closeCursor();
+    return $record_list;
+}
+
 function get_medical_info_by_pps($patient_pps) {
     global $db;
     $query = 'SELECT smoker, doner, blood_type, allergies, diseases, immunisations

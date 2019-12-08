@@ -142,7 +142,7 @@ $pieChart = pieChartPastAppointments($patient_pps);
                                                     }
                                                 }
                                                 ?>
-                                            </select><br> <br>
+                                            </select><br><br>
 
 <!--<input type="date" name="date" value=>-->
 
@@ -152,9 +152,9 @@ $pieChart = pieChartPastAppointments($patient_pps);
                                         <?php
                                         if (!empty($_POST['speciality'])) {
                                             ?>
-                                            <table cellpadding="10" cellspacing="1">
-
-                                                <thead>
+                                            <div class="table-responsive">
+                                                <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
+                                                    <thead>
                                                     <tr>
                                                         <th><strong>Name</strong></th>
                                                         <th><strong>Speciality</strong></th>
@@ -195,16 +195,21 @@ INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name 
                                                             . "<input style=\"display:none;\" type=\"text\" name=\"date\" value=\"" . $result[$key]['date'] . "\" />"
                                                             . "<input style=\"display:none;\" type=\"text\" name=\"time\" value=\"" . $result[$key]['time'] . "\" />"
                                                             . "<input style=\"display:none;\" type=\"text\" name=\"schedule_id\" value=\"" . $result[$key]['schedule_id'] . "\" />"
-                                                            . "<input type=\"submit\" name=\"submit\" value=\"Book\" Book/> "
+                                                            . "<button type=\"submit\" class=\"btn btn-primary\" name=\"submit\" value=\"Book\"> Book</button> "
                                                             . "</form></td>";
                                                             ?>
+                                                            
                                                         </tr>
                                                         <?php
                                                     }
                                                     ?>
 
                                                 </tbody>
-                                            </table>
+                                                </table>
+                                            </div>
+                                                
+                                                
+                                            
                                             <?php
                                         }
                                         ?>  

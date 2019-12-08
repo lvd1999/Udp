@@ -33,6 +33,7 @@ die("Error running $sql: " . mysqli_error());
                     echo "  <th>Start Time</th>";
 //                    echo " <th>Availability</th>";
                     echo "  <th>Book Now!</th>";
+                    
                 echo " </tr>";
             echo "  </thead>";
             echo "  <tbody>";

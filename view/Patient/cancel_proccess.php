@@ -9,8 +9,11 @@ if (isset($_POST['submit'])) {
     $schedule_id = $_POST['id'];
     
     $con = mysqli_connect("localhost","root","","drbook");
-    $query = "DELETE FROM upcoming_appointments WHERE id = " . $schedule_id ;
-    mysqli_query($con, $query);
+//    $query = "UPDATE upcoming_appointments SET status=\"cancelled\" WHERE id = " . $schedule_id ;
+    $query1 = "INSERT INTO past_records (id, patient_id, doctor_id, time, status) VALUES ('$schedule_id', '$patient_id', '$doctor_id', '$time', 'cancelled') ";
+    mysqli_query($con, $query1);
+    $query2 = "DELETE FROM upcoming_appointments WHERE id = " . $schedule_id ;
+    mysqli_query($con, $query2);
 // echo "Booked successfully";
  header("Location: upcoming_appointments.php");
 } else {

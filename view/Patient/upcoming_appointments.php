@@ -201,32 +201,6 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
             <!-- Custom scripts for all pages-->
             <script src="../../Content/js/sb-admin-2.min.js" type="text/javascript"></script>
 
-
-            <!--        START OF BUG
-                      jQuery 
-                    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-            
-                     Isolated Version of Bootstrap, not needed if your site already uses Bootstrap 
-                    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-            
-                     Bootstrap Date-Picker Plugin 
-                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-                     Include all compiled plugins (below), or include individual files as needed 
-                    <script src="../Content/js/bootstrap.min.js" type="text/javascript"></script>
-                    <script>
-                        $(document).ready(function () {
-                            var date_input = $('input[name="date"]'); //our date input has the name "date"
-                            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-                            date_input.datepicker({
-                                format: 'yyyy-mm-dd',
-                                container: container,
-                                todayHighlight: true,
-                                autoclose: true,
-                            });
-                        });
-                    </script>
-                    END OF BUG-->
             <!-- Page level plugins -->
             <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>

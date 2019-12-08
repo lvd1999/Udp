@@ -130,7 +130,29 @@ function get_hospital($doctor_pps) {
     $statement->closeCursor();
     return $record_list;
 }
+
+function getSpecialities() {
+    global $db;
+    $query = "SELECT DISTINCT spc.speciality_name FROM ((doctors as d INNER JOIN schedules as s ON s.doctor_id = d.id)INNER JOIN speciality as spc)";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $specialities = $statement->fetchAll();
+    $statement->closeCursor();
+    return $specialities;
+}
+
+function filter_bookings($speciality_name, $date) {
+    global $db;
+    $query = "SELECT sch.id as schedule_id, d.pps_num, spc.speciality_name, sch.date, sch.time, sch.doctor_id, d.d_first_name, d.d_last_name FROM ((schedules as sch INNER JOIN doctors as d ON sch.doctor_id = d.id)
+INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name = \"" . $speciality_name . "\"" . " AND date=" . "\"" . $date . "\"" . " AND status=\"available\"";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $bookings = $statement->fetchAll();
+    $statement->closeCursor();
+    return $bookings;
+}
 ?>
+
 
 <?php
 class DBController {

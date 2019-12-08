@@ -106,6 +106,7 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
                                                 <th>Date<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
                                                 <th>Time<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
                                                 <th>Status<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
+                                                <th>Cancellation<span id="sort_icon"><i class="fas fa-sort"></i></span></th>
                                             </tr>
                                         </thead>
                                         <tfoot>
@@ -116,6 +117,7 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
                                                 <th>Date</th>
                                                 <th>Time</th>
                                                 <th>Status</th>
+                                                <th>Cancellation</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -135,6 +137,14 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
                                                         echo date('h.ia', $timestamp);
                                                         ?></td>
                                                     <td><?php echo $record_list['status']; ?></td>
+                                                        <?php
+                                                        echo
+                                                        "<td><form action=\"cancel_proccess.php\" method=\"post\">"
+                                                        . "<input style=\"display:none;\" type=\"text\" name=\"id\" value=\"" . $record_list['id'] . "\" />"
+                                                        . "<input style=\"display:none;\" type=\"text\" name=\"date\" value=\"" . $record_list['status'] . "\" />"
+                                                        . "<input style=\"display:none;\" type=\"text\" name=\"time\" value=\"" . $record_list['time'] . "\" />"
+                                                        . "<button type=\"submit\" name=\"submit\" class=\"btn btn-outline-danger\">X</button></form></td>"
+                                                        ?>
                                                 </tr>
                                             <?php endforeach; ?>
                                         </tbody>

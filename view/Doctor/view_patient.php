@@ -327,7 +327,7 @@ $patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
                     </div>
 
 
-                    <div class="card shadow mb-4" style="width:88%; margin-left: auto;margin-right: auto;">
+                    <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Past Appointments with you</h6>
                         </div>

@@ -77,7 +77,7 @@ $patient_records_list = get_pastrecords_by_pps($patient_pps);
                     </div>
                     <!-- Begin Page Content -->
 
-                    <!--Date table input-->
+                    <!--Book-->
                     <div class="container-fluid">
 
                         <!-- Page Heading -->

@@ -151,4 +151,15 @@ INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name 
     $statement->closeCursor();
     return $bookings;
 }
+
+function get_bookings($date) {
+    global $db;
+    $query = "SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name,d.d_last_name, s.date, s.time, s.status, spec.speciality_name, d.pps_num FROM (schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id ) INNER JOIN speciality as spec ON d.speciality_id = spec.id WHERE s.date='" . $date . "'"
+        . " AND status='available'";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $bookings = $statement->fetchAll();
+    $statement->closeCursor();
+    return $bookings;
+}
 ?>

@@ -76,7 +76,7 @@ $pieChart = pieChartPastAppointments($patient_pps);
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" width="100%" cellspacing="0">
+                                    <table class="table" width="100%" cellspacing="0">
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th scope="col">Appt.ID</th>
@@ -124,17 +124,24 @@ $pieChart = pieChartPastAppointments($patient_pps);
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">Book Appointment</h6>
                                 </div>
+                                
+                                
+                                
                                 <!--FILTER SYSTEM-->
                                 <div style="width:98%;margin: 15px auto">
-                                    <form method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                                        Select date: <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" />
+                                    <form method="POST" id="form2">
+                                        Select date: <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>"/>
 
+                                        
                                         Select speciality:
                                         <div class="search-box">
-                                            <select id="Place" name="speciality">
+                                            <select id="speciality" name="speciality">
+                                                
                                                 <?php
                                                 if (!empty($specialities)) {
+                                                    echo '<option selected="selected"> Select speciality </option>';
                                                     foreach ($specialities as $key => $value) {
+                                                        
                                                         echo '<option name="speciality" value="' . $specialities[$key]['speciality_name'] . '">' . $specialities[$key]['speciality_name'] . '</option>';
                                                     }
                                                 }
@@ -143,64 +150,17 @@ $pieChart = pieChartPastAppointments($patient_pps);
 
 <!--<input type="date" name="date" value=>-->
 
-                                            <button id="submit" class="btn btn-info" name="submit">Search</button>
+                                            <!--<button id="submit" class="btn btn-info" name="submit">Search</button>-->
                                         </div>
                                     </form>
-                                        <?php
-                                        if (isset($_POST['submit'])) {
-                                            ?>
-                                            <div class="table-responsive">
-                                                <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
-                                                    <thead>
-                                                    <tr>
-                                                        <th><strong>Name</strong></th>
-                                                        <th><strong>Speciality</strong></th>
-                                                        <th><strong>Date</strong></th>
-                                                        <th><strong>Start Time</strong></th>
-                                                        <th><strong>Book</strong></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $date = $_POST['date'];
-                                                    $selectedOption = $_POST['speciality'];
-                                                    
-                                                    $result = filter_bookings($selectedOption, $date);
-                                                }
-                                                if (!empty($result)) {
-                                                    foreach ($result as $key => $value) {
-                                                        ?>
-                                                        <tr>
-                                                            <td><a href="view_doctor.php?pps=<?php echo $result[$key]['pps_num']; ?>"/><div class="col" id="user_data_1"><?php echo $result[$key]['d_first_name'] . " " . $result[$key]['d_last_name']; ?></div></td>
-                                                            <td><div class="col" id="user_data_2"><?php echo $result[$key]['speciality_name']; ?> </div></td>
-                                                            <td><div class="col" id="user_data_3"><?php echo $result[$key]['date']; ?> </div></td>
-                                                            <td><div class="col" id="user_data_4"><?php echo $result[$key]['time']; ?> </div></td>
-                                                            <?php
-                                                            echo "<td><form action=\"book_proccess.php\" method=\"post\">"
-                                                            . "<input style=\"display:none;\" type=\"text\" name=\"doctor_id\" value=\"" . $result[$key]['doctor_id'] . "\" />"
-                                                            . "<input style=\"display:none;\" type=\"text\" name=\"date\" value=\"" . $result[$key]['date'] . "\" />"
-                                                            . "<input style=\"display:none;\" type=\"text\" name=\"time\" value=\"" . $result[$key]['time'] . "\" />"
-                                                            . "<input style=\"display:none;\" type=\"text\" name=\"schedule_id\" value=\"" . $result[$key]['schedule_id'] . "\" />"
-                                                            . "<button type=\"submit\" class=\"btn btn-primary\" name=\"submit\" value=\"Book\"> Book</button> "
-                                                            . "</form></td>";
-                                                            ?>
-                                                            
-                                                        </tr>
-                                                        <?php
-                                                    }
-                                                    ?>
-
-                                                </tbody>
-                                                </table>
-                                            </div>
+                                    
+                                        <div id="response"></div>
+                                        
+                                        
                                                 
                                                 
                                             
-                                            <?php
-                                        }
-                                        ?>  
-
-                                    </form>
+                                      
                                 </div>
                             </div>
                             <!--End of booking-->
@@ -300,29 +260,6 @@ $pieChart = pieChartPastAppointments($patient_pps);
 
                 </html>
                 <script>
-                    function showUser(str) {
-
-                        if (str == "") {
-                            document.getElementById("txtHint").innerHTML = "No data to be shown";
-                            return;
-                        } else {
-                            if (window.XMLHttpRequest) {
-                                // code for IE7+, Firefox, Chrome, Opera, Safari
-                                xmlhttp = new XMLHttpRequest();
-                            } else {
-                                // code for IE6, IE5
-                                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                            }
-                            xmlhttp.onreadystatechange = function () {
-                                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                    document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-                                }
-                            };
-                            xmlhttp.open("GET", "getschedule.php?q=" + str, true);
-                            console.log(str);
-                            xmlhttp.send();
-                        }
-                    }
                     $('table').dataTable({searching: false, paging: false, info: false});
                 </script>
                 <script type="text/javascript">
@@ -346,3 +283,89 @@ $pieChart = pieChartPastAppointments($patient_pps);
                     }
                 </script>
 
+                <script>
+                    
+                $(document).ready(function(){
+                    
+    $('#date').on("change",function(){
+     
+        
+        // show that something is loading
+        $('#response').html("<b>Loading response...</b>");
+         $('#speciality').prop('selectedIndex',0);
+        /*
+         * 'post_receiver.php' - where you will pass the form data
+         * $(this).serialize() - to easily read form data
+         * function(data){... - data contains the response from post_receiver.php
+         */
+        $.ajax({
+            type: 'POST',
+            url: 'getschedule_0.php', 
+            data: $(this).serialize()
+        })
+        .done(function(data){
+             
+            // show the response
+            $('#response').html(data);
+             
+        })
+        .fail(function() {
+         
+            // just in case posting your form failed
+            alert( "Posting failed." );
+             
+        });
+ 
+        // to prevent refreshing the whole page page
+        return false;
+ 
+    });
+
+
+
+    $('#speciality').on("change",function(){
+
+        // show that something is loading
+        $('#response').html("<b>Loading response...</b>");
+        var date = $("#date").val();
+        var spec = $("#speciality").val();
+//        var date = "2019-12-10";
+//        var spec = "Dentistry";
+
+        /*
+         * 'post_receiver.php' - where you will pass the form data
+         * $(this).serialize() - to easily read form data
+         * function(data){... - data contains the response from post_receiver.php
+         */
+        $.ajax({
+            type: 'POST',
+            url: 'getschedule_2.php', 
+            data: {date: date, spec: spec}
+        })
+
+
+        .done(function(data){
+             
+            // show the response
+            $('#response').html(data);
+             
+        })
+        .fail(function() {
+         
+            // just in case posting your form failed
+            alert( "Posting failed." );
+             
+        });
+ 
+        // to prevent refreshing the whole page page
+        return false;
+ 
+    });
+});
+
+//jQuery(function() {
+//    jQuery('#speciality').change(function() {
+//        this.form.submit();
+//    });
+//});
+                </script>

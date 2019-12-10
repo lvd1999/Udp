@@ -124,7 +124,7 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
                                             <?php foreach ($patient_records_list as $record_list) : ?>
                                                 <tr>
                                                     <td><?php
-                                                        echo $record_list['id'];
+                                                        echo $record_list['schedule_id'];
                                                         $pps = $record_list['pps_num'];
                                                         ?></td>
                                                     <td><a href="view_doctor.php?pps=<?php echo $pps; ?>"><?php echo $record_list['d_first_name']; ?> <?php echo $record_list['d_last_name']; ?></td>
@@ -140,8 +140,10 @@ $patient_records_list = get_upcomingrecords_by_pps($patient_pps);
                                                         <?php
                                                         echo
                                                         "<td><form action=\"cancel_proccess.php\" method=\"post\">"
-                                                        . "<input style=\"display:none;\" type=\"text\" name=\"id\" value=\"" . $record_list['id'] . "\" />"
-                                                        . "<input style=\"display:none;\" type=\"text\" name=\"date\" value=\"" . $record_list['status'] . "\" />"
+                                                        . "<input style=\"display:none;\" type=\"text\" name=\"schedule_id\" value=\"" . $record_list['schedule_id'] . "\" />"
+                                                        . "<input style=\"display:none;\" type=\"text\" name=\"patient_id\" value=\"" . $record_list['patient_id'] . "\" />"
+                                                        . "<input style=\"display:none;\" type=\"text\" name=\"doctor_id\" value=\"" . $record_list['doctor_id'] . "\" />"
+                                                        . "<input style=\"display:none;\" type=\"text\" name=\"status\" value=\"" . $record_list['status'] . "\" />"
                                                         . "<input style=\"display:none;\" type=\"text\" name=\"time\" value=\"" . $record_list['time'] . "\" />"
                                                         . "<button type=\"submit\" name=\"submit\" class=\"btn btn-outline-danger\">X</button></form></td>"
                                                         ?>

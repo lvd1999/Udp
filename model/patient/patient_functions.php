@@ -18,7 +18,7 @@ function get_pastrecords_by_pps($patient_pps) {
 
 function get_upcomingrecords_by_pps($patient_pps) {
     global $db;
-    $query = 'SELECT r.id, p.p_first_name, p.p_last_name, d.pps_num, d.d_first_name, d.d_last_name, h.name, r.time, r.status
+    $query = 'SELECT r.id as schedule_id, p.id as patient_id, d.id as doctor_id, p.p_first_name, p.p_last_name, d.pps_num, d.d_first_name, d.d_last_name, h.name, r.time, r.status
                 FROM (((upcoming_appointments as r
                     INNER JOIN patients as p ON r.patient_id = p.id)
                     INNER JOIN doctors as d ON r.doctor_id = d.id)
@@ -145,6 +145,29 @@ function filter_bookings($speciality_name, $date) {
     global $db;
     $query = "SELECT sch.id as schedule_id, d.pps_num, spc.speciality_name, sch.date, sch.time, sch.doctor_id, d.d_first_name, d.d_last_name FROM ((schedules as sch INNER JOIN doctors as d ON sch.doctor_id = d.id)
 INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name = \"" . $speciality_name . "\"" . " AND date=" . "\"" . $date . "\"" . " AND status=\"available\"";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $bookings = $statement->fetchAll();
+    $statement->closeCursor();
+    return $bookings;
+}
+
+function get_bookings($date) {
+    global $db;
+    $query = "SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name,d.d_last_name, s.date, s.time, s.status, spec.speciality_name, d.pps_num FROM (schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id ) INNER JOIN speciality as spec ON d.speciality_id = spec.id WHERE s.date='" . $date . "'"
+        . " AND status='available'";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $bookings = $statement->fetchAll();
+    $statement->closeCursor();
+    return $bookings;
+}
+
+
+function get_bookings_with_schedule($date,$speciality) {
+    global $db;
+    $query = "SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name,d.d_last_name, s.date, s.time, s.status, spec.speciality_name, d.pps_num FROM (schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id ) INNER JOIN speciality as spec ON d.speciality_id = spec.id WHERE s.date='" . $date . "'"
+        . " AND status='available' AND spec.speciality_name='" . $speciality . "'";
     $statement = $db->prepare($query);
     $statement->execute();
     $bookings = $statement->fetchAll();

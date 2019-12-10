@@ -3,11 +3,13 @@ session_start();
 require('../../model/patient/patient_functions.php');
 include_once '../../model/database.php';
 
+$date2 = $_POST['date'];
+$speciality = $_POST['spec'];
 
-    $date = $_POST['date'];
-    $result = get_bookings($date);
 
-
+ 
+        
+        $result = get_bookings_with_schedule($date2, $speciality);
 
 ?>
 

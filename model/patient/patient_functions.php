@@ -162,4 +162,16 @@ function get_bookings($date) {
     $statement->closeCursor();
     return $bookings;
 }
+
+
+function get_bookings_with_schedule($date,$speciality) {
+    global $db;
+    $query = "SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name,d.d_last_name, s.date, s.time, s.status, spec.speciality_name, d.pps_num FROM (schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id ) INNER JOIN speciality as spec ON d.speciality_id = spec.id WHERE s.date='" . $date . "'"
+        . " AND status='available' AND spec.speciality_name='" . $speciality . "'";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $bookings = $statement->fetchAll();
+    $statement->closeCursor();
+    return $bookings;
+}
 ?>

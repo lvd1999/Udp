@@ -25,7 +25,7 @@ $sevenDaysReminder = upcomingSevenDaysRecords($doctor_pps);
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Doctor - Home</title>
+        <title>Doctor - Add Appointment</title>
 
         <!-- Custom fonts for this template-->
         <link href="../../Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css"/>
@@ -90,7 +90,7 @@ $sevenDaysReminder = upcomingSevenDaysRecords($doctor_pps);
                             <div class="card-header py-3">
                                 <h6 class="m-0 font-weight-bold text-primary">Make Appointment for your patient</h6>
                             </div>
-                            <div class="input-group" style="margin-bottom:10px;">
+                            <div class="input-group" style="width:98%;margin:10px auto;">
                                 <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>" onchange="showUser(this.value,'<?php echo $doctor_pps ?>')"/>
                             </div>
                             <div id="txtHint" ></div>

@@ -24,7 +24,7 @@ die("Error running $sql: " . mysqli_error());
     <body>
         <?php
         if (mysqli_num_rows($res)==0) {
-        echo "<div class='alert alert-danger' role='alert'>Doctor is not available at the moment. Please try again later.</div>";
+        echo "<div style='width:98%;margin:0px auto 10px auto;' class='alert alert-danger' role='alert'>Doctor is not available at the moment. Please try again later.</div>";
         
         } else {
         echo "   <table class='table table-bordered mt-3' id='dataTable' style='width:98%;margin-left:auto;margin-right:auto;' cellspacing='0'>";

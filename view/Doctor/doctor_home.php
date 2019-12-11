@@ -13,6 +13,7 @@ $doctor_pps = $_SESSION['pps2'];
 $profile_pic = $_SESSION['profile_pic2'];
 $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps);
 $sevenDaysReminder = upcomingSevenDaysRecords($doctor_pps);
+$alertCancelled = alertCancelled($doctor_pps);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +25,8 @@ $sevenDaysReminder = upcomingSevenDaysRecords($doctor_pps);
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-
+        <meta http-equiv="Refresh" content="60">
+        
         <title>Doctor - Home</title>
 
         <!-- Custom fonts for this template-->
@@ -134,10 +136,32 @@ $sevenDaysReminder = upcomingSevenDaysRecords($doctor_pps);
                         </div>
                         <div class="card shadow mb-4" style="width:49%;float: left;margin-left: 20px;height: 410px;">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Alert</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Alerts</h6>
                             </div>
                             <div class="card-body">
-                                <div id="piechart_3d" style="width: 100%; height: 100%;"></div>
+                                <div id="table-wrapper">
+                                    <div id="table-scroll">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered" width="100%" cellspacing="0">
+                                                <tbody id="tbody">
+                                                    <?php foreach ($alertCancelled as $ac) : ?>
+                                                        <tr>
+
+                                                            <td><i style="color:#ffc042;margin-right: 3px;"class="fas fa-exclamation-triangle"></i><?php
+                                                                echo "Patient <strong><a href=\"view_patient.php?pps=" . $ac['pps_num'] . "\">" . $ac['p_first_name'] . " " . $ac['p_last_name'] . "(" . $ac['pps_num'] . ")</a></strong> cancelled an appointment(ID:" . $ac['id'] . ") at<br> ";
+                                                                $timestamp = strtotime($ac['time']);
+                                                                echo "&nbsp&nbsp&nbsp&nbsp&nbsp" . date('d-m-Y', $timestamp);
+                                                                echo "(" . date('h.ia', $timestamp) . ").";
+                                                                ?></td>
+
+                                                        </tr>
+                                                    <?php endforeach; ?>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -211,7 +235,7 @@ $sevenDaysReminder = upcomingSevenDaysRecords($doctor_pps);
 
                 $('table').dataTable({searching: false, paging: false, info: false});
             </script>
-
+            
             <!-- Page level plugins -->
             <script src="../../Content/vendor/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
             <script src="../../Content/vendor/datatables/dataTables.bootstrap4.min.js" type="text/javascript"></script>

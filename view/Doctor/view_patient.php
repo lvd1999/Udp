@@ -151,15 +151,7 @@ $patient_records_list = get_patient_pastrecords_by_pps($patient_pps)
                                         <img src="<?php echo "../../Content/img/" . $profile_pic;?>" onClick='triggerClick()' id='profileDisplay' class='rounded mx-auto d-block'>
                                         
                                     </div>
-                                    <form action="uploadImage.php" method="post" enctype="multipart/form-data" id="upload_image">
-                                        <?php if (!empty($msg)): ?>
-                                            <div class="alert <?php echo $msg_class ?>" role="alert">
-                                                <?php echo $$msg; ?>
-                                            </div>
-                                        <?php endif; ?>
-                                        <input type="file" name="profileImage" onChange="displayImage(this)" id="profileImage" class="form-control" style="display: none;">
-                                        <button type="submit" name="save_profile" class="btn btn-primary btn-block d-none" id="imageSubmit">Save Image</button>
-                                    </form>
+                                    
                                 </div>
                             </div>
                             <div class="col-md-8">

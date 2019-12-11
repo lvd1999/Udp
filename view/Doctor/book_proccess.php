@@ -31,12 +31,40 @@ $query = "SELECT * FROM patients WHERE pps_num='" . $p_pps . "'";
 $result = mysqli_query($con, $query);
 
 if ($result->num_rows == 0) {
-    echo 'User not exist';
+    echo "<script>
+    setTimeout(function () { 
+swal({
+  title: \"There was a problem.\",
+  text: \"User with PPS Number $p_pps not exist.\" ,
+  type: \"error\",
+  confirmButtonText: \"Back\"
+},
+function(isConfirm){
+  if (isConfirm) {
+    window.location.href = \"add_appointment.php\";
+  }
+}); }, 100);</script>";
 } else {
     $query2 = "INSERT INTO upcoming_appointments (patient_id, doctor_id, time, status) VALUES ((SELECT id FROM patients WHERE pps_num = '$p_pps') , '$doctor_id', '$time', '$status') ";
     $query3 = "UPDATE schedules SET status='not_available' WHERE id=" . $schedule_id;
     $run = mysqli_query($con, $query2);
     $run2 = mysqli_query($con, $query3);
-    echo "Booked successfully.";
+    echo "<script>
+    setTimeout(function () { 
+swal({
+  title: \"Appointment booked successfully.\",
+  text: \"Time: $time\" ,
+  type: \"success\",
+  confirmButtonText: \"OK\"
+},
+function(isConfirm){
+  if (isConfirm) {
+    window.location.href = \"upcoming_appointments.php\";
+  }
+}); }, 100);</script>";
 }
 ?>
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">

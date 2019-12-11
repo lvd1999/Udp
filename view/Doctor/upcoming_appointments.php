@@ -132,6 +132,7 @@ $doctor_records_list = get_upcomingrecords_by_pps($doctor_pps);
                                                     <td>
                                                         <select class="form-control status">        
                                                             <option value="<?php echo $record_list['id'] ?>pending" selected>pending</option>
+                                                            <option value="<?php echo $record_list['id'] ?>cancelled">cancelled</option>
                                                             <option value="<?php echo $record_list['id'] ?>completed">completed</option>
                                                         </select>
                                                     </td>

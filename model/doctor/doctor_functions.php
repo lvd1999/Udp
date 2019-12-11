@@ -42,22 +42,6 @@ function upcomingSevenDaysRecords($doctor_pps) {
     return $record_list;
 }
 
-function alertCancelled($doctor_pps) {
-    global $db;
-    $query = 'SELECT r.id, p.pps_num, p.p_first_name, p.p_last_name, r.time, r.status
-                FROM (((past_records as r
-                    INNER JOIN patients as p ON r.patient_id = p.id)
-                    INNER JOIN doctors as d ON r.doctor_id = d.id)
-                    INNER JOIN hospitals as h ON d.hospital_id = h.id)
-                        WHERE d.pps_num = :doctor_pps AND r.status ="cancelled" AND r.time >= CURDATE() ORDER BY r.id DESC;';
-    $statement = $db->prepare($query);
-    $statement->bindValue(":doctor_pps", $doctor_pps);
-    $statement->execute();
-    $record_list = $statement->fetchAll();
-    $statement->closeCursor();
-    return $record_list;
-}
-
 function get_pastrecords_by_pps($doctor_pps) {
     global $db;
     $query = 'SELECT r.id, p.pps_num, p.p_first_name, p.p_last_name, r.time, r.status

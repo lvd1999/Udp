@@ -12,14 +12,16 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/udp/model/doctor/doctor_functions.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Patient/book.php</file>
             <file>file:/D:/xampp/htdocs/udp/view/Doctor/schedule.php</file>
-            <file>file:/D:/xampp/htdocs/udp/view/Doctor/doctor_settings.php</file>
             <file>file:/D:/xampp/htdocs/udp/index.php</file>
-            <file>file:/D:/xampp/htdocs/udp/view/Patient/patientSideBar.php</file>
-            <file>file:/D:/xampp/htdocs/udp/model/patient/patient_functions.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/book_proccess.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/add_appointment.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Doctor/getschedule.php</file>
             <file>file:/D:/xampp/htdocs/udp/view/Patient/patient_home.php</file>
             <file>file:/D:/xampp/htdocs/udp/view/Doctor/upcoming_appointments.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Patient/book_proccess.php</file>
+            <file>file:/D:/xampp/htdocs/udp/view/Patient/patient_signUp.php</file>
         </group>
     </open-files>
 </project-private>

@@ -129,7 +129,7 @@ $userDetail2 = get_hospital($doctor_pps);
                             <div class="col-md-4">
                                 <div class="profile-img">
                                     <?php
-                                    echo "<img src='" . "../../Content/img/" . $profile_pic . "' onClick='triggerClick()' id='profileDisplay' height=\"100\" width=\"100\">";
+                                    echo "<img src='" . "../../Content/img/" . $userDetail['profile_pic'] . "' onClick='triggerClick()' id='profileDisplay' height=\"100\" width=\"100\">";
                                     ?>
                                 </div>
                             </div>

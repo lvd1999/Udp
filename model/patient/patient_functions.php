@@ -154,7 +154,11 @@ INNER JOIN speciality as spc ON d.speciality_id = spc.id) where speciality_name 
 
 function get_bookings($date) {
     global $db;
-    $query = "SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name,d.d_last_name, s.date, s.time, s.status, spec.speciality_name, d.pps_num FROM (schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id ) INNER JOIN speciality as spec ON d.speciality_id = spec.id WHERE s.date='" . $date . "'"
+    $query = "SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name,d.d_last_name, s.date, s.time, s.status, spec.speciality_name, d.pps_num, h.name as hospital_name FROM"
+            . " (schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id ) "
+            . "INNER JOIN speciality as spec ON d.speciality_id = spec.id "
+            . "INNER JOIN hospitals as h ON h.id = d.hospital_id "
+            . "WHERE s.date='" . $date . "'"
         . " AND status='available'";
     $statement = $db->prepare($query);
     $statement->execute();
@@ -168,6 +172,40 @@ function get_bookings_with_schedule($date,$speciality) {
     global $db;
     $query = "SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name,d.d_last_name, s.date, s.time, s.status, spec.speciality_name, d.pps_num FROM (schedules  as s INNER JOIN doctors as d ON s.doctor_id = d.id ) INNER JOIN speciality as spec ON d.speciality_id = spec.id WHERE s.date='" . $date . "'"
         . " AND status='available' AND spec.speciality_name='" . $speciality . "'";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $bookings = $statement->fetchAll();
+    $statement->closeCursor();
+    return $bookings;
+}
+
+function get_bookings_with_county_schedule($date,$speciality,$county_id) {
+    global $db;
+    $query = "SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name,d.d_last_name, s.date, s.time, s.status, spec.speciality_name, d.pps_num "
+                . "FROM (((((schedules  as s "
+                    . "INNER JOIN doctors as d ON s.doctor_id = d.id ) "
+                    . "INNER JOIN speciality as spec ON d.speciality_id = spec.id) "
+                    . "INNER JOIN hospitals as h ON h.id = d.hospital_id) "
+                    . "INNER JOIN addresses as a ON a.id = h.address_id) "
+                    . "INNER JOIN counties as c ON c.id = a.county_id) "
+                        . "WHERE s.date= '$date' AND status='available' AND spec.speciality_name= '$speciality' AND c.id = $county_id";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $bookings = $statement->fetchAll();
+    $statement->closeCursor();
+    return $bookings;
+}
+
+function get_booking_with_county($date,$county_id) {
+    global $db;
+    $query = "SELECT s.id AS schedule_id , s.doctor_id, s.id ,d.d_first_name,d.d_last_name, s.date, s.time, s.status, spec.speciality_name, d.pps_num "
+                . "FROM (((((schedules  as s "
+                    . "INNER JOIN doctors as d ON s.doctor_id = d.id ) "
+                    . "INNER JOIN speciality as spec ON d.speciality_id = spec.id) "
+                    . "INNER JOIN hospitals as h ON h.id = d.hospital_id) "
+                    . "INNER JOIN addresses as a ON a.id = h.address_id) "
+                    . "INNER JOIN counties as c ON c.id = a.county_id) "
+                        . "WHERE s.date= '$date' AND status='available' AND c.id = $county_id";
     $statement = $db->prepare($query);
     $statement->execute();
     $bookings = $statement->fetchAll();

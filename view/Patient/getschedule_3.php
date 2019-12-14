@@ -5,11 +5,18 @@ include_once '../../model/database.php';
 
 $date2 = $_POST['date'];
 $speciality = $_POST['spec'];
+$county = $_POST['county'];
 
+$result;
 
-
-
-$result = get_bookings_with_schedule($date2, $speciality);
+if($speciality != "any")
+{
+    $result = get_bookings_with_county_schedule($date2, $speciality, $county);
+}
+else
+{
+    $result = get_booking_with_county($date2,$county);
+}
 ?>
 
 
@@ -34,6 +41,7 @@ if (!empty($result)) {
 
                     <tr>
                         <td><a href="view_doctor.php?pps=<?php echo $result[$key]['pps_num']; ?>"/><div class="col" id="user_data_1"><?php echo $result[$key]['d_first_name'] . " " . $result[$key]['d_last_name']; ?></div></td>
+                        <td><div class="col" id="user_data_2"><?php echo $result[$key]['hospital_name']; ?> </div></td>
                         <td><div class="col" id="user_data_2"><?php echo $result[$key]['speciality_name']; ?> </div></td>
                         <td><div class="col" id="user_data_3"><?php echo $result[$key]['date']; ?> </div></td>
                         <td><div class="col" id="user_data_4"><?php echo $result[$key]['time']; ?> </div></td>

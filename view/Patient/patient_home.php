@@ -14,6 +14,7 @@ $lastname = $_SESSION['last_name1'];
 $patient_pps = $_SESSION['pps1'];
 $patient_records_list = get_pastrecords_by_pps($patient_pps);
 $specialities = getSpecialities();
+$counties = get_counties();
 $nextThree = nextThreeRecords($patient_pps);
 $pieChart = pieChartPastAppointments($patient_pps);
 ?>
@@ -130,16 +131,16 @@ $pieChart = pieChartPastAppointments($patient_pps);
                                 <!--FILTER SYSTEM-->
                                 <div style="width:98%;margin: 15px auto">
                                     <form method="POST" id="form2">
-                                        Select date: <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>"/>
+                                        Date: <input class="form-control" id="date" name="date" value="<?php echo date("Y-m-d") ?>"/>
 
                                         
-                                        Select speciality:
+                                        Speciality:
                                         <div class="search-box">
                                             <select id="speciality" name="speciality">
                                                 
                                                 <?php
                                                 if (!empty($specialities)) {
-                                                    echo '<option selected="selected"> Select speciality </option>';
+                                                    echo '<option selected="selected" value="any"> - Any - </option>';
                                                     foreach ($specialities as $key => $value) {
                                                         
                                                         echo '<option name="speciality" value="' . $specialities[$key]['speciality_name'] . '">' . $specialities[$key]['speciality_name'] . '</option>';
@@ -148,9 +149,23 @@ $pieChart = pieChartPastAppointments($patient_pps);
                                                 ?>
                                             </select><br><br>
 
-<!--<input type="date" name="date" value=>-->
+                                        </div>
+                                        
+                                        County:
+                                        <div class="search-box">
+                                            <select id="county" name="county">
+                                                
+                                                <?php
+                                                if (!empty($counties)) {
+                                                    echo '<option selected="selected"> - Any - </option>';
+                                                    foreach ($counties as $key => $value) {
+                                                        
+                                                        echo '<option name="county" value="' . $counties[$key]['id'] . '">' . $counties[$key]['name'] . '</option>';
+                                                    }
+                                                }
+                                                ?>
+                                            </select><br><br>
 
-                                            <!--<button id="submit" class="btn btn-info" name="submit">Search</button>-->
                                         </div>
                                     </form>
                                     
@@ -293,6 +308,7 @@ $pieChart = pieChartPastAppointments($patient_pps);
         // show that something is loading
         $('#response').html("<b>Loading response...</b>");
          $('#speciality').prop('selectedIndex',0);
+         $('#county').prop('selectedIndex',0);
         /*
          * 'post_receiver.php' - where you will pass the form data
          * $(this).serialize() - to easily read form data
@@ -361,11 +377,47 @@ $pieChart = pieChartPastAppointments($patient_pps);
         return false;
  
     });
+    
+    //county onchange
+    $('#county').on("change",function(){
+
+        // show that something is loading
+        $('#response').html("<b>Loading response...</b>");
+        var date = $("#date").val();
+        var spec = $("#speciality").val();
+        var county = $("#county").val();
+//        var date = "2019-12-10";
+//        var spec = "Dentistry";
+
+        /*
+         * 'post_receiver.php' - where you will pass the form data
+         * $(this).serialize() - to easily read form data
+         * function(data){... - data contains the response from post_receiver.php
+         */
+        $.ajax({
+            type: 'POST',
+            url: 'getschedule_3.php', 
+            data: {date: date, spec: spec, county:county}
+        })
+
+
+        .done(function(data){
+             
+            // show the response
+            $('#response').html(data);
+             
+        })
+        .fail(function() {
+         
+            // just in case posting your form failed
+            alert( "Posting failed." );
+             
+        });
+ 
+        // to prevent refreshing the whole page page
+        return false;
+ 
+    });
 });
 
-//jQuery(function() {
-//    jQuery('#speciality').change(function() {
-//        this.form.submit();
-//    });
-//});
                 </script>
